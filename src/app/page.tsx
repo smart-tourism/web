@@ -1,113 +1,107 @@
-import Image from "next/image";
+import Image from 'next/image';
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">src/app/page.tsx</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:size-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+    <div className="font-poppins text-gray-900">
+      {/* Header */}
+      <header className="fixed w-full top-0 left-0 bg-white shadow-md z-10">
+        <div className="flex justify-between items-center p-4 max-w-7xl mx-auto">
+          <div className="items-start">
+            <Image src="/logo.png" alt="Logo Polije" width={200} height={200} />
+          </div>
+          <div className="flex items-center">
+            <nav className="mr-10 space-x-5">
+              <a href="#" className="text-gray-700 hover:text-blue-600">Beranda</a>
+              <a href="#" className="text-gray-700 hover:text-blue-600">Blog</a>
+              <a href="#" className="text-gray-700 hover:text-blue-600">FAQ</a>
+            </nav>
+            <button className="mr-4 border-blue-600 border-2 py-1 px-4 text-blue-600 hover:bg-blue-600 hover:text-white">Masuk</button>
+            <button className="bg-blue-600 text-white py-1 px-4 hover:bg-blue-700">Daftar</button>
+          </div>
         </div>
-      </div>
+      </header>
 
-      <div className="relative z-[-1] flex place-items-center before:absolute before:h-[300px] before:w-full before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-full after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 sm:before:w-[480px] sm:after:w-[240px] before:lg:h-[360px]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
+      {/* Hero Section */}
+      <section className="text-center bg-[#4D4DC8] text-white py-28 mt-10 relative">
+        <div className="absolute inset-0">
+          <Image
+            src="/herosection-pattern.png"
+            alt="Pattern Background"
+            layout="fill"
+            objectFit="cover"
+            className="opacity-50"
+          />
+        </div>
+        <div className="relative">
+          <h1 className="text-4xl font-bold">Sederhanakan Rutinitas Bisnis Anda!</h1>
+          <p className="mt-4">Sederhanakan Rutinitas Bisnis Anda!</p>
+          <button className="text-[#4D4DC8] justify-center rounded-md text-sm ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-secondary text-secondary-foreground h-10 px-4 py-2 border-4 border-blue-200 hover:bg-blue-100 sm:h-12 sm:w-36 lg:h-14 lg:w-[11.4rem] lg:text-lg z-10 mx-auto flex items-center gap-1 font-bold shadow-md shadow-black-400 hover:text-blue mt-8 bg-white">Coba Gratis</button>
+        </div>
+      </section>
 
-      <div className="mb-32 grid text-center lg:mb-0 lg:w-full lg:max-w-5xl lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Docs{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Find in-depth information about Next.js features and API.
+      {/* Apa yang Membuat Kami Berbeda Section */}
+      <section className="text-center bg-white py-16">
+        <h2 className="text-2xl font-semibold mb-6 text-[#4D4DC8]">APA YANG MEMBUAT KAMI BERBEDA</h2>
+        <div className="grid grid-cols-2 gap-6 max-w-4xl mx-auto">
+          <div className="bg-white border border-gray-300 shadow-lg h-80 rounded-md"></div>
+          <div className="bg-white border border-gray-300 shadow-lg h-80 rounded-md"></div>
+          <div className="bg-white border border-gray-300 shadow-lg h-80 rounded-md"></div>
+          <div className="bg-white border border-gray-300 shadow-lg h-80 rounded-md"></div>
+        </div>
+      </section>
+
+      {/* Mengenal Kami Lebih Dekat Section */}
+      <section className="py-8 bg-[#4D4DC8] text-white relative">
+        <div className="absolute inset-0">
+          <Image
+            src="/herosection-pattern.png"
+            alt="Pattern Background"
+            layout="fill"
+            objectFit="cover"
+            className="opacity-50"
+          />
+        </div>
+        <div className="relative text-center mx-auto max-w-2xl">
+          <h2 className="text-2xl font-semibold mb-6">MENGENAL KAMI LEBIH DEKAT</h2>
+          <p className="max-w-2xl mx-auto mb-6 text-justify">
+            Robota telah dipercaya oleh berbagai unit hotel dalam membantu mereka
+            dalam melakukan monitoring, mendapatkan insight terhadap pengalaman
+            pengguna, hingga melakukan perbandingan terhadap kompetitor dengan mudah.
           </p>
-        </a>
+          <button className="text-[#4D4DC8] justify-center rounded-md text-sm ring-offset-background 
+          transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring 
+          focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-secondary 
+          text-secondary-foreground h-10 px-4 py-2 border-4 border-blue-200 hover:bg-blue-100 
+          sm:h-12 sm:w-36 lg:h-14 lg:w-[11.4rem] lg:text-lg z-10 mx-auto flex items-center gap-1 
+          font-bold shadow-md shadow-black-400 hover:text-blue mt-4 mb-4 bg-white">Hubungi Kami</button>
+        </div>
+        <div className="mx-auto max-w-2xl bg-white">
+          <video src=""></video>
+          <Image src="/logo-polije.png" alt="video hotel" width={300} height={200} className="mx-auto" />
+        </div>
+      </section>
 
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Learn{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
+      {/* Keuntungan Menggunakan Robota Section */}
+      <section className="bg-white text-center py-16">
+        <h2 className="text-2xl font-semibold mb-6 text-[#4D4DC8]">KEUNTUNGAN MENGGUNAKAN ROBOTA</h2>
+        <div className="grid grid-cols-3 gap-6 max-w-4xl mx-auto">
+          <div className="bg-white border border-gray-300 shadow-lg h-40 rounded-md"></div>
+          <div className="bg-white border border-gray-300 shadow-lg h-40 rounded-md"></div>
+          <div className="bg-white border border-gray-300 shadow-lg h-40 rounded-md"></div>
+        </div>
+      </section>
 
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Templates{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Explore starter templates for Next.js.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Deploy{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-balance text-sm opacity-50">
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
+      {/* Footer */}
+      <footer className="bg-[#4D4DC8] text-white text-center py-8">
+        <p className="max-w-xl mx-auto">
+          "Kami Berkomitmen Untuk Mendukung Peningkatan Usaha Di Bidang Pariwisata
+          Dan Perhotelan Di Indonesia Dengan Cara Membantu Usaha Hotel Skala Kecil
+          Dan Menengah Untuk Tetap Bisa Bersaing Di Dunia Digital"
+        </p>
+        <p className="mt-4">PT GLOBAL DATA INSPIRASI</p>
+        <p className="mt-2">Jl. Cik di Tiro No.34, Tarban, Kec. Gondokusuman, Kota Yogyakarta, Daerah Istimewa Yogyakarta 55223</p>
+        <p className="mt-2">&copy; 2024</p>
+      </footer>
+    </div>
   );
 }
