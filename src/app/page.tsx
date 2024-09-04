@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 
 export default function Home() {
   return (
@@ -16,7 +17,9 @@ export default function Home() {
               <a href="#" className="text-gray-700 hover:text-blue-600">FAQ</a>
             </nav>
             <button className="mr-4 border-blue-600 border-2 py-1 px-4 text-blue-600 hover:bg-blue-600 hover:text-white">Masuk</button>
+            <Link href="/auth/signup">
             <button className="bg-blue-600 text-white py-1 px-4 hover:bg-blue-700">Daftar</button>
+            </Link>
           </div>
         </div>
       </header>
@@ -88,6 +91,7 @@ export default function Home() {
           <video src="" className="mx-auto"></video>
         </div>
       </section>
+
       {/* Keuntungan Menggunakan Robota Section */}
       <section className="bg-white text-center py-16">
         <h1 className="text-4xl font-bold mb-6 text-[#4D4DC8]">KEUNTUNGAN MENGGUNAKAN ROBOTA</h1>
