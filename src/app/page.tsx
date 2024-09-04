@@ -1,3 +1,4 @@
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -18,7 +19,7 @@ export default function Home() {
             </nav>
             <button className="mr-4 border-blue-600 border-2 py-1 px-4 text-blue-600 hover:bg-blue-600 hover:text-white">Masuk</button>
             <Link href="/auth/signup">
-            <button className="bg-blue-600 text-white py-1 px-4 hover:bg-blue-700">Daftar</button>
+              <button className="bg-blue-600 text-white py-1 px-4 hover:bg-blue-700">Daftar</button>
             </Link>
           </div>
         </div>
@@ -48,6 +49,16 @@ export default function Home() {
             lg:text-lg mx-auto flex items-center gap-1 font-bold shadow-md shadow-black-400 hover:text-blue 
             mt-8 bg-white">Coba Gratis</button>
           </div>
+
+          <Carousel>
+            <CarouselContent>
+              <CarouselItem>...</CarouselItem>
+              <CarouselItem>...</CarouselItem>
+              <CarouselItem>...</CarouselItem>
+            </CarouselContent>
+            <CarouselPrevious />
+            <CarouselNext />
+          </Carousel>
         </div>
       </section>
 
@@ -105,12 +116,12 @@ export default function Home() {
             <p className="text-lg font-medium">Melihat berbagai ulasan dari tamu tentang reputasi hotel anda dari berbagai aspek</p>
           </div>
           <div className="bg-white border border-gray-300 shadow-md shadow-[#4D4DC8] h-96 rounded-lg p-4">
-            <img src="/keuntungan3.png" alt="Keuntungan 3" className="w-[12rem] sm:w-[16rem]"/>
+            <img src="/keuntungan3.png" alt="Keuntungan 3" className="w-[12rem] sm:w-[16rem]" />
             <p className="text-lg font-medium">Meningkatkan produktivitas dalam mengelola ulasan tamu di OTA</p>
           </div>
         </div>
         <h2 className="text-3xl mt-12 font-bold text-[#4D4DC8]">PENGGUNA TERPERCAYA</h2>
-        
+
         <div className="h-40 w-80 mx-auto">
           <img src="/mgm.png" alt="mgm image" className="" />
         </div>
@@ -130,9 +141,9 @@ export default function Home() {
       <footer className="bg-white py-8">
         <div className="grid grid-flow-row-dense grid-cols-2">
           <div className="px-4">
-          <img src="/logo.png" alt="Logo Polije" width={250} height={250} className="items-start" />
+            <img src="/logo.png" alt="Logo Polije" width={250} height={250} className="items-start" />
           </div>
-          
+
           <div className="text-end px-4">
             <p className="text-xl font-bold">PT GLOBAL DATA INSPIRASI</p>
             <p className="">Jl. Cik di Tiro No.34, Tarban, Kec. Gondokusuman, Kota Yogyakarta, Daerah Istimewa Yogyakarta 55223</p>
@@ -140,7 +151,7 @@ export default function Home() {
         </div>
       </footer>
       <div className="bg-[#4D4DC8] text-center py-2 text-white">
-          <p className="">&copy;copyright 2024</p>
+        <p className="">&copy;copyright 2024</p>
       </div>
     </div>
   );
