@@ -1,11 +1,12 @@
 "use client";
 import React, { useState } from 'react';
 import Link from 'next/link';
+import { Checkbox } from "@/components/ui/checkbox"
 
-const SignUpPage: React.FC = () => {
+
+const ForgotPassword: React.FC = () => {
   const [nama, setNama] = useState('');
   const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
   const [status, setStatus] = useState<string | null>(null);
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -20,12 +21,14 @@ const SignUpPage: React.FC = () => {
         </div>
 
       <h3 className="font-semibold text-2xl text-black">
-        Buat Akun Baru
+        Lupa Kata Sandi?
       </h3>
     </div>
   
     {/* Card Putih */}
-    <div className="bg-white py-6 rounded-xl border-2 border-primary w-full md:w-8/12 lg:w-6/12 xl:w-4/12">
+    <div className="bg-white py-6 rounded-xl border-2 border-primary w-full md:w-8/12 lg:w-6/12 xl:w-6/12">
+    <p className="text-center text-black font-medium px-3">Silakan masukkan alamat email yang terkait dengan akun Anda di bawah ini. 
+        Kami akan mengirimkan instruksi untuk mereset kata sandi Anda segera</p>
       <div className="w-10/12 mx-auto">
         {status === 'error' && (
           <div
@@ -75,47 +78,22 @@ const SignUpPage: React.FC = () => {
               className="w-full h-12 mt-2 border border-primary rounded-md py-2 px-4 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary duration-500 text-black"
             />
           </div>
-          <div className="flex mt-4 items-start flex-col">
-            <label htmlFor="password" className="text-primary font-semibold text-black text-xl">
-              Kata Sandi
-            </label>
-            <input
-              type="password"
-              name="password"
-              id="password"
-              placeholder="Masukkan Kata Sandi"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-              className="w-full h-12 mt-2 border border-primary rounded-md py-2 px-4 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary duration-500 text-black"
-            />
-          </div>
-          <div className="flex mt-4 items-start flex-col">
-            <label htmlFor="confirmPassword" className="text-primary font-semibold text-black text-xl">
-              Konfirmasi Kata Sandi
-            </label>
-            <input
-              type="password"
-              name="confirmPassword"
-              id="confirmPassword"
-              placeholder="Konfirmasi Kata Sandi"
-              required
-              className="w-full h-12 mt-2 border border-primary rounded-md py-2 px-4 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary duration-500 text-black"
-            />
-          </div>
   
           <div className="flex flex-col mt-5 mb-2">
             <button
               type="submit"
               className="w-full rounded-md mb-2 h-12 bg-blue-800 text-white py-1 px-4 hover:bg-blue-800"
             >
-              Daftar
+              Reset Password
             </button>
             <div className="flex mt-3 items-center flex-row justify-center">
               <div className="flex mt-2 items-center flex-row justify-center">
-                <p className="text-xl mr-2 text-black">Sudah memiliki akun?</p>
+                <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true" 
+                className="relative left-0 h-5 w-5 duration-200 group-hover:-left-1" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M7 16l-4-4m0 0l4-4m-4 4h18"></path>
+                </svg>
                 <Link href="/auth/signin" className="text-blue-700 hover:text-blue-700">
-                    Masuk
+                    Kembali Ke Signin
                 </Link>
               </div>
             </div>
@@ -130,4 +108,4 @@ const SignUpPage: React.FC = () => {
   );
 };
 
-export default SignUpPage;
+export default ForgotPassword;

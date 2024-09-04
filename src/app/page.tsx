@@ -1,4 +1,5 @@
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
+// import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
+// import { Card, CardContent } from "@/components/ui/card"
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -26,7 +27,7 @@ export default function Home() {
       </header>
 
       {/* Hero Section */}
-      <section className="text-center bg-[#4D4DC8] text-white py-28 mt-10 relative">
+      <section className="text-center bg-[#4D4DC8] text-white pt-28 py-28 mt-10 relative">
         <div className="absolute inset-0">
           <Image
             src="/herosection-pattern.png"
@@ -49,16 +50,6 @@ export default function Home() {
             lg:text-lg mx-auto flex items-center gap-1 font-bold shadow-md shadow-black-400 hover:text-blue 
             mt-8 bg-white">Coba Gratis</button>
           </div>
-
-          <Carousel>
-            <CarouselContent>
-              <CarouselItem>...</CarouselItem>
-              <CarouselItem>...</CarouselItem>
-              <CarouselItem>...</CarouselItem>
-            </CarouselContent>
-            <CarouselPrevious />
-            <CarouselNext />
-          </Carousel>
         </div>
       </section>
 
@@ -120,7 +111,7 @@ export default function Home() {
             <p className="text-lg font-medium">Meningkatkan produktivitas dalam mengelola ulasan tamu di OTA</p>
           </div>
         </div>
-        <h2 className="text-3xl mt-12 font-bold text-[#4D4DC8]">PENGGUNA TERPERCAYA</h2>
+        <h2 className="text-3xl mt-20 font-bold text-[#4D4DC8]">PENGGUNA TERPERCAYA</h2>
 
         <div className="h-40 w-80 mx-auto">
           <img src="/mgm.png" alt="mgm image" className="" />
@@ -129,8 +120,8 @@ export default function Home() {
       </section>
 
       {/* Kata - Kata */}
-      <section className="bg-[#4D4DC8] text-white text-center py-8">
-        <p className="text-lg font-bold max-w-xl mx-auto">
+      <section className="bg-[#4D4DC8] text-white text-center py-16">
+        <p className="text-2xl font-bold max-w-2xl mx-auto">
           "Kami Berkomitmen Untuk Mendukung Peningkatan Usaha Di Bidang Pariwisata
           Dan Perhotelan Di Indonesia Dengan Cara Membantu Usaha Hotel Skala Kecil
           Dan Menengah Untuk Tetap Bisa Bersaing Di Dunia Digital"
