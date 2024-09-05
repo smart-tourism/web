@@ -2,10 +2,10 @@
 // import { Card, CardContent } from "@/components/ui/card"
 import Image from "next/image";
 import Link from "next/link";
-import { testConnection } from "./lib/postgres";
+// import { testConnection } from "./lib/postgres";
 
 export default function Home() {
-  testConnection();
+  // testConnection();
   return (
     <div className="font-poppins text-gray-900">
       {/* Header */}
