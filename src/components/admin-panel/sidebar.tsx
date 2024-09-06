@@ -31,16 +31,14 @@ export function Sidebar() {
           asChild
         >
           <Link href="/dashboard" className="flex items-center gap-2">
-            <PanelsTopLeft className="w-6 h-6 mr-1" />
-            <h1
-              className={cn(
-                "font-bold text-lg whitespace-nowrap transition-[transform,opacity,display] ease-in-out duration-300",
-                sidebar?.isOpen === false
-                  ? "-translate-x-96 opacity-0 hidden"
-                  : "translate-x-0 opacity-100"
-              )}
-            >
-            </h1>
+            <img src="/logo-polije.png" alt="Logo Polije"
+            className={cn(
+              "font-bold text-lg whitespace-nowrap transition-[transform,opacity,display] ease-in-out duration-300",
+              sidebar?.isOpen === false
+                ? ""
+                : "translate-x-0 opacity-100"
+            )} height={50} width={50} />
+            {/* <PanelsTopLeft className="w-6 h-6 mr-1" /> */}
           </Link>
         </Button>
         <Menu isOpen={sidebar?.isOpen} />
