@@ -5,6 +5,9 @@ import { ChartDashboard } from "@/components/dashboard/charts";
 import { ContentLayout } from "@/components/admin-panel/content-layout";
 import TopKeywords from "@/components/dashboard/top-keywords";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import OverviewStatus from "@/components/dashboard/overview-status";
+import { SentimentOverview } from "@/components/dashboard/sentiment";
+import CustomerFeedback from "@/components/dashboard/customer-feedback";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -156,9 +159,9 @@ export default function DashboardPage() {
       </div>
 
       {/* Chart & Top Keyword */}
-      <div className="grid gap-4 lg:grid-cols-5 md:grid-cols-1 sm:grid-cols-1 grid-rows-1 text-black py-4">
-        <div className="col-span-3">
-          <Card className="max-h-[27rem]">
+      <div className="grid gap-4 lg:grid-cols-6 md:grid-cols-1 sm:grid-cols-1 grid-rows-1 text-black py-4">
+        <div className="col-span-4">
+          <Card className="max-h-[29rem]">
             <CardHeader>
               <CardTitle className="flex flex-auto gap-1">
                 Ulasan Unit
@@ -183,7 +186,7 @@ export default function DashboardPage() {
           </Card>
         </div>
         <div className="col-span-2">
-          <Card className="h-[27rem]">
+          <Card className="h-[29rem]">
             <CardHeader>
               <CardTitle className="flex flex-auto gap-1">
                 Top Keyword
@@ -199,7 +202,113 @@ export default function DashboardPage() {
         </div>
       </div>
 
-      {/* Status, Dampak, Sentimen, & Customer Feedback */}
+      {/* Overview Status, Dampak, Sentimen, & Customer Feedback */}
+      <div className="flex">
+        <div className="grid gap-4 lg:grid-cols-7 md:grid-cols-1 sm:grid-cols-1">
+          {/* Overview Status */}
+          <div className="col-span-2">
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex flex-auto gap-1">
+                  Overview Status
+                  <HoverCard>
+                    <HoverCardTrigger className="cursor-pointer">
+                      <FaRegQuestionCircle />
+                    </HoverCardTrigger>
+                    <HoverCardContent className="z-50 bg-white shadow-md rounded-md">
+                      <p className="text-justify font-normal text-sm">
+                        Distribusi review dari masing - masing OTA.
+                      </p>
+                    </HoverCardContent>
+                  </HoverCard>
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                {/* OTA */}
+                <OverviewStatus />
+              </CardContent>
+            </Card>
+          </div>
+
+          <div className="col-span-3">
+            <div className="grid grid-cols-3">
+              {/* Dampak */}
+              <div className="col-span-3 row-span-1">
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="flex flex-auto gap-1">
+                      Impact
+                      <HoverCard>
+                        <HoverCardTrigger className="cursor-pointer">
+                          <FaRegQuestionCircle />
+                        </HoverCardTrigger>
+                        <HoverCardContent className="z-50 bg-white shadow-md rounded-md">
+                          <p className="text-justify font-normal text-sm">
+                            Nilai Dampak didapatkan dari perhitungan sentimen
+                            masing - masing review yang dapat bernilai positif
+                            dan negatif.
+                          </p>
+                        </HoverCardContent>
+                      </HoverCard>
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>{/* Positif & Negatif */}</CardContent>
+                </Card>
+              </div>
+
+              {/* Sentimen */}
+              <div className="col-span-3 row-span-1 mt-4">
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="flex flex-auto gap-1">
+                      Sentiment Overview
+                      <HoverCard>
+                        <HoverCardTrigger className="cursor-pointer">
+                          <FaRegQuestionCircle />
+                        </HoverCardTrigger>
+                        <HoverCardContent className="z-50 bg-white shadow-md rounded-md">
+                          <p className="text-justify font-normal text-sm">
+                            Statistik perbandingan sentimen review customer.
+                          </p>
+                        </HoverCardContent>
+                      </HoverCard>
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    {/* Sentiment Overview */}
+                    <SentimentOverview />
+                  </CardContent>
+                </Card>
+              </div>
+            </div>
+          </div>
+
+          {/* Customer Feedback */}
+          <div className="col-span-2">
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex flex-auto gap-1">
+                  Customer Feedback
+                  <HoverCard>
+                    <HoverCardTrigger className="cursor-pointer">
+                      <FaRegQuestionCircle />
+                    </HoverCardTrigger>
+                    <HoverCardContent className="z-50 bg-white shadow-md rounded-md">
+                      <p className="text-justify font-normal text-sm">
+                        Feedback yang diberikan customer terkait layanan.
+                      </p>
+                    </HoverCardContent>
+                  </HoverCard>
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="items-center">
+                {/* Customer Feedback */}
+                <CustomerFeedback />
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </div>
     </ContentLayout>
   );
 }

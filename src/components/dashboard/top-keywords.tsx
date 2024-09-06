@@ -17,7 +17,7 @@ export default function TopKeywords() {
   ];
 
   return (
-    <ScrollArea className="h-[320px] w-[380px]">
+    <ScrollArea className="h-[340px] max-w-[350px] mt-2">
       <div>
         <div className="flex flex-wrap gap-2 mt-4">
           {keywords.map((keyword, index) => (
