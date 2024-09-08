@@ -1,5 +1,6 @@
-import Link from "next/link";
+"use client";
 
+import Link from "next/link";
 import { FaRegQuestionCircle } from "react-icons/fa";
 import { ChartDashboard } from "@/components/dashboard/charts";
 import { ContentLayout } from "@/components/admin-panel/content-layout";
@@ -22,6 +23,9 @@ import {
   HoverCardContent,
   HoverCardTrigger,
 } from "@/components/ui/hover-card";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 export default function DashboardPage() {
   return (

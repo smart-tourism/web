@@ -1,15 +1,55 @@
 "use client";
 import React, { useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const SignUpPage: React.FC = () => {
-  const [nama, setNama] = useState("");
+  const [fullname, setFullname] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [status, setStatus] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const { push } = useRouter();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
+
+    if (password !== confirmPassword) {
+      setError("Passwords do not match.");
+      return;
+    }
+
+    try {
+      const response = await fetch("/api/auth/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          fullname: e.target.fullname.value,
+          email: e.target.email.value,
+          password: e.target.password.value,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        setStatus("error");
+        throw new Error(data.message || "Registration failed");
+      }
+
+      setStatus("success");
+      setError(null);
+
+      if (response.status === 200) {
+        e.target.reset();
+        push("/login");
+      }
+    } catch (error: any) {
+      setStatus("error");
+      setError(error.message);
+    }
   };
 
   return (
@@ -32,13 +72,16 @@ const SignUpPage: React.FC = () => {
               role="alert"
             >
               <div className="ml-3 font-normal">
-                Terjadi kesalahan, silakan coba lagi.
+                {error || "Terjadi kesalahan, silakan coba lagi."}
               </div>
               <button
                 type="button"
                 className="ml-auto -mx-1.5 -my-1.5 bg-red-50 text-red-500 rounded-lg focus:ring-2 focus:ring-red-400 p-1.5 hover:bg-red-200 inline-flex h-8 w-8"
                 aria-label="Close"
-                onClick={() => setStatus(null)}
+                onClick={() => {
+                  setStatus(null);
+                  setError(null);
+                }}
               >
                 <span className="sr-only">Close</span>
                 <svg
@@ -57,7 +100,25 @@ const SignUpPage: React.FC = () => {
             </div>
           )}
 
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={(e) => handleSubmit(e)}>
+            <div className="flex mt-4 items-start flex-col">
+              <label
+                htmlFor="fullname"
+                className="text-primary font-semibold text-black text-xl"
+              >
+                Nama Lengkap
+              </label>
+              <input
+                type="text"
+                name="fullname"
+                id="fullname"
+                placeholder="Masukkan Nama Lengkap"
+                value={fullname}
+                onChange={(e) => setFullname(e.target.value)}
+                required
+                className="w-full h-12 mt-2 border border-primary rounded-md py-2 px-4 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary duration-500 text-black"
+              />
+            </div>
             <div className="flex mt-4 items-start flex-col">
               <label
                 htmlFor="email"
@@ -106,17 +167,19 @@ const SignUpPage: React.FC = () => {
                 name="confirmPassword"
                 id="confirmPassword"
                 placeholder="Konfirmasi Kata Sandi"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
                 required
                 className="w-full h-12 mt-2 border border-primary rounded-md py-2 px-4 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary duration-500 text-black"
               />
             </div>
-
             <div className="flex flex-col mt-5 mb-2">
               <button
+                disabled={isLoading}
                 type="submit"
                 className="w-full rounded-md mb-2 h-12 bg-blue-800 text-white py-1 px-4 hover:bg-blue-800"
               >
-                Daftar
+                {isLoading ? "Loading..." : "Daftar"}
               </button>
               <div className="flex mt-3 items-center flex-row justify-center">
                 <div className="flex mt-2 items-center flex-row justify-center">
@@ -124,7 +187,7 @@ const SignUpPage: React.FC = () => {
                     Sudah memiliki akun?
                   </p>
                   <Link
-                    href="/signin"
+                    href="/login"
                     className="text-blue-700 hover:text-blue-700"
                   >
                     Masuk

@@ -2,15 +2,47 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { Checkbox } from "@/components/ui/checkbox";
+import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
-const SignInPage: React.FC = () => {
-  const [nama, setNama] = useState("");
+const SignInPage: React.FC = ({ searchParams }: any) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [status, setStatus] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const { push } = useRouter();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const callbackUrl = searchParams.callbackUrl || "/";
+  const handleLogin = async (e: any) => {
     e.preventDefault();
+    setError("");
+    setIsLoading(true);
+    try {
+      const res = await signIn("credentials", {
+        redirect: false,
+        email: e.target.email.value,
+        password: e.target.password.value,
+        callbackUrl,
+      });
+      if (!res?.error) {
+        e.target.reset();
+        setIsLoading(false);
+        if (callbackUrl === "http://localhost:3000/") {
+          push("/dashboard");
+        } else {
+          push(callbackUrl);
+        }
+      } else {
+        setIsLoading(false);
+        setStatus("error");
+        setError("Email atau password salah");
+      }
+    } catch (error: any) {
+      setIsLoading(false);
+      setStatus("error");
+      setError("Email atau password salah");
+    }
   };
 
   return (
@@ -35,13 +67,16 @@ const SignInPage: React.FC = () => {
               role="alert"
             >
               <div className="ml-3 font-normal">
-                Terjadi kesalahan, silakan coba lagi.
+                {error || "Terjadi kesalahan, silakan coba lagi."}
               </div>
               <button
                 type="button"
                 className="ml-auto -mx-1.5 -my-1.5 bg-red-50 text-red-500 rounded-lg focus:ring-2 focus:ring-red-400 p-1.5 hover:bg-red-200 inline-flex h-8 w-8"
                 aria-label="Close"
-                onClick={() => setStatus(null)}
+                onClick={() => {
+                  setStatus(null);
+                  setError(null);
+                }}
               >
                 <span className="sr-only">Close</span>
                 <svg
@@ -60,7 +95,7 @@ const SignInPage: React.FC = () => {
             </div>
           )}
 
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={(e) => handleLogin(e)}>
             <div className="flex mt-4 items-start flex-col">
               <label
                 htmlFor="email"
@@ -120,10 +155,11 @@ const SignInPage: React.FC = () => {
 
             <div className="flex flex-col mt-5 mb-2">
               <button
+                disabled={isLoading}
                 type="submit"
                 className="w-full rounded-md mb-2 h-12 bg-blue-800 text-white py-1 px-4 hover:bg-blue-800"
               >
-                Masuk
+                {isLoading ? "Loading..." : "Masuk"}
               </button>
               <div className="flex mt-3 items-center flex-row justify-center">
                 <div className="flex mt-2 items-center flex-row justify-center">
@@ -131,7 +167,7 @@ const SignInPage: React.FC = () => {
                     Belum memiliki akun?
                   </p>
                   <Link
-                    href="/signup"
+                    href="/register"
                     className="text-blue-700 hover:text-blue-700"
                   >
                     Daftar

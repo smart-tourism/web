@@ -109,7 +109,7 @@ const ForgotPassword: React.FC = () => {
                     ></path>
                   </svg>
                   <Link
-                    href="/signin"
+                    href="/login"
                     className="text-blue-700 hover:text-blue-700"
                   >
                     Kembali Ke Signin
