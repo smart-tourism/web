@@ -48,119 +48,129 @@ export default function DashboardPage() {
 
       {/* Card Dashboard */}
       <div className="grid gap-4 lg:grid-cols-5 md:grid-cols-3 sm:grid-cols-1 grid-rows-1">
-        <Card className="rounded-lg border-none mt-6">
-          <CardHeader>
-            <CardTitle className="flex flex-auto gap-1">
-              Performa
-              <HoverCard>
-                <HoverCardTrigger className="cursor-pointer">
-                  <FaRegQuestionCircle />
-                </HoverCardTrigger>
-                <HoverCardContent className="z-50 bg-white shadow-md rounded-md">
-                  <p className="text-justify font-normal text-sm">
-                    Nilai Performa menunjukkan tingkat pencapaian unit hotel
-                    yang dihitung berdasarkan rating dan jumlah review tamu dari
-                    masing - masing OTA.
-                  </p>
-                </HoverCardContent>
-              </HoverCard>
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="p-6">
-            <h1 className="font-bold">0</h1>
-          </CardContent>
-        </Card>
+        <Link href="/dashboard/performa">
+          <Card className="rounded-lg border-none mt-6 hover:bg-gray-100">
+            <CardHeader>
+              <CardTitle className="flex flex-auto gap-1">
+                Performa
+                <HoverCard>
+                  <HoverCardTrigger className="cursor-pointer">
+                    <FaRegQuestionCircle />
+                  </HoverCardTrigger>
+                  <HoverCardContent className="z-50 bg-white shadow-md rounded-md">
+                    <p className="text-justify font-normal text-sm">
+                      Nilai Performa menunjukkan tingkat pencapaian unit hotel
+                      yang dihitung berdasarkan rating dan jumlah review tamu
+                      dari masing - masing OTA.
+                    </p>
+                  </HoverCardContent>
+                </HoverCard>
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="p-6">
+              <h1 className="font-bold">0</h1>
+            </CardContent>
+          </Card>
+        </Link>
 
-        <Card className="rounded-lg border-none mt-6">
-          <CardHeader>
-            <CardTitle className="flex flex-auto gap-1">
-              Tingkat Respon
-              <HoverCard>
-                <HoverCardTrigger className="cursor-pointer">
-                  <FaRegQuestionCircle />
-                </HoverCardTrigger>
-                <HoverCardContent className="z-50 bg-white shadow-md rounded-md">
-                  <p className="text-justify font-normal text-sm">
-                    Tingkat Respon merupakan nilai perbandingan antara jumlah
-                    review dari tamu dan jumlah response yang diberikan oleh
-                    unit hotel di masing - masing OTA.
-                  </p>
-                </HoverCardContent>
-              </HoverCard>
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="p-6">
-            <h1 className="font-bold">0.00%</h1>
-          </CardContent>
-        </Card>
+        <Link href="/dashboard/tingkat-respon">
+          <Card className="rounded-lg border-none mt-6 hover:bg-gray-100">
+            <CardHeader>
+              <CardTitle className="flex flex-auto gap-1">
+                Tingkat Respon
+                <HoverCard>
+                  <HoverCardTrigger className="cursor-pointer">
+                    <FaRegQuestionCircle />
+                  </HoverCardTrigger>
+                  <HoverCardContent className="z-50 bg-white shadow-md rounded-md">
+                    <p className="text-justify font-normal text-sm">
+                      Tingkat Respon merupakan nilai perbandingan antara jumlah
+                      review dari tamu dan jumlah response yang diberikan oleh
+                      unit hotel di masing - masing OTA.
+                    </p>
+                  </HoverCardContent>
+                </HoverCard>
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="p-6">
+              <h1 className="font-bold">0.00%</h1>
+            </CardContent>
+          </Card>
+        </Link>
 
-        <Card className="rounded-lg border-none mt-6">
-          <CardHeader>
-            <CardTitle className="flex flex-auto gap-1">
-              Ulasan
-              <HoverCard>
-                <HoverCardTrigger className="cursor-pointer">
-                  <FaRegQuestionCircle />
-                </HoverCardTrigger>
-                <HoverCardContent className="z-50 bg-white shadow-md rounded-md">
-                  <p className="text-justify font-normal text-sm">
-                    Kumpulan review tamu dari masing - masing OTA yang dipetakan
-                    berdasarkan kategorinya.
-                  </p>
-                </HoverCardContent>
-              </HoverCard>
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="p-6">
-            <h1 className="font-bold">0</h1>
-          </CardContent>
-        </Card>
+        <Link href="/dashboard/ulasan">
+          <Card className="rounded-lg border-none mt-6 hover:bg-gray-100">
+            <CardHeader>
+              <CardTitle className="flex flex-auto gap-1">
+                Ulasan
+                <HoverCard>
+                  <HoverCardTrigger className="cursor-pointer">
+                    <FaRegQuestionCircle />
+                  </HoverCardTrigger>
+                  <HoverCardContent className="z-50 bg-white shadow-md rounded-md">
+                    <p className="text-justify font-normal text-sm">
+                      Kumpulan review tamu dari masing - masing OTA yang
+                      dipetakan berdasarkan kategorinya.
+                    </p>
+                  </HoverCardContent>
+                </HoverCard>
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="p-6">
+              <h1 className="font-bold">0</h1>
+            </CardContent>
+          </Card>
+        </Link>
 
-        <Card className="rounded-lg border-none mt-6">
-          <CardHeader>
-            <CardTitle className="flex flex-auto gap-1">
-              Popularitas
-              <HoverCard>
-                <HoverCardTrigger className="cursor-pointer">
-                  <FaRegQuestionCircle />
-                </HoverCardTrigger>
-                <HoverCardContent className="z-50 bg-white shadow-md rounded-md">
-                  <p className="text-justify font-normal text-sm">
-                    Nilai Popularitas menunjukkan popularitas unit hotel yang
-                    dihitung berdasarkan banyaknya rating dari masing - masing
-                    OTA.
-                  </p>
-                </HoverCardContent>
-              </HoverCard>
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="p-6">
-            <h1 className="font-bold">0</h1>
-          </CardContent>
-        </Card>
+        <Link href="/dashboard/popularitas">
+          <Card className="rounded-lg border-none mt-6 hover:bg-gray-100">
+            <CardHeader>
+              <CardTitle className="flex flex-auto gap-1">
+                Popularitas
+                <HoverCard>
+                  <HoverCardTrigger className="cursor-pointer">
+                    <FaRegQuestionCircle />
+                  </HoverCardTrigger>
+                  <HoverCardContent className="z-50 bg-white shadow-md rounded-md">
+                    <p className="text-justify font-normal text-sm">
+                      Nilai Popularitas menunjukkan popularitas unit hotel yang
+                      dihitung berdasarkan banyaknya rating dari masing - masing
+                      OTA.
+                    </p>
+                  </HoverCardContent>
+                </HoverCard>
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="p-6">
+              <h1 className="font-bold">0</h1>
+            </CardContent>
+          </Card>
+        </Link>
 
-        <Card className="rounded-lg border-none mt-6">
-          <CardHeader>
-            <CardTitle className="flex flex-auto text-sm gap-1">
-              <h1 className="mt-[-2px]">Penilaian Keseluruhan</h1>
-              <HoverCard>
-                <HoverCardTrigger className="cursor-pointer">
-                  <FaRegQuestionCircle />
-                </HoverCardTrigger>
-                <HoverCardContent className="z-50 bg-white shadow-md rounded-md">
-                  <p className="text-justify font-normal text-sm">
-                    Penilaian Keseluruhan adalah penilaian tingkat reputasi unit
-                    hotel dari Robota yang dihitung berdasarkan tingkat
-                    popularitas dari waktu ke waktu.
-                  </p>
-                </HoverCardContent>
-              </HoverCard>
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="p-6">
-            <h1 className="font-bold">0</h1>
-          </CardContent>
-        </Card>
+        <Link href="/dashboard/penilaian-keseluruhan">
+          <Card className="rounded-lg border-none mt-6 hover:bg-gray-100">
+            <CardHeader>
+              <CardTitle className="flex flex-auto text-sm gap-1">
+                <h1 className="mt-[-2px]">Penilaian Keseluruhan</h1>
+                <HoverCard>
+                  <HoverCardTrigger className="cursor-pointer">
+                    <FaRegQuestionCircle />
+                  </HoverCardTrigger>
+                  <HoverCardContent className="z-50 bg-white shadow-md rounded-md">
+                    <p className="text-justify font-normal text-sm">
+                      Penilaian Keseluruhan adalah penilaian tingkat reputasi
+                      unit hotel dari Robota yang dihitung berdasarkan tingkat
+                      popularitas dari waktu ke waktu.
+                    </p>
+                  </HoverCardContent>
+                </HoverCard>
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="p-6">
+              <h1 className="font-bold">0</h1>
+            </CardContent>
+          </Card>
+        </Link>
       </div>
 
       {/* Chart & Top Keyword */}
