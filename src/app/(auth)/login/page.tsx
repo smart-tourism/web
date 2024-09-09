@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { Checkbox } from "@/components/ui/checkbox";
 import { signIn } from "next-auth/react";
@@ -11,19 +11,26 @@ const SignInPage: React.FC = ({ searchParams }: any) => {
   const [status, setStatus] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [callbackUrlPath, setCallbackUrlPath] = useState("/");
   const { push } = useRouter();
+
   const notCallbackUrl = [
     "/",
-    "http://localhost:3000",
-    "http://localhost:3000/register",
-    "http://localhost:3000/login",
-    "http://localhost:3000/forgotpassword",
-    "http://localhost:3000/seed",
+    "/register",
+    "/login",
+    "/forgotpassword",
+    "/seed",
   ];
 
-  const callbackUrl = searchParams.callbackUrl || "/";
+  useEffect(() => {
+    const fullCallbackUrl = searchParams.callbackUrl || "/";
+    setCallbackUrlPath(
+      new URL(fullCallbackUrl, window.location.origin).pathname
+    );
+  }, [searchParams.callbackUrl]);
+
   const handleLogin = async (e: any) => {
-    console.log("callbackUrl", callbackUrl);
+    console.log("callbackUrl", callbackUrlPath);
     e.preventDefault();
     setError("");
     setIsLoading(true);
@@ -32,15 +39,15 @@ const SignInPage: React.FC = ({ searchParams }: any) => {
         redirect: false,
         email: e.target.email.value,
         password: e.target.password.value,
-        callbackUrl,
+        callbackUrlPath,
       });
       if (!res?.error) {
         e.target.reset();
         setIsLoading(false);
-        if (notCallbackUrl.includes(callbackUrl)) {
+        if (notCallbackUrl.includes(callbackUrlPath)) {
           push("/dashboard");
         } else {
-          push(callbackUrl);
+          push(callbackUrlPath);
         }
       } else {
         setIsLoading(false);

@@ -1,8 +1,14 @@
 import { login } from "@/app/lib/postgres/service";
 import { compare } from "bcrypt";
 import { NextAuthOptions } from "next-auth";
+import { z } from "zod";
 import NextAuth from "next-auth/next";
 import CredentialsProvider from "next-auth/providers/credentials";
+
+const credentialsSchema = z.object({
+  email: z.string().email("Invalid email address"),
+  password: z.string().min(6, "Password must be at least 6 characters long"),
+});
 
 const authOptions: NextAuthOptions = {
   session: {
@@ -18,18 +24,20 @@ const authOptions: NextAuthOptions = {
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
-        const { email, password } = credentials as {
-          email: string;
-          password: string;
-        };
-        const user: any = await login({ email });
-        if (user) {
-          const passwordConfirm = await compare(password, user.password);
-          if (passwordConfirm) {
-            return user;
+        try {
+          const validatedCredentials = credentialsSchema.parse(credentials);
+          const { email, password } = validatedCredentials;
+
+          const user: any = await login({ email });
+          if (user) {
+            const passwordConfirm = await compare(password, user.password);
+            if (passwordConfirm) {
+              return user;
+            }
           }
           return null;
-        } else {
+        } catch (error: any) {
+          console.error("Validation error:", error.errors);
           return null;
         }
       },
