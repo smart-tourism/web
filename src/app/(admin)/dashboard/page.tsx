@@ -9,6 +9,7 @@ import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import OverviewStatus from "@/components/dashboard/overview-status";
 import { SentimentOverview } from "@/components/dashboard/sentiment";
 import CustomerFeedback from "@/components/dashboard/customer-feedback";
+import Impact from "@/components/dashboard/impact";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -207,10 +208,11 @@ export default function DashboardPage() {
       </div>
 
       {/* Overview Status, Dampak, Sentimen, & Customer Feedback */}
-      <div className="flex">
-        <div className="grid gap-4 lg:grid-cols-7 md:grid-cols-1 sm:grid-cols-1">
+      <div className="flex w-full">
+        {/* <div className="grid gap-4 lg:grid-cols-7 md:grid-cols-1 sm:grid-cols-1"> */}
+        <div className="grid gap-4 lg:grid-cols-3 md:grid-cols-1 sm:grid-cols-1">
           {/* Overview Status */}
-          <div className="col-span-2">
+          <div className="flex w-full max-w-[355px]">
             <Card>
               <CardHeader>
                 <CardTitle className="flex flex-auto gap-1">
@@ -234,61 +236,57 @@ export default function DashboardPage() {
             </Card>
           </div>
 
-          <div className="col-span-3">
-            <div className="grid grid-cols-3">
-              {/* Dampak */}
-              <div className="col-span-3 row-span-1">
-                <Card>
-                  <CardHeader>
-                    <CardTitle className="flex flex-auto gap-1">
-                      Impact
-                      <HoverCard>
-                        <HoverCardTrigger className="cursor-pointer">
-                          <FaRegQuestionCircle />
-                        </HoverCardTrigger>
-                        <HoverCardContent className="z-50 bg-white shadow-md rounded-md">
-                          <p className="text-justify font-normal text-sm">
-                            Nilai Dampak didapatkan dari perhitungan sentimen
-                            masing - masing review yang dapat bernilai positif
-                            dan negatif.
-                          </p>
-                        </HoverCardContent>
-                      </HoverCard>
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent>{/* Positif & Negatif */}</CardContent>
-                </Card>
-              </div>
+          {/* Dampak */}
+          <div className="flex w-full flex-grow flex-col gap-2">
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex flex-auto gap-1">
+                  Impact
+                  <HoverCard>
+                    <HoverCardTrigger className="cursor-pointer">
+                      <FaRegQuestionCircle />
+                    </HoverCardTrigger>
+                    <HoverCardContent className="z-50 bg-white shadow-md rounded-md">
+                      <p className="text-justify font-normal text-sm">
+                        Nilai Dampak didapatkan dari perhitungan sentimen masing
+                        - masing review yang dapat bernilai positif dan negatif.
+                      </p>
+                    </HoverCardContent>
+                  </HoverCard>
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                {/* Positif & Negatif */}
+                <Impact />
+              </CardContent>
+            </Card>
 
-              {/* Sentimen */}
-              <div className="col-span-3 row-span-1 mt-4">
-                <Card>
-                  <CardHeader>
-                    <CardTitle className="flex flex-auto gap-1">
-                      Sentiment Overview
-                      <HoverCard>
-                        <HoverCardTrigger className="cursor-pointer">
-                          <FaRegQuestionCircle />
-                        </HoverCardTrigger>
-                        <HoverCardContent className="z-50 bg-white shadow-md rounded-md">
-                          <p className="text-justify font-normal text-sm">
-                            Statistik perbandingan sentimen review customer.
-                          </p>
-                        </HoverCardContent>
-                      </HoverCard>
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    {/* Sentiment Overview */}
-                    <SentimentOverview />
-                  </CardContent>
-                </Card>
-              </div>
-            </div>
+            {/* Sentimen */}
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex flex-auto gap-1">
+                  Sentiment Overview
+                  <HoverCard>
+                    <HoverCardTrigger className="cursor-pointer">
+                      <FaRegQuestionCircle />
+                    </HoverCardTrigger>
+                    <HoverCardContent className="z-50 bg-white shadow-md rounded-md">
+                      <p className="text-justify font-normal text-sm">
+                        Statistik perbandingan sentimen review customer.
+                      </p>
+                    </HoverCardContent>
+                  </HoverCard>
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                {/* Sentiment Overview */}
+                <SentimentOverview />
+              </CardContent>
+            </Card>
           </div>
 
           {/* Customer Feedback */}
-          <div className="col-span-2">
+          <div className="flex w-full min-w-[327px] flex-grow">
             <Card>
               <CardHeader>
                 <CardTitle className="flex flex-auto gap-1">
@@ -313,6 +311,7 @@ export default function DashboardPage() {
           </div>
         </div>
       </div>
+      {/* </div> */}
     </ContentLayout>
   );
 }

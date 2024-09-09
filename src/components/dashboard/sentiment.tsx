@@ -1,7 +1,6 @@
 "use client";
 
 import * as React from "react";
-import { TrendingUp } from "lucide-react";
 import { Label, Pie, PieChart } from "recharts";
 
 import {
@@ -43,11 +42,8 @@ export function SentimentOverview() {
   }, []);
 
   return (
-    <div>
-      <ChartContainer
-        config={chartConfig}
-        className="mx-auto aspect-square max-h-[250px]"
-      >
+    <div className="flex items-center justify-center space-x-8 w-full">
+      <ChartContainer config={chartConfig} className="h-[150px] w-[150px]">
         <PieChart>
           <ChartTooltip
             cursor={false}
@@ -57,8 +53,8 @@ export function SentimentOverview() {
             data={chartData}
             dataKey="visitors"
             nameKey="browser"
-            innerRadius={70}
-            strokeWidth={5}
+            innerRadius={40}
+            strokeWidth={2}
           >
             <Label
               content={({ viewBox }) => {
@@ -73,13 +69,13 @@ export function SentimentOverview() {
                       <tspan
                         x={viewBox.cx}
                         y={viewBox.cy}
-                        className="fill-foreground text-2xl font-bold"
+                        className="fill-foreground text-lg font-bold"
                       >
                         {totalVisitors.toLocaleString()}
                       </tspan>
                       <tspan
                         x={viewBox.cx}
-                        y={(viewBox.cy || 0) + 24}
+                        y={(viewBox.cy || 0) + 18}
                         className="fill-muted-foreground"
                       >
                         Visitors
@@ -92,12 +88,20 @@ export function SentimentOverview() {
           </Pie>
         </PieChart>
       </ChartContainer>
-      {/* <div className="flex items-center gap-2 font-medium leading-none">
-        Trending up by 5.2% this month <TrendingUp className="h-4 w-4" />
+
+      <div className="flex flex-col space-y-2">
+        {chartData.map((item, index) => (
+          <div key={index} className="flex items-center space-x-2">
+            {/* Circle Color Indicator */}
+            <span
+              className="w-3 h-3 rounded-full"
+              style={{ backgroundColor: item.fill }}
+            ></span>
+            <span className="text-sm">{item.browser}</span>
+            <span className="ml-2 text-sm font-semibold">{item.visitors}</span>
+          </div>
+        ))}
       </div>
-      <div className="leading-none text-muted-foreground">
-        Showing total visitors for the last 6 months
-      </div> */}
     </div>
   );
 }
