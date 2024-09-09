@@ -7,4 +7,9 @@ export function mainMiddleware(request: NextRequest) {
   return res;
 }
 
-export default withAuth(mainMiddleware, ["/dashboard"]);
+export default withAuth(mainMiddleware, [
+  "/dashboard",
+  "/competitor",
+  "/rate-trend",
+  "/rate-shopper",
+]);
