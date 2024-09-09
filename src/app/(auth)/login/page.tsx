@@ -15,6 +15,7 @@ const SignInPage: React.FC = ({ searchParams }: any) => {
 
   const callbackUrl = searchParams.callbackUrl || "/";
   const handleLogin = async (e: any) => {
+    console.log("callbackUrl", callbackUrl);
     e.preventDefault();
     setError("");
     setIsLoading(true);
@@ -28,7 +29,7 @@ const SignInPage: React.FC = ({ searchParams }: any) => {
       if (!res?.error) {
         e.target.reset();
         setIsLoading(false);
-        if (callbackUrl === "http://localhost:3000/") {
+        if (callbackUrl === "http://localhost:3000/" || callbackUrl === "/") {
           push("/dashboard");
         } else {
           push(callbackUrl);
