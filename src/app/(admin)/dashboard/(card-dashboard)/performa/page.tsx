@@ -7,6 +7,7 @@ import { ChartAll } from "@/components/dashboard/card-dashboard/performa/charts/
 import { ChartTraveloka } from "@/components/dashboard/card-dashboard/performa/charts/chart-traveloka";
 import { ChartTiket } from "@/components/dashboard/card-dashboard/performa/charts/chart-tiket";
 import { ChartTripadvisor } from "@/components/dashboard/card-dashboard/performa/charts/chart-tripadvisor";
+import { ChartDashboard } from "@/components/dashboard/charts";
 import Image from "next/image";
 
 import {
@@ -28,7 +29,7 @@ export default function DashboardPerforma() {
         <BreadcrumbList>
           <BreadcrumbItem>
             <BreadcrumbLink asChild>
-              <Link href="/">Dashboard</Link>
+              <Link href="/dashboard">Dashboard</Link>
             </BreadcrumbLink>
           </BreadcrumbItem>
           <BreadcrumbSeparator />
@@ -110,8 +111,8 @@ export default function DashboardPerforma() {
         </div>
 
         {/* Charts nanti berubah sesuai dengan tabs */}
-        <div className="flex h-full w-full flex-grow justify-center overflow-auto rounded-lg border-2">
-          <div className="flex w-[95%] py-6">
+        <div className="flex h-full w-full justify-center rounded-lg border-2">
+          <div className="w-[50%]">
             {activeTab === "Semua" && (
               <div>
                 {/* Charts All */}

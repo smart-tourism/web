@@ -53,9 +53,7 @@ export default function PerformaOTA() {
             Tiket
           </TabsTrigger>
         </TabsList>
-        <TabsContent value="Semua">
-          <ChartAll />
-        </TabsContent>
+        <TabsContent value="Semua"></TabsContent>
         <TabsContent value="Traveloka"></TabsContent>
         <TabsContent value="Tripadvisor"></TabsContent>
         <TabsContent value="Tiket"></TabsContent>
