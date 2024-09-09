@@ -12,6 +12,14 @@ const SignInPage: React.FC = ({ searchParams }: any) => {
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const { push } = useRouter();
+  const notCallbackUrl = [
+    "/",
+    "http://localhost:3000",
+    "http://localhost:3000/register",
+    "http://localhost:3000/login",
+    "http://localhost:3000/forgotpassword",
+    "http://localhost:3000/seed",
+  ];
 
   const callbackUrl = searchParams.callbackUrl || "/";
   const handleLogin = async (e: any) => {
@@ -29,7 +37,7 @@ const SignInPage: React.FC = ({ searchParams }: any) => {
       if (!res?.error) {
         e.target.reset();
         setIsLoading(false);
-        if (callbackUrl === "http://localhost:3000/" || callbackUrl === "/") {
+        if (notCallbackUrl.includes(callbackUrl)) {
           push("/dashboard");
         } else {
           push(callbackUrl);
