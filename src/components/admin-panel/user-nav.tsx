@@ -24,7 +24,11 @@ import { signOut, useSession } from "next-auth/react";
 
 export function UserNav() {
   const { data: session, status }: { data: any; status: string } = useSession();
-
+  const getInitials = (fullname: string) => {
+    const names = fullname.split(" ");
+    const initials = names[0][0] + (names[1] ? names[1][0] : "");
+    return initials.toUpperCase();
+  };
   return (
     <DropdownMenu>
       <TooltipProvider disableHoverableContent>
@@ -38,7 +42,9 @@ export function UserNav() {
                 <Avatar className="h-8 w-8">
                   <AvatarImage src="#" alt="Avatar" />
                   <AvatarFallback className="text-black bg-transparent">
-                    JD
+                    {session?.user.fullname
+                      ? getInitials(session.user.fullname)
+                      : "NT"}
                   </AvatarFallback>
                 </Avatar>
               </Button>
