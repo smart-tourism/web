@@ -25,7 +25,7 @@ const generateChartData = (numDays: number) => {
     const date = subDays(today, i);
     chartData.push({
       date: format(date, "dd MMM yyyy"),
-      days: Math.floor(Math.random() * 10),
+      days: Math.floor(Math.random() * 100).toFixed(2),
     });
   }
   return chartData.slice(0, 10).reverse();
@@ -61,7 +61,7 @@ export function ChartTripadvisor() {
         />
 
         <YAxis
-          domain={[0, 10]}
+          domain={[0, 100]}
           tickLine={false}
           axisLine={false}
           tickMargin={8}

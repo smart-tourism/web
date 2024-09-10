@@ -25,7 +25,7 @@ const generateChartData = (numDays: number) => {
     const date = subDays(today, i);
     chartData.push({
       date: format(date, "dd MMM yyyy"),
-      days: Math.floor(Math.random() * 10),
+      days: Math.floor(Math.random() * 10).toFixed(2),
     });
   }
   return chartData.slice(0, 10).reverse();
@@ -65,6 +65,7 @@ export function ChartTripadvisor() {
           tickLine={false}
           axisLine={false}
           tickMargin={8}
+          tickFormatter={(tick) => tick.toFixed(2)}
         />
         <Tooltip
           cursor={false}
@@ -74,7 +75,7 @@ export function ChartTripadvisor() {
               return (
                 <div className="tooltip-content text-black bg-white p-2 rounded-lg">
                   <p>{`${date}`}</p>
-                  <p>{`Performa: ${days}`}</p>
+                  <p>{`Penilaian Keseluruhan: ${days}`}</p>
                 </div>
               );
             }

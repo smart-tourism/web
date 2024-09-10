@@ -25,7 +25,7 @@ const generateChartData = (numDays: number) => {
     const date = subDays(today, i);
     chartData.push({
       date: format(date, "dd MMM yyyy"),
-      days: Math.floor(Math.random() * 10),
+      days: Math.floor(Math.random() * 100).toFixed(2),
     });
   }
   return chartData.slice(0, 10).reverse();
@@ -38,7 +38,7 @@ const chartConfig = {
   },
 } satisfies ChartConfig;
 
-export function ChartTripadvisor() {
+export function ChartTiket() {
   const chartData = generateChartData(30); // Generate data for the last 30 days, but display only 10 entries
 
   return (
@@ -61,7 +61,7 @@ export function ChartTripadvisor() {
         />
 
         <YAxis
-          domain={[0, 10]}
+          domain={[0, 100]}
           tickLine={false}
           axisLine={false}
           tickMargin={8}
@@ -84,10 +84,10 @@ export function ChartTripadvisor() {
         <Line
           dataKey="days"
           type="monotone"
-          stroke="rgb(51, 224, 161, 1)"
+          stroke="rgb(0, 100, 211, 1)"
           strokeWidth={2}
           dot={{
-            fill: "rgb(51, 224, 161, 1)",
+            fill: "rgb(0, 100, 211, 1)",
           }}
           activeDot={{
             r: 6,

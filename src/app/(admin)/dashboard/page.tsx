@@ -10,6 +10,7 @@ import OverviewStatus from "@/components/dashboard/overview-status";
 import { SentimentOverview } from "@/components/dashboard/sentiment";
 import CustomerFeedback from "@/components/dashboard/customer-feedback";
 import Impact from "@/components/dashboard/impact";
+import { Skeleton } from "@/components/ui/skeleton";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -246,7 +247,7 @@ export default function DashboardPage() {
             </Card>
           </div>
 
-          {/* Dampak */}
+          {/* Dampak & Sentimen */}
           <div className="flex w-full flex-grow flex-col gap-2">
             <Card>
               <CardHeader>

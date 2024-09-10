@@ -86,7 +86,7 @@ export function ChartAll() {
                   />
                   <div>
                     <p>{otaConfig.label}</p>
-                    <p>{`Total: ${data.TotalPerOTA}`}</p>
+                    <p>{`Total Popularitas: ${data.TotalPerOTA}`}</p>
                   </div>
                 </div>
               );

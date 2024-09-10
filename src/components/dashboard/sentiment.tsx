@@ -13,24 +13,24 @@ import {
 export const description = "A donut chart with text";
 
 const chartData = [
-  { browser: "Positif", visitors: 275, fill: "rgb(76, 155, 117, 1)" },
-  { browser: "Netral", visitors: 200, fill: "rgb(250, 222, 100, 1)" },
-  { browser: "Negatif", visitors: 287, fill: "rgb(255, 97, 113, 1)" },
+  { sentiment: "Positif", visitors: 275, fill: "rgb(76, 155, 117, 1)" },
+  { sentiment: "Netral", visitors: 200, fill: "rgb(250, 222, 100, 1)" },
+  { sentiment: "Negatif", visitors: 287, fill: "rgb(255, 97, 113, 1)" },
 ];
 
 const chartConfig = {
   visitors: {
     label: "Total",
   },
-  chrome: {
+  positif: {
     label: "Positif",
     color: "rgb(76, 155, 117, 1)",
   },
-  safari: {
+  netral: {
     label: "Netral",
     color: "rgb(250, 222, 100, 1)",
   },
-  firefox: {
+  negatif: {
     label: "Negatif",
     color: "rgb(255, 97, 113, 1)",
   },
@@ -52,7 +52,7 @@ export function SentimentOverview() {
           <Pie
             data={chartData}
             dataKey="visitors"
-            nameKey="browser"
+            nameKey="sentiment"
             innerRadius={40}
             strokeWidth={2}
           >
@@ -91,13 +91,15 @@ export function SentimentOverview() {
 
       <div className="flex flex-col space-y-2">
         {chartData.map((item, index) => (
-          <div key={index} className="flex items-center space-x-2">
-            {/* Circle Color Indicator */}
-            <span
-              className="w-3 h-3 rounded-full"
-              style={{ backgroundColor: item.fill }}
-            ></span>
-            <span className="text-sm">{item.browser}</span>
+          <div className="flex justify-between">
+            <div key={index} className="flex items-center space-x-2">
+              {/* Circle Color Indicator */}
+              <span
+                className="w-3 h-3 rounded-full"
+                style={{ backgroundColor: item.fill }}
+              ></span>
+              <span className="text-sm">{item.sentiment}</span>
+            </div>
             <span className="ml-2 text-sm font-semibold">{item.visitors}</span>
           </div>
         ))}

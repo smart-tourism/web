@@ -1,7 +1,15 @@
 "use client";
 
 import { TrendingUp } from "lucide-react";
-import { CartesianGrid, Line, LineChart, XAxis } from "recharts";
+import {
+  CartesianGrid,
+  Line,
+  LineChart,
+  YAxis,
+  XAxis,
+  Tooltip,
+} from "recharts";
+import { format, subDays } from "date-fns";
 
 import {
   ChartConfig,
@@ -10,29 +18,29 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart";
 
-export const description = "A line chart with dots";
-
-const chartData = [
-  { month: "January", desktop: 186, mobile: 80 },
-  { month: "February", desktop: 305, mobile: 200 },
-  { month: "March", desktop: 237, mobile: 120 },
-  { month: "April", desktop: 73, mobile: 190 },
-  { month: "May", desktop: 209, mobile: 130 },
-  { month: "June", desktop: 214, mobile: 140 },
-];
+const generateChartData = (numDays: number) => {
+  const chartData = [];
+  const today = new Date();
+  for (let i = 0; i < numDays; i++) {
+    const date = subDays(today, i);
+    chartData.push({
+      date: format(date, "dd MMM yyyy"),
+      days: Math.floor(Math.random() * 10), // for random data
+    });
+  }
+  return chartData.slice(0, 10).reverse();
+};
 
 const chartConfig = {
-  desktop: {
-    label: "Desktop",
+  days: {
+    label: "Performa",
     color: "hsl(var(--chart-1))",
-  },
-  mobile: {
-    label: "Mobile",
-    color: "hsl(var(--chart-2))",
   },
 } satisfies ChartConfig;
 
 export function ChartTraveloka() {
+  const chartData = generateChartData(30); // Generate data for the last 30 days, but display only 10 entries
+
   return (
     <ChartContainer config={chartConfig}>
       <LineChart
@@ -41,27 +49,45 @@ export function ChartTraveloka() {
         margin={{
           left: 12,
           right: 12,
+          bottom: 30,
         }}
       >
-        <CartesianGrid vertical={false} />
+        <CartesianGrid />
         <XAxis
-          dataKey="month"
+          dataKey="date"
           tickLine={false}
           axisLine={false}
           tickMargin={8}
-          tickFormatter={(value) => value.slice(0, 3)}
         />
-        <ChartTooltip
+
+        <YAxis
+          domain={[0, 10]}
+          tickLine={false}
+          axisLine={false}
+          tickMargin={8}
+        />
+        <Tooltip
           cursor={false}
-          content={<ChartTooltipContent hideLabel />}
+          content={({ payload }) => {
+            if (payload && payload.length > 0) {
+              const { date, days } = payload[0].payload;
+              return (
+                <div className="tooltip-content text-black bg-white p-2 rounded-lg">
+                  <p>{`${date}`}</p>
+                  <p>{`Performa: ${days}`}</p>
+                </div>
+              );
+            }
+            return null;
+          }}
         />
         <Line
-          dataKey="desktop"
-          type="natural"
-          stroke="var(--color-desktop)"
+          dataKey="days"
+          type="monotone"
+          stroke="rgb(24, 156, 220, 1)"
           strokeWidth={2}
           dot={{
-            fill: "var(--color-desktop)",
+            fill: "rgb(24, 156, 220, 1)",
           }}
           activeDot={{
             r: 6,
