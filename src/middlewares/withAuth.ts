@@ -9,14 +9,20 @@ import {
 const onlyAdminPage = ["/dashboard"];
 const authPage = ["/login", "/register"];
 
+const extractPathname = (pathname: string) => {
+  const parts = pathname.split("/");
+  return parts[1];
+};
+
 export default function withAuth(
   middleware: NextMiddleware,
   requireAuth: string[] = []
 ) {
   return async (req: NextRequest, next: NextFetchEvent) => {
     const pathname = req.nextUrl.pathname;
+    const path = extractPathname(pathname);
 
-    if (requireAuth.includes(pathname)) {
+    if (requireAuth.includes(path)) {
       const token = await getToken({
         req,
         secret: process.env.NEXTAUTH_SECRET,
