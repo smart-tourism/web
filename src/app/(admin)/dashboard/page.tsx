@@ -48,7 +48,7 @@ export default function DashboardPage() {
       </Breadcrumb>
 
       {/* Card Dashboard */}
-      <div className="grid gap-4 lg:grid-cols-5 md:grid-cols-3 sm:grid-cols-1 grid-rows-1">
+      <div className="grid gap-4 lg:grid-cols-5 md:grid-cols-3 sm:grid-cols-1 grid-rows-1 mt-2">
         <Link href="/dashboard/performa">
           <Card className="rounded-lg border-none mt-6 hover:bg-gray-100">
             <CardHeader>
@@ -177,7 +177,7 @@ export default function DashboardPage() {
       {/* Chart & Top Keyword */}
       <div className="grid gap-4 lg:grid-cols-6 md:grid-cols-1 sm:grid-cols-1 grid-rows-1 text-black py-4">
         <div className="col-span-4">
-          <Card className="max-h-[29rem]">
+          <Card className="lg:h-[29rem]">
             <CardHeader>
               <CardTitle className="flex flex-auto gap-1">
                 Ulasan Unit
@@ -197,7 +197,11 @@ export default function DashboardPage() {
             </CardHeader>
             <CardContent>
               {/* Charts */}
-              <ChartDashboard />
+              <div className="flex justify-center">
+                <div className="lg:w-[100%] md:w-[70%] sm:w-[40%]">
+                  <ChartDashboard />
+                </div>
+              </div>
             </CardContent>
           </Card>
         </div>
@@ -249,28 +253,32 @@ export default function DashboardPage() {
 
           {/* Dampak & Sentimen */}
           <div className="flex w-full flex-grow flex-col gap-2">
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex flex-auto gap-1">
-                  Impact
-                  <HoverCard>
-                    <HoverCardTrigger className="cursor-pointer">
-                      <FaRegQuestionCircle />
-                    </HoverCardTrigger>
-                    <HoverCardContent className="z-50 bg-white shadow-md rounded-md">
-                      <p className="text-justify font-normal text-sm">
-                        Nilai Dampak didapatkan dari perhitungan sentimen masing
-                        - masing review yang dapat bernilai positif dan negatif.
-                      </p>
-                    </HoverCardContent>
-                  </HoverCard>
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                {/* Positif & Negatif */}
-                <Impact />
-              </CardContent>
-            </Card>
+            {/* Dampak / Impact */}
+            <Link href="/dashboard/dampak">
+              <Card className="hover:border-neutral-600">
+                <CardHeader>
+                  <CardTitle className="flex flex-auto gap-1">
+                    Impact
+                    <HoverCard>
+                      <HoverCardTrigger className="cursor-pointer">
+                        <FaRegQuestionCircle />
+                      </HoverCardTrigger>
+                      <HoverCardContent className="z-50 bg-white shadow-md rounded-md">
+                        <p className="text-justify font-normal text-sm">
+                          Nilai Dampak didapatkan dari perhitungan sentimen
+                          masing - masing review yang dapat bernilai positif dan
+                          negatif.
+                        </p>
+                      </HoverCardContent>
+                    </HoverCard>
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  {/* Positif & Negatif */}
+                  <Impact />
+                </CardContent>
+              </Card>
+            </Link>
 
             {/* Sentimen */}
             <Card>
