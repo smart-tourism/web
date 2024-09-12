@@ -11,7 +11,7 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 import { useState } from "react";
-import { ChartImpactTraveloka } from "@/components/dashboard/impact-dashboard/traveloka/chart-traveloka";
+import { ChartImpactTiket } from "@/components/dashboard/impact-dashboard/tiket/chart-tiket";
 
 export default function DashboardTingkatRespon() {
   return (
@@ -47,7 +47,7 @@ export default function DashboardTingkatRespon() {
         {/* Tabel & Chart OTA Impact */}
         <div className="flex flex-col gap-10 rounded-lg border-2 p-6 text-black">
           {/* Traveloka */}
-          <ChartImpactTraveloka />
+          <ChartImpactTiket />
         </div>
       </div>
     </ContentLayout>

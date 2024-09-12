@@ -129,7 +129,7 @@ export function ChartImpactAll() {
         </Link>
 
         {/* Tripadvisor */}
-        <Link href="/tripadvisor">
+        <Link href="/dashboard/dampak/tripadvisor">
           <div className="grid cursor-pointer grid-cols-4 gap-4 border-2 rounded-md border-gray-200 bg-white px-5 py-4 hover:bg-gray-100 hover:opacity-[0.8] mt-2">
             {/* icon tripadvisor */}
             <div className="col-span-1 flex flex-row items-center gap-2">
@@ -211,7 +211,7 @@ export function ChartImpactAll() {
         </Link>
 
         {/* Tiket */}
-        <Link href="/tiket">
+        <Link href="/dashboard/dampak/tiket">
           <div className="grid cursor-pointer grid-cols-4 gap-4 border-2 rounded-md border-gray-200 bg-white px-5 py-4 hover:bg-gray-100 hover:opacity-[0.8] mt-2">
             {/* icon tiket */}
             <div className="col-span-1 flex flex-row items-center gap-2">
