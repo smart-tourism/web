@@ -1,7 +1,15 @@
 "use client";
 
 import { TrendingUp } from "lucide-react";
-import { Area, AreaChart, CartesianGrid, XAxis } from "recharts";
+import {
+  CartesianGrid,
+  Line,
+  LineChart,
+  YAxis,
+  XAxis,
+  Tooltip,
+} from "recharts";
+import { format, subDays } from "date-fns";
 
 import {
   ChartConfig,
@@ -10,67 +18,82 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart";
 
-export const description = "A simple area chart";
-
-const chartData = [
-  { month: "January", desktop: 186 },
-  { month: "February", desktop: 305 },
-  { month: "March", desktop: 237 },
-  { month: "April", desktop: 73 },
-  { month: "May", desktop: 209 },
-  { month: "June", desktop: 214 },
-];
+const generateChartData = (numDays: number) => {
+  const chartData = [];
+  const today = new Date();
+  for (let i = 0; i < numDays; i++) {
+    const date = subDays(today, i);
+    chartData.push({
+      date: format(date, "dd MMM yyyy"),
+      days: Math.floor(Math.random() * 100).toFixed(2),
+    });
+  }
+  return chartData.slice(0, 10).reverse();
+};
 
 const chartConfig = {
-  desktop: {
-    label: "Unit Reviews: ",
-    color: "rgb(77,77,200,1)",
+  days: {
+    label: "Performa",
+    color: "hsl(var(--chart-1))",
   },
 } satisfies ChartConfig;
 
 export function ChartDashboard() {
+  const chartData = generateChartData(30); // Generate data for the last 30 days, but display only 10 entries
+
   return (
-    <div>
-      <ChartContainer config={chartConfig}>
-        <AreaChart
-          accessibilityLayer
-          data={chartData}
-          margin={{
-            left: 12,
-            right: 12,
+    <ChartContainer config={chartConfig}>
+      <LineChart
+        accessibilityLayer
+        data={chartData}
+        margin={{
+          left: 12,
+          right: 12,
+          bottom: 30,
+        }}
+      >
+        <CartesianGrid />
+        <XAxis
+          dataKey="date"
+          tickLine={false}
+          axisLine={false}
+          tickMargin={8}
+        />
+
+        <YAxis
+          domain={[0, 100]}
+          tickLine={false}
+          axisLine={false}
+          tickMargin={8}
+        />
+        <Tooltip
+          cursor={false}
+          content={({ payload }) => {
+            if (payload && payload.length > 0) {
+              const { date, days } = payload[0].payload;
+              return (
+                <div className="tooltip-content text-black bg-white p-2 rounded-lg">
+                  <p>{`${date}`}</p>
+                  <p>{`Performa: ${days}`}</p>
+                </div>
+              );
+            }
+            return null;
           }}
-        >
-          <CartesianGrid vertical={false} />
-          <XAxis
-            dataKey="month"
-            tickLine={false}
-            axisLine={false}
-            tickMargin={8}
-            tickFormatter={(value) => value.slice(0, 3)}
-          />
-          <ChartTooltip
-            cursor={false}
-            content={<ChartTooltipContent indicator="line" />}
-          />
-          <Area
-            dataKey="desktop"
-            type="natural"
-            fill="var(--color-desktop)"
-            fillOpacity={0.4}
-            stroke="var(--color-desktop)"
-          />
-        </AreaChart>
-      </ChartContainer>
-      <div className="flex w-full items-start gap-2 text-sm">
-        <div className="grid gap-2">
-          <div className="flex items-center gap-2 font-medium leading-none">
-            {/* Trending up by 5.2% this month <TrendingUp className="h-4 w-4" /> */}
-          </div>
-          <div className="flex items-center gap-2 leading-none text-muted-foreground">
-            {/* January - June 2024 */}
-          </div>
-        </div>
-      </div>
-    </div>
+        />
+        <Line
+          dataKey="days"
+          type="monotone"
+          stroke="rgb(0, 100, 211, 1)"
+          strokeWidth={2}
+          dot={{
+            fill: "rgb(0, 100, 211, 1)",
+          }}
+          activeDot={{
+            r: 6,
+          }}
+        />
+      </LineChart>
+    </ChartContainer>
   );
 }
