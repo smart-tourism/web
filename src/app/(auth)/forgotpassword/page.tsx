@@ -14,16 +14,16 @@ const ForgotPassword: React.FC = () => {
 
   return (
     <div className="bg-[#F5F4F7] min-h-screen flex flex-col items-center justify-center px-6">
-      <div className="text-center mb-6">
-        <div className="flex justify-center mb-4">
-          <img src="/images/logorobota.png" alt="logo" width="120px" />
+      <div className="text-center mb-2">
+        <div className="flex justify-center">
+          <img src="/logo-ajhelen.png" alt="logo" width="140px" />
         </div>
 
         <h3 className="font-semibold text-2xl text-black">Lupa Kata Sandi?</h3>
       </div>
 
       {/* Card Putih */}
-      <div className="bg-white py-6 rounded-xl border-2 border-primary w-full md:w-8/12 lg:w-6/12 xl:w-6/12">
+      <div className="bg-white py-6 rounded-xl border-2 border-primary w-full md:w-8/12 lg:w-6/12 xl:w-6/12 mb-4">
         <p className="text-center text-black font-medium px-3">
           Silakan masukkan alamat email yang terkait dengan akun Anda di bawah
           ini. Kami akan mengirimkan instruksi untuk mereset kata sandi Anda

@@ -13,6 +13,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import Link from "next/link";
+import { TbMapSearch } from "react-icons/tb";
 import { FaRegQuestionCircle } from "react-icons/fa";
 import { ChartDashboard } from "@/components/dashboard/charts";
 import TopKeywords from "@/components/dashboard/top-keywords";
@@ -21,6 +22,7 @@ import OverviewStatus from "@/components/dashboard/overview-status";
 import { SentimentOverview } from "@/components/dashboard/sentiment";
 import CustomerFeedback from "@/components/dashboard/customer-feedback";
 import Impact from "@/components/dashboard/impact";
+import { useState } from "react";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -34,6 +36,14 @@ import {
   HoverCardContent,
   HoverCardTrigger,
 } from "@/components/ui/hover-card";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+} from "@/components/ui/dropdown-menu";
 import { Skeleton } from "@/components/ui/skeleton";
 
 export default function DashboardPage() {
@@ -54,6 +64,16 @@ export default function DashboardPage() {
 
     return () => clearTimeout(timeout);
   }, []);
+
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
+  React.useEffect(() => {
+    if (isDropdownOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+  }, [isDropdownOpen]);
 
   const refreshData = (range: string, customDate?: DateRange) => {
     console.log("Refreshing data for range:", range, customDate);
@@ -84,14 +104,15 @@ export default function DashboardPage() {
     refreshData(range, dateRange);
   };
 
-  const handleCustomDateChange = (date: DateRange | undefined) => {
-    setSelectedRange("custom");
-    setCustomDate(date);
-    if (date?.from && date.to) {
-      refreshData("custom", date);
-    }
-  };
-
+  // const handleCustomDateChange = (date: DateRange | undefined) => {
+  //   setSelectedRange("custom");
+  //   setCustomDate(date);
+  //   if (date?.from && date.to) {
+  //     refreshData("custom", date);
+  //   }
+  // };
+  const [selectedDestination, setSelectedDestination] =
+    useState<string>("Pilih Destinasi");
   return (
     <ContentLayout title="Dashboard">
       {/* Breadcrumb */}
@@ -148,8 +169,78 @@ export default function DashboardPage() {
           </Button>
         </div>
 
+        {/* Pilih Destinasi Dropdown */}
+        <div>
+          <DropdownMenu onOpenChange={(open) => setIsDropdownOpen(open)}>
+            <DropdownMenuTrigger asChild>
+              <Button
+                variant="outline"
+                className="flex h-10 items-center justify-between rounded-md border 
+                  border-input bg-transparent px-3 py-2 text-sm ring-offset-background 
+                  placeholder:text-muted-foreground focus:outline-none focus:ring-2 
+                  focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed 
+                  disabled:opacity-50 lg:w-[100%] md:w-full sm:w-full"
+              >
+                {loading ? (
+                  <Skeleton className="mr-2 h-4 w-4" />
+                ) : (
+                  <TbMapSearch className="mr-2 h-4 w-4" />
+                )}
+                {loading ? (
+                  <Skeleton className="w-24 h-4" />
+                ) : (
+                  selectedDestination
+                )}
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className="w-[100%] flex flex-col items-center text-center">
+              <DropdownMenuItem
+                onClick={() => setSelectedDestination("Pilih Destinasi")}
+                className="cursor-pointer"
+              >
+                Semua Destinasi
+              </DropdownMenuItem>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem
+                onClick={() => setSelectedDestination("Likupang")}
+                className="cursor-pointer"
+              >
+                Likupang
+              </DropdownMenuItem>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem
+                onClick={() => setSelectedDestination("Borobudur")}
+                className="cursor-pointer"
+              >
+                Borobudur
+              </DropdownMenuItem>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem
+                onClick={() => setSelectedDestination("Mandalika")}
+                className="cursor-pointer"
+              >
+                Mandalika
+              </DropdownMenuItem>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem
+                onClick={() => setSelectedDestination("Labuan Bajo")}
+                className="cursor-pointer"
+              >
+                Labuan Bajo
+              </DropdownMenuItem>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem
+                onClick={() => setSelectedDestination("Danau Toba")}
+                className="cursor-pointer"
+              >
+                Danau Toba
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </div>
+
         {/* Custom Date Picker */}
-        <Popover>
+        {/* <Popover>
           <PopoverTrigger asChild>
             <Button
               id="date"
@@ -185,7 +276,7 @@ export default function DashboardPage() {
               numberOfMonths={2}
             />
           </PopoverContent>
-        </Popover>
+        </Popover> */}
       </div>
 
       {/* Card Dashboard */}
@@ -201,9 +292,8 @@ export default function DashboardPage() {
                   </HoverCardTrigger>
                   <HoverCardContent className="z-50 bg-white shadow-md rounded-md">
                     <p className="text-justify font-normal text-sm">
-                      Nilai Performa menunjukkan tingkat pencapaian unit hotel
-                      yang dihitung berdasarkan rating dan jumlah review tamu
-                      dari masing - masing OTA.
+                      Nilai Performa menunjukkan rata rata jumlah bintang tiap
+                      destinasi.
                     </p>
                   </HoverCardContent>
                 </HoverCard>
@@ -213,7 +303,7 @@ export default function DashboardPage() {
               {loading ? (
                 <Skeleton className="w-16 h-6" />
               ) : (
-                <h1 className="font-bold">0</h1>
+                <h1 className="font-bold text-2xl">0.0 ⭐</h1>
               )}
             </CardContent>
           </Card>
@@ -230,9 +320,9 @@ export default function DashboardPage() {
                   </HoverCardTrigger>
                   <HoverCardContent className="z-50 bg-white shadow-md rounded-md">
                     <p className="text-justify font-normal text-sm">
-                      Tingkat Respon merupakan nilai perbandingan antara jumlah
-                      review dari tamu dan jumlah response yang diberikan oleh
-                      unit hotel di masing - masing OTA.
+                      Tingkat Respon merupakan tingkat pencapaian destinasi yang
+                      dihitung berdasarkan perbandingan antara pengunjung yang
+                      hanya memberikan bintang dengan seluruh jumlah review.
                     </p>
                   </HoverCardContent>
                 </HoverCard>
@@ -242,7 +332,7 @@ export default function DashboardPage() {
               {loading ? (
                 <Skeleton className="w-16 h-6" />
               ) : (
-                <h1 className="font-bold">0.00%</h1>
+                <h1 className="font-bold text-2xl">0.0</h1>
               )}
             </CardContent>
           </Card>
@@ -259,8 +349,8 @@ export default function DashboardPage() {
                   </HoverCardTrigger>
                   <HoverCardContent className="z-50 bg-white shadow-md rounded-md">
                     <p className="text-justify font-normal text-sm">
-                      Kumpulan review tamu dari masing - masing OTA yang
-                      dipetakan berdasarkan kategorinya.
+                      Ulasan merupakan jumlah seluruh response atau komentar
+                      pada tiap destinasi.
                     </p>
                   </HoverCardContent>
                 </HoverCard>
@@ -270,7 +360,7 @@ export default function DashboardPage() {
               {loading ? (
                 <Skeleton className="w-16 h-6" />
               ) : (
-                <h1 className="font-bold">0</h1>
+                <h1 className="font-bold text-2xl">0</h1>
               )}
             </CardContent>
           </Card>
@@ -287,9 +377,8 @@ export default function DashboardPage() {
                   </HoverCardTrigger>
                   <HoverCardContent className="z-50 bg-white shadow-md rounded-md">
                     <p className="text-justify font-normal text-sm">
-                      Nilai Popularitas menunjukkan popularitas unit hotel yang
-                      dihitung berdasarkan banyaknya rating dari masing - masing
-                      OTA.
+                      Nilai Popularitas menunjukkan jumlah user yang memberikan
+                      response positif.
                     </p>
                   </HoverCardContent>
                 </HoverCard>
@@ -299,7 +388,7 @@ export default function DashboardPage() {
               {loading ? (
                 <Skeleton className="w-16 h-6" />
               ) : (
-                <h1 className="font-bold">0</h1>
+                <h1 className="font-bold text-2xl">0</h1>
               )}
             </CardContent>
           </Card>
@@ -316,9 +405,8 @@ export default function DashboardPage() {
                   </HoverCardTrigger>
                   <HoverCardContent className="z-50 bg-white shadow-md rounded-md">
                     <p className="text-justify font-normal text-sm">
-                      Penilaian Keseluruhan adalah penilaian tingkat reputasi
-                      unit hotel dari Robota yang dihitung berdasarkan tingkat
-                      popularitas dari waktu ke waktu.
+                      Penilaian Keseluruhan adalah jumlah keseluruhan penilaian
+                      ulasan yang diterima.
                     </p>
                   </HoverCardContent>
                 </HoverCard>
@@ -328,7 +416,7 @@ export default function DashboardPage() {
               {loading ? (
                 <Skeleton className="w-16 h-6" />
               ) : (
-                <h1 className="font-bold">0</h1>
+                <h1 className="font-bold text-2xl">0</h1>
               )}
             </CardContent>
           </Card>
@@ -341,16 +429,14 @@ export default function DashboardPage() {
           <Card className="lg:h-[29rem]">
             <CardHeader>
               <CardTitle className="flex flex-auto gap-1">
-                Ulasan Unit
+                Jumlah Ulasan
                 <HoverCard>
                   <HoverCardTrigger className="cursor-pointer">
                     <FaRegQuestionCircle />
                   </HoverCardTrigger>
                   <HoverCardContent className="z-50 bg-white shadow-md rounded-md">
                     <p className="text-justify font-normal text-sm">
-                      Penilaian Keseluruhan adalah penilaian tingkat reputasi
-                      unit hotel dari Robota yang dihitung berdasarkan tingkat
-                      popularitas dari waktu ke waktu.
+                      Trend rating unit dari waktu ke waktu.
                     </p>
                   </HoverCardContent>
                 </HoverCard>
@@ -420,7 +506,21 @@ export default function DashboardPage() {
             <Link href="/dashboard/dampak">
               <Card className="hover:border-neutral-600">
                 <CardHeader>
-                  <CardTitle className="flex flex-auto gap-1">Impact</CardTitle>
+                  <CardTitle className="flex flex-auto gap-1">
+                    Impact
+                    <HoverCard>
+                      <HoverCardTrigger className="cursor-pointer">
+                        <FaRegQuestionCircle />
+                      </HoverCardTrigger>
+                      <HoverCardContent className="z-50 bg-white shadow-md rounded-md">
+                        <p className="text-justify font-normal text-sm">
+                          Nilai Dampak didapatkan dari perhitungan sentimen
+                          masing - masing review yang dapat bernilai positif dan
+                          negatif.
+                        </p>
+                      </HoverCardContent>
+                    </HoverCard>
+                  </CardTitle>
                 </CardHeader>
                 <CardContent>
                   {loading ? <Skeleton className="w-full h-6" /> : <Impact />}
@@ -432,6 +532,16 @@ export default function DashboardPage() {
               <CardHeader>
                 <CardTitle className="flex flex-auto gap-1">
                   Sentiment Overview
+                  <HoverCard>
+                    <HoverCardTrigger className="cursor-pointer">
+                      <FaRegQuestionCircle />
+                    </HoverCardTrigger>
+                    <HoverCardContent className="z-50 bg-white shadow-md rounded-md">
+                      <p className="text-justify font-normal text-sm">
+                        Statistik perbandingan sentimen review customer.
+                      </p>
+                    </HoverCardContent>
+                  </HoverCard>
                 </CardTitle>
               </CardHeader>
               <CardContent>
