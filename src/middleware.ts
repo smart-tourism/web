@@ -8,7 +8,7 @@ export function mainMiddleware(request: NextRequest) {
 }
 
 export default withAuth(mainMiddleware, [
-  "/dashboard",
-  "/competitor",
-  "/rate-trend",
+  "dashboard",
+  "competitor",
+  "rate-trend",
 ]);
