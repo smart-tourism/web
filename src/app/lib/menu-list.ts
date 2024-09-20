@@ -8,7 +8,7 @@ import {
   LucideIcon,
   ChartNoAxesCombinedIcon,
   Building2,
-  LayoutDashboard
+  LayoutDashboard,
 } from "lucide-react";
 
 type Submenu = {
@@ -21,7 +21,7 @@ type Menu = {
   href: string;
   label: string;
   active: boolean;
-  icon: LucideIcon
+  icon: LucideIcon;
   submenus: Submenu[];
 };
 
@@ -40,9 +40,9 @@ export function getMenuList(pathname: string): Group[] {
           label: "Dashboard",
           active: pathname.includes("/dashboard"),
           icon: LayoutDashboard,
-          submenus: []
-        }
-      ]
+          submenus: [],
+        },
+      ],
     },
     {
       groupLabel: "",
@@ -52,9 +52,9 @@ export function getMenuList(pathname: string): Group[] {
           label: "Competitor",
           active: pathname.includes("/competitor"),
           icon: Building2,
-          submenus: []
-        }
-      ]
+          submenus: [],
+        },
+      ],
     },
     {
       groupLabel: "",
@@ -64,21 +64,9 @@ export function getMenuList(pathname: string): Group[] {
           label: "Rate Trend",
           active: pathname.includes("/rate-trend"),
           icon: ChartNoAxesCombinedIcon,
-          submenus: []
-        }
-      ]
-    },
-    {
-      groupLabel: "",
-      menus: [
-        {
-          href: "/rate-shopper",
-          label: "Rate Shopper",
-          active: pathname.includes("/rate-shopper"),
-          icon: Users,
-          submenus: []
-        }
-      ]
+          submenus: [],
+        },
+      ],
     },
     // {
     //   groupLabel: "",

@@ -11,5 +11,4 @@ export default withAuth(mainMiddleware, [
   "/dashboard",
   "/competitor",
   "/rate-trend",
-  "/rate-shopper",
 ]);

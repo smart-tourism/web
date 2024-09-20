@@ -4,6 +4,21 @@
 
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap");
 
+@keyframes shining {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.shining-animation {
+  background-size: 200% auto;
+  animation: shining 1.5s linear infinite;
+  animation-delay: 0s;
+}
+
 body {
   font-family: "Poppins", sans-serif;
 }
