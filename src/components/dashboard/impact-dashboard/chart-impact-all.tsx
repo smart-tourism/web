@@ -84,7 +84,7 @@ export function ChartImpactAll() {
               {/* Yellow Progress */}
               <div
                 className="relative"
-                onMouseEnter={() => setHoverNetralTraveloka("Negatif")}
+                onMouseEnter={() => setHoverNetralTraveloka("Netral")}
                 onMouseLeave={() => setHoverNetralTraveloka(null)}
               >
                 <Progress
@@ -166,7 +166,7 @@ export function ChartImpactAll() {
               {/* Yellow Progress */}
               <div
                 className="relative"
-                onMouseEnter={() => sethoverNetralTripadvisor("Negatif")}
+                onMouseEnter={() => sethoverNetralTripadvisor("Netral")}
                 onMouseLeave={() => sethoverNetralTripadvisor(null)}
               >
                 <Progress
@@ -248,7 +248,7 @@ export function ChartImpactAll() {
               {/* Yellow Progress */}
               <div
                 className="relative"
-                onMouseEnter={() => sethoverNetralTiket("Negatif")}
+                onMouseEnter={() => sethoverNetralTiket("Netral")}
                 onMouseLeave={() => sethoverNetralTiket(null)}
               >
                 <Progress

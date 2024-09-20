@@ -63,9 +63,9 @@ const SignInPage: React.FC = ({ searchParams }: any) => {
 
   return (
     <div className="bg-[#F5F4F7] min-h-screen flex flex-col items-center justify-center px-6">
-      <div className="text-center mb-6">
-        <div className="flex justify-center mb-4">
-          <img src="/images/logorobota.png" alt="logo" width="120px" />
+      <div className="text-center mb-2">
+        <div className="flex justify-center">
+          <img src="/logo-ajhelen.png" alt="logo" width="140px" />
         </div>
 
         <h3 className="font-semibold text-2xl text-black">
@@ -74,7 +74,7 @@ const SignInPage: React.FC = ({ searchParams }: any) => {
       </div>
 
       {/* Card Putih */}
-      <div className="bg-white py-6 rounded-xl border-2 border-primary w-full md:w-8/12 lg:w-6/12 xl:w-4/12">
+      <div className="bg-white py-6 rounded-xl border-2 border-primary w-full md:w-8/12 lg:w-6/12 xl:w-4/12 mb-4">
         <div className="w-10/12 mx-auto">
           {status === "error" && (
             <div
@@ -162,7 +162,7 @@ const SignInPage: React.FC = ({ searchParams }: any) => {
               <div className="col-span-1 text-end">
                 <Link
                   href="/forgotpassword"
-                  className="text-blue-700 hover:text-blue-700"
+                  className="text-blue-700 hover:text-blue-700 text-sm"
                 >
                   Lupa Password?
                 </Link>

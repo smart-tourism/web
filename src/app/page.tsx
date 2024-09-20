@@ -5,15 +5,32 @@
 import { signIn } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
+import React, { useState, useEffect } from "react";
 
 export default function Home() {
+  const [shine, setShine] = useState(false);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setShine(true);
+      setTimeout(() => setShine(false), 1000);
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, []);
   return (
     <div className="font-poppins text-gray-900">
       {/* Header */}
       <header className="fixed w-full top-0 left-0 bg-white shadow-md z-10">
         <div className="flex justify-between items-center p-4 max-w-9xl mx-auto">
-          <div className="items-start">
+          <div className="flex items-start">
             <Image src="/logo.png" alt="Logo Polije" width={200} height={200} />
+            <Image
+              src="/logo-ajhelen.png"
+              alt="Logo Ajhelen"
+              width={50}
+              height={50}
+            />
           </div>
           <div className="flex items-center">
             <nav className="mr-10 space-x-5">
@@ -29,22 +46,25 @@ export default function Home() {
             </nav>
             <button
               onClick={() => signIn()}
-              className="mr-4 border-blue-600 border-2 py-1 px-4 text-blue-600 hover:bg-blue-600 hover:text-white"
+              className="mr-4 border-2 border-orange-200 py-1 px-4 font-bold text-[#f38e58] rounded transition-all duration-100 hover:bg-gradient-to-l hover:from-[#FE7123] hover:to-[#F6D45E] hover:text-white"
             >
               Masuk
             </button>
-            <Link
-              href="/register"
-              className="bg-blue-600 text-white py-1 px-4 hover:bg-blue-700"
-            >
-              Daftar
+            <Link href="/register">
+              <button
+                className={`bg-[#FE7123] text-white font-bold py-1 px-4 rounded ${
+                  shine ? "shining-animation" : ""
+                }`}
+              >
+                Daftar
+              </button>
             </Link>
           </div>
         </div>
       </header>
 
       {/* Hero Section */}
-      <section className="text-center bg-[#4D4DC8] text-white pt-28 py-28 mt-10 relative">
+      <section className="text-center bg-gradient-to-tr from-[#FE7123] to-[#F6D45E] text-white pt-28 py-28 relative">
         <div className="absolute inset-0">
           <Image
             src="/herosection-pattern.png"
@@ -57,42 +77,101 @@ export default function Home() {
         <div className="relative mx-auto mt-32 w-full md:mt-16 md:flex md:h-1/3 md:flex-col md:items-center md:justify-center">
           <div className="mx-auto flex w-full max-w-5xl flex-col items-center gap-2 text-white">
             <h1 className="text-center text-2xl font-black uppercase tracking-wider sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl">
-              SEDERHANAKAN RUTINITAS BISNIS ANDA!
+              Your Personalized Travel Companion to Indonesia's Top Destinations
             </h1>
             <p className="mt-8 text-center text-sm sm:text-base md:text-lg lg:text-xl">
-              Sederhanakan Rutinitas Bisnis Anda!
+              Explore Indonesia's Hidden Gems with Ajhelen!
             </p>
           </div>
-          <div className="mt-16 flex w-full justify-center">
-            <button
-              className="text-[#4D4DC8] justify-center rounded-md text-sm ring-offset-background transition-colors 
+          <Link href={"/login"}>
+            <div className="mt-16 flex w-full justify-center">
+              <button
+                className="text-[#FE7123] justify-center rounded-md text-sm ring-offset-background transition-colors 
             focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 
             disabled:pointer-events-none disabled:opacity-50 bg-secondary text-secondary-foreground h-10 px-4 
-            py-2 border-4 border-blue-200 hover:bg-blue-100 sm:h-12 sm:w-36 lg:h-14 lg:w-[11.4rem] 
+            py-2 border-4 border-orange-200 hover:bg-orange-100 sm:h-12 sm:w-36 lg:h-14 lg:w-[11.4rem] 
             lg:text-lg mx-auto flex items-center gap-1 font-bold shadow-md shadow-black-400 hover:text-blue 
             mt-8 bg-white"
-            >
-              Coba Gratis
-            </button>
-          </div>
+              >
+                Coba Gratis
+              </button>
+            </div>
+          </Link>
         </div>
       </section>
 
-      {/* Apa yang Membuat Kami Berbeda Section */}
+      {/* Destinasi Unggulan Section */}
       <section className="text-center bg-white py-16">
-        <h2 className="text-4xl font-bold mb-6 text-[#4D4DC8]">
-          APA YANG MEMBUAT KAMI BERBEDA
+        <h2 className="text-4xl uppercase font-bold mb-6 bg-gradient-to-r from-[#FE7123] to-[#F6D45E] bg-clip-text text-transparent transition-all duration-300 hover:bg-gradient-to-l hover:from-[#F6D45E] hover:to-[#FE7123]">
+          Destinasi Unggulan
         </h2>
-        <div className="grid grid-cols-2 sm:grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
-          <div className="bg-white border border-gray-300 shadow-lg h-80 rounded-md"></div>
-          <div className="bg-white border border-gray-300 shadow-lg h-80 rounded-md"></div>
-          <div className="bg-white border border-gray-300 shadow-lg h-80 rounded-md"></div>
-          <div className="bg-white border border-gray-300 shadow-lg h-80 rounded-md"></div>
+        <div className="grid lg:grid-cols-3 sm:grid-cols-1 md:grid-cols-2 gap-4 max-w-5xl mx-auto justify-center">
+          {/* Gambar 1 */}
+          <div
+            className="relative bg-cover bg-center h-80 w-80 rounded-md shadow-lg overflow-hidden transition-transform duration-500 hover:scale-105 hover:shadow-2xl"
+            style={{ backgroundImage: "url(/likupang.jpg)" }}
+          >
+            <div className="absolute inset-0 bg-black bg-opacity-20 flex items-end p-4">
+              <p className="text-white font-bold text-lg">Likupang</p>
+            </div>
+          </div>
+
+          {/* Gambar 2 */}
+          <div
+            className="relative bg-cover bg-center h-80 w-80 rounded-md shadow-lg overflow-hidden transition-transform duration-500 hover:scale-105 hover:shadow-2xl"
+            style={{
+              backgroundImage: "url(/mandalika.jpg)",
+            }}
+          >
+            <div className="absolute inset-0 bg-black bg-opacity-20 flex items-end p-4">
+              <p className="text-white font-bold text-lg">Mandalika</p>
+            </div>
+          </div>
+
+          {/* Gambar 3 */}
+          <div
+            className="relative bg-cover bg-center h-80 w-80 rounded-md shadow-lg overflow-hidden transition-transform duration-500 hover:scale-105 hover:shadow-2xl"
+            style={{
+              backgroundImage: "url(/borobudur.jpg)",
+            }}
+          >
+            <div className="absolute inset-0 bg-black bg-opacity-20 flex items-end p-4">
+              <p className="text-white font-bold text-lg">Borobudur</p>
+            </div>
+          </div>
+
+          <div className="col-span-3">
+            <div className="flex justify-center gap-6">
+              {/* Gambar 4 */}
+              <div
+                className="relative bg-cover bg-center h-80 w-80 rounded-md shadow-lg overflow-hidden transition-transform duration-500 hover:scale-105 hover:shadow-2xl"
+                style={{
+                  backgroundImage: "url(/labuan-bajo.jpg)",
+                }}
+              >
+                <div className="absolute inset-0 bg-black bg-opacity-20 flex items-end p-4">
+                  <p className="text-white font-bold text-lg">Labuan Bajo</p>
+                </div>
+              </div>
+
+              {/* Gambar 5 */}
+              <div
+                className="relative bg-cover bg-center h-80 w-80 rounded-md shadow-lg overflow-hidden transition-transform duration-500 hover:scale-105 hover:shadow-2xl"
+                style={{
+                  backgroundImage: "url(/danau-toba.jpg)",
+                }}
+              >
+                <div className="absolute inset-0 bg-black bg-opacity-20 flex items-end p-4">
+                  <p className="text-white font-bold text-lg">Danau Toba</p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
       {/* Mengenal Kami Lebih Dekat Section */}
-      <section className="py-8 bg-[#4D4DC8] text-white relative">
+      <section className="py-8 bg-gradient-to-tr from-[#FE7123] to-[#F6D45E] text-white relative">
         <div className="absolute inset-0">
           <Image
             src="/herosection-pattern.png"
@@ -107,16 +186,17 @@ export default function Home() {
             MENGENAL KAMI LEBIH DEKAT
           </h2>
           <p className="max-w-2xl mx-auto mb-6 text-justify">
-            Robota telah dipercaya oleh berbagai unit hotel dalam membantu
-            mereka dalam melakukan monitoring, mendapatkan insight terhadap
-            pengalaman pengguna, hingga melakukan perbandingan terhadap
-            kompetitor dengan mudah.
+            Ajhelen adalah aplikasi travel yang memberikan rekomendasi
+            perjalanan terbaik ke destinasi unggulan Indonesia. Temukan
+            pengalaman terbaik di Likupang, Mandalika, Borobudur, Labuan Bajo,
+            dan Danau Toba — lima Destinasi Pariwisata Super Prioritas (DPSP)
+            Indonesia.
           </p>
           <button
-            className="text-[#4D4DC8] justify-center rounded-md text-sm ring-offset-background 
+            className="text-[#FE7123] justify-center rounded-md text-sm ring-offset-background 
           transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring 
           focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-secondary 
-          text-secondary-foreground h-10 px-4 py-2 border-4 border-blue-200 hover:bg-blue-100 
+          text-secondary-foreground h-10 px-4 py-2 border-4 border-orange-200 hover:bg-orange-100 
           sm:h-12 sm:w-36 lg:h-14 lg:w-[11.4rem] lg:text-lg z-10 mx-auto flex items-center gap-1 
           font-bold shadow-md shadow-black-400 hover:text-blue mt-4 mb-4 bg-white"
           >
@@ -130,11 +210,11 @@ export default function Home() {
 
       {/* Keuntungan Menggunakan Robota Section */}
       <section className="bg-white text-center py-16">
-        <h1 className="text-4xl font-bold mb-6 text-[#4D4DC8]">
-          KEUNTUNGAN MENGGUNAKAN ROBOTA
+        <h1 className="text-4xl uppercase font-bold mb-6 bg-gradient-to-r from-[#FE7123] to-[#F6D45E] bg-clip-text text-transparent transition-all duration-300 hover:bg-gradient-to-l hover:from-[#F6D45E] hover:to-[#FE7123]">
+          Fitur Unggulan Ajhelen
         </h1>
         <div className="grid grid-flow-row-dense grid-cols-3 grid-rows-auto sm:grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
-          <div className="bg-white border border-gray-300 shadow-md shadow-[#4D4DC8] h-96 rounded-lg p-4">
+          <div className="bg-white border border-gray-300 shadow-md shadow-[#FE7123] h-96 rounded-lg p-4">
             <img
               src="/keuntungan1.png"
               alt="Keuntungan 1"
@@ -145,7 +225,7 @@ export default function Home() {
               saja
             </p>
           </div>
-          <div className="bg-white border border-gray-300 shadow-md shadow-[#4D4DC8] h-96 rounded-lg p-4">
+          <div className="bg-white border border-gray-300 shadow-md shadow-[#FE7123] h-96 rounded-lg p-4">
             <img
               src="/keuntungan2.png"
               alt="Keuntungan 2"
@@ -156,7 +236,7 @@ export default function Home() {
               berbagai aspek
             </p>
           </div>
-          <div className="bg-white border border-gray-300 shadow-md shadow-[#4D4DC8] h-96 rounded-lg p-4">
+          <div className="bg-white border border-gray-300 shadow-md shadow-[#FE7123] h-96 rounded-lg p-4">
             <img
               src="/keuntungan3.png"
               alt="Keuntungan 3"
@@ -167,7 +247,7 @@ export default function Home() {
             </p>
           </div>
         </div>
-        <h2 className="text-3xl mt-20 font-bold text-[#4D4DC8]">
+        <h2 className="text-3xl mt-20 font-bold bg-gradient-to-r from-[#FE7123] to-[#F6D45E] bg-clip-text text-transparent transition-all duration-300 hover:bg-gradient-to-l hover:from-[#F6D45E] hover:to-[#FE7123]">
           PENGGUNA TERPERCAYA
         </h2>
 
@@ -180,7 +260,7 @@ export default function Home() {
       </section>
 
       {/* Kata - Kata */}
-      <section className="bg-[#4D4DC8] text-white text-center py-16">
+      <section className="bg-gradient-to-tr from-[#FE7123] to-[#F6D45E] text-white text-center py-16">
         <p className="text-2xl font-bold max-w-2xl mx-auto">
           "Kami Berkomitmen Untuk Mendukung Peningkatan Usaha Di Bidang
           Pariwisata Dan Perhotelan Di Indonesia Dengan Cara Membantu Usaha
@@ -192,12 +272,18 @@ export default function Home() {
       {/* Footer */}
       <footer className="bg-white py-8">
         <div className="grid grid-flow-row-dense grid-cols-2">
-          <div className="px-4">
+          <div className="px-4 flex items-start">
             <img
               src="/logo.png"
               alt="Logo Polije"
-              width={250}
-              height={250}
+              width={300}
+              className="items-start"
+            />
+            <img
+              src="/logo-ajhelen.png"
+              alt="Logo Ajhelen"
+              width={80}
+              height={60}
               className="items-start"
             />
           </div>
@@ -211,7 +297,11 @@ export default function Home() {
           </div>
         </div>
       </footer>
-      <div className="bg-[#4D4DC8] text-center py-2 text-white">
+
+      <hr className="w-[]" />
+
+      {/* <div className="bg-gradient-to-tr from-[#FE7123] to-[#F6D45E] text-center py-2 text-white"> */}
+      <div className="text-center py-2 text-black bg-white">
         <p className="">&copy;copyright 2024</p>
       </div>
     </div>
