@@ -14,13 +14,7 @@ const SignInPage: React.FC = ({ searchParams }: any) => {
   const [callbackUrlPath, setCallbackUrlPath] = useState("/");
   const { push } = useRouter();
 
-  const notCallbackUrl = [
-    "/",
-    "/register",
-    "/login",
-    "/forgotpassword",
-    "/seed",
-  ];
+  const notCallbackUrl = ["/", "/login", "/seed"];
 
   useEffect(() => {
     const fullCallbackUrl = searchParams.callbackUrl || "/";
@@ -159,14 +153,6 @@ const SignInPage: React.FC = ({ searchParams }: any) => {
                   Ingat Saya
                 </label>
               </div>
-              <div className="col-span-1 text-end">
-                <Link
-                  href="/forgotpassword"
-                  className="text-blue-700 hover:text-blue-700 text-sm"
-                >
-                  Lupa Password?
-                </Link>
-              </div>
             </div>
 
             <div className="flex flex-col mt-5 mb-2">
@@ -177,19 +163,6 @@ const SignInPage: React.FC = ({ searchParams }: any) => {
               >
                 {isLoading ? "Loading..." : "Masuk"}
               </button>
-              <div className="flex mt-3 items-center flex-row justify-center">
-                <div className="flex mt-2 items-center flex-row justify-center">
-                  <p className="text-xl mr-2 text-black">
-                    Belum memiliki akun?
-                  </p>
-                  <Link
-                    href="/register"
-                    className="text-blue-700 hover:text-blue-700"
-                  >
-                    Daftar
-                  </Link>
-                </div>
-              </div>
             </div>
           </form>
         </div>
