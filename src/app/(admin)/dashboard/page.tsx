@@ -1,17 +1,11 @@
 "use client";
 
 import * as React from "react";
-import { addDays, format, subDays, subMonths } from "date-fns";
-import { Calendar as CalendarIcon } from "lucide-react";
+import { useCallback } from 'react'
+import { addDays, subDays, subMonths } from "date-fns";
 import { DateRange } from "react-day-picker";
 import { ContentLayout } from "@/components/admin-panel/content-layout";
 import { Button } from "@/components/ui/button";
-import { Calendar } from "@/components/ui/calendar";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
 import Link from "next/link";
 import { TbMapSearch } from "react-icons/tb";
 import { FaRegQuestionCircle } from "react-icons/fa";
@@ -26,10 +20,8 @@ import { useState } from "react";
 import {
   Breadcrumb,
   BreadcrumbItem,
-  BreadcrumbLink,
   BreadcrumbList,
   BreadcrumbPage,
-  BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 import {
   HoverCard,
@@ -41,10 +33,10 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-  DropdownMenuLabel,
   DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
 import { Skeleton } from "@/components/ui/skeleton";
+import GISSentimentMap from "@/components/dashboard/gis-sentiment-map";
 
 export default function DashboardPage() {
   const [selectedRange, setSelectedRange] = React.useState<
@@ -60,7 +52,7 @@ export default function DashboardPage() {
     // Simulate a loading delay
     const timeout = setTimeout(() => {
       setLoading(false); // Data is now loaded
-    }, 2000);
+    }, 1000);
 
     return () => clearTimeout(timeout);
   }, []);
@@ -104,15 +96,9 @@ export default function DashboardPage() {
     refreshData(range, dateRange);
   };
 
-  // const handleCustomDateChange = (date: DateRange | undefined) => {
-  //   setSelectedRange("custom");
-  //   setCustomDate(date);
-  //   if (date?.from && date.to) {
-  //     refreshData("custom", date);
-  //   }
-  // };
   const [selectedDestination, setSelectedDestination] =
     useState<string>("Pilih Destinasi");
+
   return (
     <ContentLayout title="Dashboard">
       {/* Breadcrumb */}
@@ -128,41 +114,37 @@ export default function DashboardPage() {
       <div className="flex justify-between items-center my-4 text-black">
         <div className="flex gap-2">
           <Button
-            className={`${
-              selectedRange === "7days"
-                ? "bg-blue-500 text-white"
-                : "bg-white text-black hover:text-white hover:bg-black"
-            }`}
+            className={`${selectedRange === "7days"
+              ? "bg-blue-500 text-white"
+              : "bg-white text-black hover:text-white hover:bg-black"
+              }`}
             onClick={() => handleRangeClick("7days")}
           >
             {loading ? <Skeleton className="w-16 h-4" /> : "7 Hari"}
           </Button>
           <Button
-            className={`${
-              selectedRange === "30days"
-                ? "bg-blue-500 text-white"
-                : "bg-white text-black hover:text-white hover:bg-black"
-            }`}
+            className={`${selectedRange === "30days"
+              ? "bg-blue-500 text-white"
+              : "bg-white text-black hover:text-white hover:bg-black"
+              }`}
             onClick={() => handleRangeClick("30days")}
           >
             {loading ? <Skeleton className="w-16 h-4" /> : "30 Hari"}
           </Button>
           <Button
-            className={`${
-              selectedRange === "6months"
-                ? "bg-blue-500 text-white"
-                : "bg-white text-black hover:text-white hover:bg-black"
-            }`}
+            className={`${selectedRange === "6months"
+              ? "bg-blue-500 text-white"
+              : "bg-white text-black hover:text-white hover:bg-black"
+              }`}
             onClick={() => handleRangeClick("6months")}
           >
             {loading ? <Skeleton className="w-16 h-4" /> : "6 Bulan"}
           </Button>
           <Button
-            className={`${
-              selectedRange === "12months"
-                ? "bg-blue-500 text-white"
-                : "bg-white text-black hover:text-white hover:bg-black"
-            }`}
+            className={`${selectedRange === "12months"
+              ? "bg-blue-500 text-white"
+              : "bg-white text-black hover:text-white hover:bg-black"
+              }`}
             onClick={() => handleRangeClick("12months")}
           >
             {loading ? <Skeleton className="w-16 h-4" /> : "12 Bulan"}
@@ -238,47 +220,10 @@ export default function DashboardPage() {
             </DropdownMenuContent>
           </DropdownMenu>
         </div>
-
-        {/* Custom Date Picker */}
-        {/* <Popover>
-          <PopoverTrigger asChild>
-            <Button
-              id="date"
-              variant={"outline"}
-              className={`w-[300px] justify-start text-left font-normal ${
-                !customDate ? "text-muted-foreground" : ""
-              }`}
-            >
-              <CalendarIcon className="mr-2 h-4 w-4" />
-              {loading ? (
-                <Skeleton className="w-full h-6" />
-              ) : customDate?.from ? (
-                customDate.to ? (
-                  <>
-                    {format(customDate.from, "LLL dd, y")} -{" "}
-                    {format(customDate.to, "LLL dd, y")}
-                  </>
-                ) : (
-                  format(customDate.from, "LLL dd, y")
-                )
-              ) : (
-                <span>Pilih tanggal</span>
-              )}
-            </Button>
-          </PopoverTrigger>
-          <PopoverContent className="w-auto p-0" align="start">
-            <Calendar
-              initialFocus
-              mode="range"
-              defaultMonth={customDate?.from}
-              selected={customDate}
-              onSelect={handleCustomDateChange}
-              numberOfMonths={2}
-            />
-          </PopoverContent>
-        </Popover> */}
       </div>
 
+      {/* Maps / GIS Dashboard */}
+      <GISSentimentMap />
       {/* Card Dashboard */}
       <div className="grid gap-4 lg:grid-cols-5 md:grid-cols-3 sm:grid-cols-1 grid-rows-1 mt-2">
         <Link href="/dashboard/performa">
