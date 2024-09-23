@@ -48,9 +48,9 @@ export function getMenuList(pathname: string): Group[] {
       groupLabel: "",
       menus: [
         {
-          href: "/competitor",
-          label: "Competitor",
-          active: pathname.includes("/competitor"),
+          href: "/similar-destination",
+          label: "Similar Destination",
+          active: pathname.includes("/similar-destination"),
           icon: Building2,
           submenus: [],
         },
