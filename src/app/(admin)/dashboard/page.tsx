@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { useCallback } from 'react'
+import { useCallback } from "react";
 import { addDays, subDays, subMonths } from "date-fns";
 import { DateRange } from "react-day-picker";
 import { ContentLayout } from "@/components/admin-panel/content-layout";
@@ -114,37 +114,41 @@ export default function DashboardPage() {
       <div className="flex justify-between items-center my-4 text-black">
         <div className="flex gap-2">
           <Button
-            className={`${selectedRange === "7days"
-              ? "bg-blue-500 text-white"
-              : "bg-white text-black hover:text-white hover:bg-black"
-              }`}
+            className={`${
+              selectedRange === "7days"
+                ? "bg-blue-500 text-white"
+                : "bg-white text-black hover:text-white hover:bg-black"
+            }`}
             onClick={() => handleRangeClick("7days")}
           >
             {loading ? <Skeleton className="w-16 h-4" /> : "7 Hari"}
           </Button>
           <Button
-            className={`${selectedRange === "30days"
-              ? "bg-blue-500 text-white"
-              : "bg-white text-black hover:text-white hover:bg-black"
-              }`}
+            className={`${
+              selectedRange === "30days"
+                ? "bg-blue-500 text-white"
+                : "bg-white text-black hover:text-white hover:bg-black"
+            }`}
             onClick={() => handleRangeClick("30days")}
           >
             {loading ? <Skeleton className="w-16 h-4" /> : "30 Hari"}
           </Button>
           <Button
-            className={`${selectedRange === "6months"
-              ? "bg-blue-500 text-white"
-              : "bg-white text-black hover:text-white hover:bg-black"
-              }`}
+            className={`${
+              selectedRange === "6months"
+                ? "bg-blue-500 text-white"
+                : "bg-white text-black hover:text-white hover:bg-black"
+            }`}
             onClick={() => handleRangeClick("6months")}
           >
             {loading ? <Skeleton className="w-16 h-4" /> : "6 Bulan"}
           </Button>
           <Button
-            className={`${selectedRange === "12months"
-              ? "bg-blue-500 text-white"
-              : "bg-white text-black hover:text-white hover:bg-black"
-              }`}
+            className={`${
+              selectedRange === "12months"
+                ? "bg-blue-500 text-white"
+                : "bg-white text-black hover:text-white hover:bg-black"
+            }`}
             onClick={() => handleRangeClick("12months")}
           >
             {loading ? <Skeleton className="w-16 h-4" /> : "12 Bulan"}
@@ -420,7 +424,7 @@ export default function DashboardPage() {
       {/* Overview Status, Dampak, Sentimen, & Customer Feedback */}
       <div className="flex w-full">
         <div className="grid gap-4 lg:grid-cols-3 md:grid-cols-1 sm:grid-cols-1">
-          <div className="flex w-full max-w-[355px]">
+          <div className="flex w-full">
             <Card>
               <CardHeader>
                 <CardTitle className="flex flex-auto gap-1">
@@ -499,7 +503,7 @@ export default function DashboardPage() {
             </Card>
           </div>
 
-          <div className="flex w-full min-w-[327px] flex-grow">
+          <div className="flex w-full flex-grow">
             <Card>
               <CardHeader>
                 <CardTitle className="flex flex-auto gap-1">

@@ -55,7 +55,7 @@ export default function CustomerFeedback() {
 
   return (
     <div className="justify-center">
-      <Tabs defaultValue="Praises" className="w-[310px]">
+      <Tabs defaultValue="Praises" className="w-auto">
         <TabsList className="w-full rounded-lg">
           <TabsTrigger value="Praises" className="w-1/2 text-center">
             Praises

@@ -14,7 +14,7 @@ export default function OverviewStatus() {
         {keywords.map((keyword, index) => (
           <div
             key={index}
-            className="flex h-[52px] min-w-[305px] flex-grow items-center justify-between rounded-md bg-muted p-4 md:flex-grow-0"
+            className="flex h-[52px] w-full flex-grow items-center justify-between rounded-md bg-muted p-4 md:flex-grow-0"
           >
             <div className="flex items-center">
               <Image
