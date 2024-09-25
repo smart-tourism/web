@@ -119,7 +119,7 @@ const DestinationDetails = ({
         alt={name}
         className="h-40 w-full object-cover mb-2 rounded"
       />
-      <h3 className="font-bold text-lg mb-2">{name}</h3>
+      <h3 className="font-bold text-lg mb-2 text-black">{name}</h3>
 
       {/* Tombol Show/Hide Details */}
       <button
@@ -131,7 +131,7 @@ const DestinationDetails = ({
 
       {/* Tampilkan Detail jika showDetails true */}
       {showDetails && details && (
-        <div className="text-left text-sm mt-2 text-black">
+        <div className="text-center text-sm mt-2 text-black">
           <p>
             <strong>Rate Price:</strong> {details.ratePrice}
           </p>
