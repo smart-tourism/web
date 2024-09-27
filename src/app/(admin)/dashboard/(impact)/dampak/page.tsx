@@ -38,8 +38,8 @@ export default function DashboardTingkatRespon() {
       <div className="flex h-full flex-col gap-6 mt-8">
         <h2 className="text-2xl font-bold text-black">Dampak</h2>
         <p className="font-base text-muted-foreground">
-          Nilai Dampak didapatkan dari perhitungan sentimen masing-masing review
-          yang dapat bernilai positif dan negatif.
+          Nilai Dampak didapatkan dari perhitungan sentimen masing - masing
+          review yang dapat bernilai positif dan negatif.
         </p>
 
         {/* Tabel dan Chart */}

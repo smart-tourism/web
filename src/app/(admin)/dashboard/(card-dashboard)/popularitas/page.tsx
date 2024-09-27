@@ -42,8 +42,8 @@ export default function Dashboardpopularitas() {
       <div className="flex h-full flex-col gap-6 mt-8">
         <h2 className="text-2xl font-bold text-black">popularitas</h2>
         <p className="font-base text-muted-foreground">
-          Nilai Popularitas menunjukkan popularitas unit hotel yang dihitung
-          berdasarkan banyaknya rating dari masing-masing OTA
+          Nilai Popularitas menunjukkan jumlah user yang memberikan response
+          positif.
         </p>
 
         {/* Button OTA & All */}

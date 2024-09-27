@@ -42,9 +42,8 @@ export default function DashboardPenilaianKeseruluhan() {
       <div className="flex h-full flex-col gap-6 mt-8">
         <h2 className="text-2xl font-bold text-black">Penilaian Keseruluhan</h2>
         <p className="font-base text-muted-foreground">
-          Penilaian Keseluruhan adalah penilaian tingkat reputasi unit hotel
-          dari Robota yang dihitung berdasarkan tingkat popularitas dari waktu
-          ke waktu
+          Penilaian Keseluruhan adalah jumlah keseluruhan penilaian ulasan yang
+          diterima.
         </p>
 
         {/* Button OTA & All */}

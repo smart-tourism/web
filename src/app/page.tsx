@@ -1,11 +1,11 @@
 "use client";
 
-// import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
-// import { Card, CardContent } from "@/components/ui/card"
 import { signIn } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useState, useEffect } from "react";
+import { AiFillWechat } from "react-icons/ai";
+
 // Data gambar destinasi
 const destinations = [
   { name: "Likupang", image: "/likupang.jpg" },
@@ -19,6 +19,8 @@ export default function Home() {
   const [shine, setShine] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [fade, setFade] = useState(false);
+  const [showChatPopup, setShowChatPopup] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
 
   // Mengatur transisi gambar dengan interval waktu
   useEffect(() => {
@@ -29,7 +31,7 @@ export default function Home() {
           prevIndex === destinations.length - 1 ? 0 : prevIndex + 1
         );
         setFade(false);
-      }, 3000); // Durasi fade out
+      }, 500); // Durasi fade out
     }, 3000); // Interval gambar (3 detik)
 
     return () => clearInterval(interval);
@@ -43,32 +45,55 @@ export default function Home() {
 
     return () => clearInterval(interval);
   }, []);
+
+  // Mendeteksi scroll untuk mengecilkan navbar
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 50) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
   return (
-    <div className="font-poppins text-gray-900">
+    <div className="font-poppins text-gray-900 relative">
       {/* Header */}
-      <header className="fixed w-full top-0 left-0 bg-white shadow-md z-10">
-        <div className="flex justify-between items-center p-4 max-w-9xl mx-auto">
-          <div className="flex items-start">
-            <Image src="/logo.png" alt="Logo Polije" width={200} height={200} />
+      <header
+        className={`fixed w-full top-0 left-0 z-10 transition-all duration-300 ease-in-out ${
+          isScrolled ? "bg-white shadow-md p-2" : "bg-white p-4 shadow-md"
+        }`}
+      >
+        <div className="flex justify-between items-center max-w-9xl mx-auto">
+          <div className="flex items-center">
+            <Image src="/logo.png" alt="Logo Polije" width={150} height={50} />
             <Image
               src="/logo-ajhelen.png"
               alt="Logo Ajhelen"
-              width={50}
-              height={50}
+              width={40}
+              height={40}
             />
           </div>
           <div className="flex items-center">
             <nav className="mr-10 space-x-5">
-              <a href="#beranda" className="text-gray-700 hover:text-blue-600">
+              <a
+                href="#beranda"
+                className="text-gray-700 hover:text-orange-600"
+              >
                 Beranda
               </a>
               <a
                 href="#destinasi"
-                className="text-gray-700 hover:text-blue-600"
+                className="text-gray-700 hover:text-orange-600"
               >
                 Destinasi Unggulan
               </a>
-              <a href="#fitur" className="text-gray-700 hover:text-blue-600">
+              <a href="#fitur" className="text-gray-700 hover:text-orange-600">
                 Fitur Unggulan
               </a>
             </nav>
@@ -78,18 +103,48 @@ export default function Home() {
             >
               Masuk
             </button>
-            {/* <Link href="/register">
-              <button
-                className={`bg-[#FE7123] text-white font-bold py-1 px-4 rounded ${
-                  shine ? "shining-animation" : ""
-                }`}
-              >
-                Daftar
-              </button>
-            </Link> */}
           </div>
         </div>
       </header>
+
+      {/* Floating Chat Button */}
+      <div
+        className="fixed bottom-6 right-6 bg-white text-white rounded-full p-3 shadow-lg cursor-pointer z-50"
+        onClick={() => setShowChatPopup(true)}
+      >
+        <AiFillWechat className="fill-[#FE7123] text-4xl" />
+      </div>
+
+      {/* Chat Popup */}
+      {showChatPopup && (
+        <div className="fixed bottom-24 right-6 bg-white rounded-lg shadow-lg p-4 z-50 w-80">
+          <div className="flex justify-between items-center">
+            <h3 className="font-semibold text-lg">Ajhelen Chat</h3>
+            <button
+              className="text-red-500 hover:text-red-600"
+              onClick={() => setShowChatPopup(false)}
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth={2}
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+            </button>
+          </div>
+          <div className="mt-4">
+            <p className="text-gray-600">Halo! Ada yang bisa kami bantu?</p>
+          </div>
+        </div>
+      )}
 
       {/* Hero Section */}
       <section
@@ -257,49 +312,49 @@ export default function Home() {
           Fitur Unggulan Ajhelen
         </h1>
         <div className="grid grid-flow-row-dense grid-cols-3 grid-rows-auto sm:grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
-          <div className="bg-white border border-gray-300 shadow-md shadow-[#FE7123] h-96 rounded-lg p-4">
+          <div className="bg-white border border-gray-300 shadow-md shadow-[#FE7123] h-auto rounded-lg p-4">
+            <h1 className="uppercase text-[#FE7123] font-bold text-2xl">
+              dashboard
+            </h1>
             <img
               src="/keuntungan1.png"
               alt="Keuntungan 1"
               className="w-[12rem] sm:w-[16rem]"
             />
-            <p className="text-lg font-medium">
-              Mudah Memantau informasi dari berbagai OTA dalam SATU PLATFORM
-              saja
+            <p className="text-base font-medium">
+              Dashboard Performa Wisata memudahkan pengguna untuk memantau
+              kinerja destinasi melalui data ulasan dan grafik.
             </p>
           </div>
-          <div className="bg-white border border-gray-300 shadow-md shadow-[#FE7123] h-96 rounded-lg p-4">
+          <div className="bg-white border border-gray-300 shadow-md shadow-[#FE7123] h-auto rounded-lg p-4">
+            <h1 className="uppercase text-[#FE7123] font-bold text-xl">
+              Similar Destination
+            </h1>
             <img
               src="/keuntungan2.png"
               alt="Keuntungan 2"
               className="w-[12rem] sm:w-[16rem]"
             />
-            <p className="text-lg font-medium">
-              Melihat berbagai ulasan dari tamu tentang reputasi hotel anda dari
-              berbagai aspek
+            <p className="text-base font-medium">
+              Fitur Similar Destination memberikan rekomendasi destinasi serupa
+              berdasarkan preferensi pengguna.
             </p>
           </div>
-          <div className="bg-white border border-gray-300 shadow-md shadow-[#FE7123] h-96 rounded-lg p-4">
+          <div className="bg-white border border-gray-300 shadow-md shadow-[#FE7123] h-auto rounded-lg p-4">
+            <h1 className="uppercase text-[#FE7123] font-bold text-xl">
+              rate trend
+            </h1>
             <img
               src="/keuntungan3.png"
               alt="Keuntungan 3"
               className="w-[12rem] sm:w-[16rem]"
             />
-            <p className="text-lg font-medium">
-              Meningkatkan produktivitas dalam mengelola ulasan tamu di OTA
+            <p className="text-base font-medium">
+              Dengan Rate Trend, pengguna dapat melihat tren penilaian destinasi
+              seiring waktu dan sentimen.
             </p>
           </div>
         </div>
-        {/* <h2 className="text-3xl mt-20 font-bold bg-gradient-to-r from-[#FE7123] to-[#F6D45E] bg-clip-text text-transparent transition-all duration-300 hover:bg-gradient-to-l hover:from-[#F6D45E] hover:to-[#FE7123]">
-          PENGGUNA TERPERCAYA
-        </h2>
-
-        <div className="h-40 w-80 mx-auto">
-          <img src="/mgm.png" alt="mgm image" className="" />
-        </div>
-        <p className="font-poppins font-medium">
-          PT Metropolitan Golden Management (MGM)
-        </p> */}
       </section>
 
       {/* Kata - Kata */}
@@ -352,7 +407,6 @@ export default function Home() {
 
       <hr className="w-[]" />
 
-      {/* <div className="bg-gradient-to-tr from-[#FE7123] to-[#F6D45E] text-center py-2 text-white"> */}
       <div className="text-center py-2 text-black bg-white">
         <p className="">&copy;copyright 2024</p>
       </div>

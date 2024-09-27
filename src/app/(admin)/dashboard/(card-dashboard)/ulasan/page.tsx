@@ -226,9 +226,8 @@ export default function ReviewPage() {
       <div className="flex h-full flex-col gap-6 mt-8 text-black">
         <h2 className="text-2xl font-bold text-black">Ulasan</h2>
         <p className="font-base text-muted-foreground">
-          Tingkat Respon merupakan nilai perbandingan antara jumlah review dari
-          tamu dan jumlah response yang diberikan oleh unit hotel di
-          masing-masing OTA.
+          Ulasan merupakan jumlah seluruh response atau komentar pada tiap
+          destinasi.
         </p>
 
         {/* Filters (Dropdowns) */}
