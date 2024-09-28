@@ -50,15 +50,6 @@ export default function Home() {
             >
               Masuk
             </button>
-            <Link href="/register">
-              <button
-                className={`bg-[#FE7123] text-white font-bold py-1 px-4 rounded ${
-                  shine ? "shining-animation" : ""
-                }`}
-              >
-                Daftar
-              </button>
-            </Link>
           </div>
         </div>
       </header>

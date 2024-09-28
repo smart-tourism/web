@@ -24,7 +24,6 @@ const SignInPage: React.FC = ({ searchParams }: any) => {
   }, [searchParams.callbackUrl]);
 
   const handleLogin = async (e: any) => {
-    console.log("callbackUrl", callbackUrlPath);
     e.preventDefault();
     setError("");
     setIsLoading(true);
@@ -36,8 +35,6 @@ const SignInPage: React.FC = ({ searchParams }: any) => {
         callbackUrlPath,
       });
       if (!res?.error) {
-        e.target.reset();
-        setIsLoading(false);
         if (notCallbackUrl.includes(callbackUrlPath)) {
           push("/dashboard");
         } else {
@@ -57,14 +54,14 @@ const SignInPage: React.FC = ({ searchParams }: any) => {
 
   return (
     <div className="bg-[#F5F4F7] min-h-screen flex flex-col items-center justify-center px-6">
-      <div className="text-center mb-2">
+      <div className="text-center mb-8">
         <div className="flex justify-center">
           <img src="/logo-ajhelen.png" alt="logo" width="140px" />
         </div>
 
-        <h3 className="font-semibold text-2xl text-black">
+        <h4 className="font-semibold text-2xl text-black">
           Masuk ke Akun Anda
-        </h3>
+        </h4>
       </div>
 
       {/* Card Putih */}
@@ -143,19 +140,7 @@ const SignInPage: React.FC = ({ searchParams }: any) => {
               />
             </div>
 
-            <div className="grid grid-cols-3 pt-4">
-              <div className="col-span-2 text-black">
-                <Checkbox id="terms" />
-                <label
-                  htmlFor="terms"
-                  className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-center mx-2"
-                >
-                  Ingat Saya
-                </label>
-              </div>
-            </div>
-
-            <div className="flex flex-col mt-5 mb-2">
+            <div className="flex flex-col mt-[40px] mb-2">
               <button
                 disabled={isLoading}
                 type="submit"

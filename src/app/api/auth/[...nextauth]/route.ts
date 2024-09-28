@@ -1,4 +1,4 @@
-import { login } from "@/app/lib/postgres/service";
+import { login } from "@/app/lib/mysql/service";
 import { compare } from "bcrypt";
 import { NextAuthOptions } from "next-auth";
 import { z } from "zod";
@@ -28,7 +28,7 @@ const authOptions: NextAuthOptions = {
           const validatedCredentials = credentialsSchema.parse(credentials);
           const { email, password } = validatedCredentials;
 
-          const user: any = await login({ email });
+          const user: any = await login({ email, password });
           if (user) {
             const passwordConfirm = await compare(password, user.password);
             if (passwordConfirm) {
@@ -46,9 +46,7 @@ const authOptions: NextAuthOptions = {
   callbacks: {
     async jwt({ token, account, profile, user }: any) {
       if (account?.provider === "credentials") {
-        (token.email = user.email),
-          (token.fullname = user.fullname),
-          (token.role = user.role);
+        (token.email = user.email), (token.fullname = user.fullname);
       }
       return token;
     },
@@ -58,9 +56,6 @@ const authOptions: NextAuthOptions = {
       }
       if ("fullname" in token) {
         session.user.fullname = token.fullname;
-      }
-      if ("role" in token) {
-        session.user.role = token.role;
       }
       return session;
     },

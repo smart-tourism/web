@@ -9,6 +9,6 @@ export function mainMiddleware(request: NextRequest) {
 
 export default withAuth(mainMiddleware, [
   "dashboard",
-  "competitor",
+  "similar-destination",
   "rate-trend",
 ]);

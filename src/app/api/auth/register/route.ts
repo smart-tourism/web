@@ -1,4 +1,4 @@
-import { register } from "@/app/lib/postgres/service";
+import { register } from "@/app/lib/mysql/service";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(request: NextRequest) {

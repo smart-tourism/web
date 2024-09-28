@@ -1,0 +1,45 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model faqs {
+  id       Int       @id @default(autoincrement())
+  question String    @db.Text
+  answer   String    @db.Text
+  daerah   String    @db.VarChar(20)
+  date     DateTime? @default(now()) @db.DateTime(0)
+}
+
+model sentiments {
+  id            Int    @id @default(autoincrement())
+  tempat_wisata String @db.VarChar(50)
+  id_review     String @db.VarChar(75)
+  komentar      String @db.Text
+  rating        Int
+  label         String @db.VarChar(10)
+  bahasa        String @db.VarChar(10)
+  tokenized     String @db.Text
+}
+
+model sentiments_ato {
+  id            Int    @id @default(autoincrement())
+  tempat_wisata String @db.VarChar(50)
+  id_review     String @db.VarChar(75)
+  komentar      String @db.Text
+  rating        Int
+  label         String @db.VarChar(10)
+  bahasa        String @db.VarChar(10)
+  tokenized     String @db.Text
+}
+
+model users {
+  id       Int    @id @default(autoincrement())
+  fullname String @db.VarChar(100)
+  email    String @unique(map: "email") @db.VarChar(100)
+  password String @db.VarChar(255)
+}
