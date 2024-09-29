@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { useState, useEffect } from "react";
 import { AiFillWechat } from "react-icons/ai";
+import { FaBars, FaTimes } from "react-icons/fa"; // Import icons for hamburger menu
 
 // Data gambar destinasi
 const destinations = [
@@ -21,6 +22,7 @@ export default function Home() {
   const [fade, setFade] = useState(false);
   const [showChatPopup, setShowChatPopup] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false); // State to control hamburger menu
 
   // Mengatur transisi gambar dengan interval waktu
   useEffect(() => {
@@ -61,6 +63,11 @@ export default function Home() {
     };
   }, []);
 
+  // Toggle hamburger menu
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
   return (
     <div className="font-poppins text-gray-900 relative">
       {/* Header */}
@@ -80,7 +87,23 @@ export default function Home() {
             />
           </div>
           <div className="flex items-center">
-            <nav className="mr-10 space-x-5">
+            {/* Hamburger Menu */}
+            <div className="md:hidden">
+              <button onClick={toggleMenu}>
+                {isMenuOpen ? (
+                  <FaTimes className="text-3xl text-orange-600" />
+                ) : (
+                  <FaBars className="text-3xl text-orange-600" />
+                )}
+              </button>
+            </div>
+
+            {/* Navbar Links */}
+            <nav
+              className={`${
+                isMenuOpen ? "flex" : "hidden"
+              } flex-col md:flex md:flex-row md:items-center mr-10 space-x-5 space-y-4 md:space-y-0 md:space-x-5 transition-all duration-300 ease-in-out`}
+            >
               <a
                 href="#beranda"
                 className="text-gray-700 hover:text-orange-600"
@@ -99,13 +122,15 @@ export default function Home() {
             </nav>
             <button
               onClick={() => signIn()}
-              className="mr-4 border-2 border-orange-200 py-1 px-4 font-bold text-[#f38e58] rounded transition-all duration-100 hover:bg-gradient-to-l hover:from-[#FE7123] hover:to-[#F6D45E] hover:text-white"
+              className="hidden md:inline-block mr-4 border-2 border-orange-200 py-1 px-4 font-bold text-[#f38e58] rounded transition-all duration-100 hover:bg-gradient-to-l hover:from-[#FE7123] hover:to-[#F6D45E] hover:text-white"
             >
               Masuk
             </button>
           </div>
         </div>
       </header>
+
+      {/* Rest of the content (unchanged) */}
 
       {/* Floating Chat Button */}
       <div
@@ -191,7 +216,7 @@ export default function Home() {
         <h2 className="text-4xl uppercase font-bold mb-6 bg-gradient-to-r from-[#FE7123] to-[#F6D45E] bg-clip-text text-transparent transition-all duration-300 hover:bg-gradient-to-l hover:from-[#F6D45E] hover:to-[#FE7123]">
           Destinasi Unggulan
         </h2>
-        <div className="grid lg:grid-cols-3 sm:grid-cols-1 md:grid-cols-2 gap-4 max-w-5xl mx-auto justify-center">
+        <div className="grid lg:grid-cols-3 md:grid-cols-1 sm:grid-cols-1 gap-4 max-w-5xl mx-auto justify-center">
           {/* Gambar 1 */}
           <div
             className="relative bg-cover bg-center h-80 w-80 rounded-md shadow-lg overflow-hidden transition-transform duration-500 hover:scale-105 hover:shadow-2xl"
@@ -226,7 +251,7 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="col-span-3">
+          <div className="lg:col-span-3 md:col-span-1 sm:col-span-1">
             <div className="flex justify-center gap-6">
               {/* Gambar 4 */}
               <div
@@ -291,7 +316,7 @@ export default function Home() {
         </div>
         <div className="mx-auto max-w-2xl bg-white mt-8 shadow-lg rounded-lg">
           <div
-            className={`w-full h-64 shadow-lg rounded-lg overflow-hidden relative transition-opacity duration-500 ease-in-out ${
+            className={`w-full lg:h-72 md:h-64 sm:h-52 shadow-lg rounded-lg overflow-hidden relative transition-opacity duration-500 ease-in-out ${
               fade ? "opacity-0" : "opacity-100"
             }`}
           >
@@ -308,46 +333,46 @@ export default function Home() {
 
       {/* Keuntungan Menggunakan Robota Section */}
       <section className="bg-white text-center py-16" id="fitur">
-        <h1 className="text-4xl uppercase font-bold mb-6 bg-gradient-to-r from-[#FE7123] to-[#F6D45E] bg-clip-text text-transparent transition-all duration-300 hover:bg-gradient-to-l hover:from-[#F6D45E] hover:to-[#FE7123]">
+        <h1 className="lg:text-4xl md:text-4xl sm:text-4xl uppercase font-bold mb-6 bg-gradient-to-r from-[#FE7123] to-[#F6D45E] bg-clip-text text-transparent transition-all duration-300 hover:bg-gradient-to-l hover:from-[#F6D45E] hover:to-[#FE7123]">
           Fitur Unggulan Ajhelen
         </h1>
-        <div className="grid grid-flow-row-dense grid-cols-3 grid-rows-auto sm:grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
-          <div className="bg-white border border-gray-300 shadow-md shadow-[#FE7123] h-auto rounded-lg p-4">
-            <h1 className="uppercase text-[#FE7123] font-bold text-2xl">
+        <div className="grid grid-flow-row-dense grid-cols-3 grid-rows-auto sm:grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto p-4">
+          <div className="flex flex-col justify-center items-center bg-white border border-gray-300 shadow-md shadow-[#FE7123] h-auto rounded-lg p-4">
+            <h1 className="uppercase text-[#FE7123] font-bold lg:text-2xl md:text-2xl sm:text-lg">
               dashboard
             </h1>
             <img
               src="/keuntungan1.png"
               alt="Keuntungan 1"
-              className="w-[12rem] sm:w-[16rem]"
+              className="lg:w-[16rem] md:w-[16rem] sm:w-[12rem]"
             />
             <p className="text-base font-medium">
               Dashboard Performa Wisata memudahkan pengguna untuk memantau
               kinerja destinasi melalui data ulasan dan grafik.
             </p>
           </div>
-          <div className="bg-white border border-gray-300 shadow-md shadow-[#FE7123] h-auto rounded-lg p-4">
-            <h1 className="uppercase text-[#FE7123] font-bold text-xl">
+          <div className="flex flex-col justify-center items-center bg-white border border-gray-300 shadow-md shadow-[#FE7123] h-auto rounded-lg p-4">
+            <h1 className="uppercase text-[#FE7123] font-bold lg:text-xl md:text-2xl sm:text-lg">
               Similar Destination
             </h1>
             <img
               src="/keuntungan2.png"
               alt="Keuntungan 2"
-              className="w-[12rem] sm:w-[16rem]"
+              className="lg:w-[16rem] md:w-[16rem] sm:w-[12rem]"
             />
             <p className="text-base font-medium">
               Fitur Similar Destination memberikan rekomendasi destinasi serupa
               berdasarkan preferensi pengguna.
             </p>
           </div>
-          <div className="bg-white border border-gray-300 shadow-md shadow-[#FE7123] h-auto rounded-lg p-4">
-            <h1 className="uppercase text-[#FE7123] font-bold text-xl">
+          <div className="flex flex-col justify-center items-center bg-white border border-gray-300 shadow-md shadow-[#FE7123] h-auto rounded-lg p-4">
+            <h1 className="uppercase text-[#FE7123] font-bold lg:text-xl md:text-2xl sm:text-lg">
               rate trend
             </h1>
             <img
               src="/keuntungan3.png"
               alt="Keuntungan 3"
-              className="w-[12rem] sm:w-[16rem]"
+              className="lg:w-[16rem] md:w-[16rem] sm:w-[12rem]"
             />
             <p className="text-base font-medium">
               Dengan Rate Trend, pengguna dapat melihat tren penilaian destinasi
@@ -381,7 +406,7 @@ export default function Home() {
               alt="Logo Ajhelen"
               width={80}
               height={60}
-              className="items-start"
+              className="items-start lg:h-20 lg:w-20 md:h-20 md:w-20 sm:h-12 sm:w-12"
             />
           </div>
 
