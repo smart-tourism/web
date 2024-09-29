@@ -42,9 +42,9 @@ export default function DashboardTingkatRespon() {
       <div className="flex h-full flex-col gap-6 mt-8">
         <h2 className="text-2xl font-bold text-black">Tingkat Respon</h2>
         <p className="font-base text-muted-foreground">
-          Tingkat Respon merupakan nilai perbandingan antara jumlah review dari
-          tamu dan jumlah response yang diberikan oleh unit hotel di
-          masing-masing OTA
+          Tingkat Respon merupakan tingkat pencapaian destinasi yang dihitung
+          berdasarkan perbandingan antara pengunjung yang hanya memberikan
+          bintang dengan seluruh jumlah review.
         </p>
 
         {/* Button OTA & All */}

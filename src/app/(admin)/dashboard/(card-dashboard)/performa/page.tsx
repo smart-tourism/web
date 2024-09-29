@@ -42,8 +42,7 @@ export default function DashboardPerforma() {
       <div className="flex h-full flex-col gap-6 mt-8">
         <h2 className="text-2xl font-bold text-black">Performa</h2>
         <p className="font-base text-muted-foreground">
-          Nilai Performa menunjukkan tingkat pencapaian unit hotel yang dihitung
-          berdasarkan rating dan jumlah review tamu dari masing-masing OTA
+          Nilai Performa menunjukkan rata rata jumlah bintang tiap destinasi.
         </p>
 
         {/* Button OTA & All */}

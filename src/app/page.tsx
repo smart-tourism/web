@@ -1,14 +1,43 @@
 "use client";
 
-// import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
-// import { Card, CardContent } from "@/components/ui/card"
 import { signIn } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useState, useEffect } from "react";
+import { AiFillWechat } from "react-icons/ai";
+import { FaBars, FaTimes } from "react-icons/fa"; // Import icons for hamburger menu
+
+// Data gambar destinasi
+const destinations = [
+  { name: "Likupang", image: "/likupang.jpg" },
+  { name: "Mandalika", image: "/mandalika.jpg" },
+  { name: "Borobudur", image: "/borobudur.jpg" },
+  { name: "Labuan Bajo", image: "/labuanbajo.jpg" },
+  { name: "Danau Toba", image: "/danautoba.jpg" },
+];
 
 export default function Home() {
   const [shine, setShine] = useState(false);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [fade, setFade] = useState(false);
+  const [showChatPopup, setShowChatPopup] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false); // State to control hamburger menu
+
+  // Mengatur transisi gambar dengan interval waktu
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setFade(true);
+      setTimeout(() => {
+        setCurrentImageIndex((prevIndex) =>
+          prevIndex === destinations.length - 1 ? 0 : prevIndex + 1
+        );
+        setFade(false);
+      }, 500); // Durasi fade out
+    }, 3000); // Interval gambar (3 detik)
+
+    return () => clearInterval(interval);
+  }, []);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -18,35 +47,82 @@ export default function Home() {
 
     return () => clearInterval(interval);
   }, []);
+
+  // Mendeteksi scroll untuk mengecilkan navbar
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 50) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
+  // Toggle hamburger menu
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
   return (
-    <div className="font-poppins text-gray-900">
+    <div className="font-poppins text-gray-900 relative">
       {/* Header */}
-      <header className="fixed w-full top-0 left-0 bg-white shadow-md z-10">
-        <div className="flex justify-between items-center p-4 max-w-9xl mx-auto">
-          <div className="flex items-start">
-            <Image src="/logo.png" alt="Logo Polije" width={200} height={200} />
+      <header
+        className={`fixed w-full top-0 left-0 z-10 transition-all duration-300 ease-in-out ${
+          isScrolled ? "bg-white shadow-md p-2" : "bg-white p-4 shadow-md"
+        }`}
+      >
+        <div className="flex justify-between items-center max-w-9xl mx-auto">
+          <div className="flex items-center">
+            <Image src="/logo.png" alt="Logo Polije" width={150} height={50} />
             <Image
               src="/logo-ajhelen.png"
               alt="Logo Ajhelen"
-              width={50}
-              height={50}
+              width={40}
+              height={40}
             />
           </div>
           <div className="flex items-center">
-            <nav className="mr-10 space-x-5">
-              <a href="#" className="text-gray-700 hover:text-blue-600">
+            {/* Hamburger Menu */}
+            <div className="md:hidden">
+              <button onClick={toggleMenu}>
+                {isMenuOpen ? (
+                  <FaTimes className="text-3xl text-orange-600" />
+                ) : (
+                  <FaBars className="text-3xl text-orange-600" />
+                )}
+              </button>
+            </div>
+
+            {/* Navbar Links */}
+            <nav
+              className={`${
+                isMenuOpen ? "flex" : "hidden"
+              } flex-col md:flex md:flex-row md:items-center mr-10 space-x-5 space-y-4 md:space-y-0 md:space-x-5 transition-all duration-300 ease-in-out`}
+            >
+              <a
+                href="#beranda"
+                className="text-gray-700 hover:text-orange-600"
+              >
                 Beranda
               </a>
-              <a href="#" className="text-gray-700 hover:text-blue-600">
-                Blog
+              <a
+                href="#destinasi"
+                className="text-gray-700 hover:text-orange-600"
+              >
+                Destinasi Unggulan
               </a>
-              <a href="#" className="text-gray-700 hover:text-blue-600">
-                FAQ
+              <a href="#fitur" className="text-gray-700 hover:text-orange-600">
+                Fitur Unggulan
               </a>
             </nav>
             <button
               onClick={() => signIn()}
-              className="mr-4 border-2 border-orange-200 py-1 px-4 font-bold text-[#f38e58] rounded transition-all duration-100 hover:bg-gradient-to-l hover:from-[#FE7123] hover:to-[#F6D45E] hover:text-white"
+              className="hidden md:inline-block mr-4 border-2 border-orange-200 py-1 px-4 font-bold text-[#f38e58] rounded transition-all duration-100 hover:bg-gradient-to-l hover:from-[#FE7123] hover:to-[#F6D45E] hover:text-white"
             >
               Masuk
             </button>
@@ -54,8 +130,52 @@ export default function Home() {
         </div>
       </header>
 
+      {/* Rest of the content (unchanged) */}
+
+      {/* Floating Chat Button */}
+      <div
+        className="fixed bottom-6 right-6 bg-white text-white rounded-full p-3 shadow-lg cursor-pointer z-50"
+        onClick={() => setShowChatPopup(true)}
+      >
+        <AiFillWechat className="fill-[#FE7123] text-4xl" />
+      </div>
+
+      {/* Chat Popup */}
+      {showChatPopup && (
+        <div className="fixed bottom-24 right-6 bg-white rounded-lg shadow-lg p-4 z-50 w-80">
+          <div className="flex justify-between items-center">
+            <h3 className="font-semibold text-lg">Ajhelen Chat</h3>
+            <button
+              className="text-red-500 hover:text-red-600"
+              onClick={() => setShowChatPopup(false)}
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth={2}
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+            </button>
+          </div>
+          <div className="mt-4">
+            <p className="text-gray-600">Halo! Ada yang bisa kami bantu?</p>
+          </div>
+        </div>
+      )}
+
       {/* Hero Section */}
-      <section className="text-center bg-gradient-to-tr from-[#FE7123] to-[#F6D45E] text-white pt-28 py-28 relative">
+      <section
+        className="text-center bg-gradient-to-tr from-[#FE7123] to-[#F6D45E] text-white pt-28 py-28 relative"
+        id="beranda"
+      >
         <div className="absolute inset-0">
           <Image
             src="/herosection-pattern.png"
@@ -92,11 +212,11 @@ export default function Home() {
       </section>
 
       {/* Destinasi Unggulan Section */}
-      <section className="text-center bg-white py-16">
+      <section className="text-center bg-white py-16" id="destinasi">
         <h2 className="text-4xl uppercase font-bold mb-6 bg-gradient-to-r from-[#FE7123] to-[#F6D45E] bg-clip-text text-transparent transition-all duration-300 hover:bg-gradient-to-l hover:from-[#F6D45E] hover:to-[#FE7123]">
           Destinasi Unggulan
         </h2>
-        <div className="grid lg:grid-cols-3 sm:grid-cols-1 md:grid-cols-2 gap-4 max-w-5xl mx-auto justify-center">
+        <div className="grid lg:grid-cols-3 md:grid-cols-1 sm:grid-cols-1 gap-4 max-w-5xl mx-auto justify-center">
           {/* Gambar 1 */}
           <div
             className="relative bg-cover bg-center h-80 w-80 rounded-md shadow-lg overflow-hidden transition-transform duration-500 hover:scale-105 hover:shadow-2xl"
@@ -131,13 +251,13 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="col-span-3">
+          <div className="lg:col-span-3 md:col-span-1 sm:col-span-1">
             <div className="flex justify-center gap-6">
               {/* Gambar 4 */}
               <div
                 className="relative bg-cover bg-center h-80 w-80 rounded-md shadow-lg overflow-hidden transition-transform duration-500 hover:scale-105 hover:shadow-2xl"
                 style={{
-                  backgroundImage: "url(/labuan-bajo.jpg)",
+                  backgroundImage: "url(/labuanbajo.jpg)",
                 }}
               >
                 <div className="absolute inset-0 bg-black bg-opacity-20 flex items-end p-4">
@@ -149,7 +269,7 @@ export default function Home() {
               <div
                 className="relative bg-cover bg-center h-80 w-80 rounded-md shadow-lg overflow-hidden transition-transform duration-500 hover:scale-105 hover:shadow-2xl"
                 style={{
-                  backgroundImage: "url(/danau-toba.jpg)",
+                  backgroundImage: "url(/danautoba.jpg)",
                 }}
               >
                 <div className="absolute inset-0 bg-black bg-opacity-20 flex items-end p-4">
@@ -194,75 +314,86 @@ export default function Home() {
             Hubungi Kami
           </button>
         </div>
-        <div className="mx-auto max-w-2xl bg-white">
-          <video src="" className="mx-auto"></video>
+        <div className="mx-auto max-w-2xl bg-white mt-8 shadow-lg rounded-lg">
+          <div
+            className={`w-full lg:h-72 md:h-64 sm:h-52 shadow-lg rounded-lg overflow-hidden relative transition-opacity duration-500 ease-in-out ${
+              fade ? "opacity-0" : "opacity-100"
+            }`}
+          >
+            <Image
+              src={destinations[currentImageIndex].image}
+              alt={destinations[currentImageIndex].name}
+              layout="fill"
+              objectFit="cover"
+              className="rounded-lg"
+            />
+          </div>
         </div>
       </section>
 
       {/* Keuntungan Menggunakan Robota Section */}
-      <section className="bg-white text-center py-16">
-        <h1 className="text-4xl uppercase font-bold mb-6 bg-gradient-to-r from-[#FE7123] to-[#F6D45E] bg-clip-text text-transparent transition-all duration-300 hover:bg-gradient-to-l hover:from-[#F6D45E] hover:to-[#FE7123]">
+      <section className="bg-white text-center py-16" id="fitur">
+        <h1 className="lg:text-4xl md:text-4xl sm:text-4xl uppercase font-bold mb-6 bg-gradient-to-r from-[#FE7123] to-[#F6D45E] bg-clip-text text-transparent transition-all duration-300 hover:bg-gradient-to-l hover:from-[#F6D45E] hover:to-[#FE7123]">
           Fitur Unggulan Ajhelen
         </h1>
-        <div className="grid grid-flow-row-dense grid-cols-3 grid-rows-auto sm:grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
-          <div className="bg-white border border-gray-300 shadow-md shadow-[#FE7123] h-96 rounded-lg p-4">
+        <div className="grid grid-flow-row-dense grid-cols-3 grid-rows-auto sm:grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto p-4">
+          <div className="flex flex-col justify-center items-center bg-white border border-gray-300 shadow-md shadow-[#FE7123] h-auto rounded-lg p-4">
+            <h1 className="uppercase text-[#FE7123] font-bold lg:text-2xl md:text-2xl sm:text-lg">
+              dashboard
+            </h1>
             <img
               src="/keuntungan1.png"
               alt="Keuntungan 1"
-              className="w-[12rem] sm:w-[16rem]"
+              className="lg:w-[16rem] md:w-[16rem] sm:w-[12rem]"
             />
-            <p className="text-lg font-medium">
-              Mudah Memantau informasi dari berbagai OTA dalam SATU PLATFORM
-              saja
+            <p className="text-base font-medium">
+              Dashboard Performa Wisata memudahkan pengguna untuk memantau
+              kinerja destinasi melalui data ulasan dan grafik.
             </p>
           </div>
-          <div className="bg-white border border-gray-300 shadow-md shadow-[#FE7123] h-96 rounded-lg p-4">
+          <div className="flex flex-col justify-center items-center bg-white border border-gray-300 shadow-md shadow-[#FE7123] h-auto rounded-lg p-4">
+            <h1 className="uppercase text-[#FE7123] font-bold lg:text-xl md:text-2xl sm:text-lg">
+              Similar Destination
+            </h1>
             <img
               src="/keuntungan2.png"
               alt="Keuntungan 2"
-              className="w-[12rem] sm:w-[16rem]"
+              className="lg:w-[16rem] md:w-[16rem] sm:w-[12rem]"
             />
-            <p className="text-lg font-medium">
-              Melihat berbagai ulasan dari tamu tentang reputasi hotel anda dari
-              berbagai aspek
+            <p className="text-base font-medium">
+              Fitur Similar Destination memberikan rekomendasi destinasi serupa
+              berdasarkan preferensi pengguna.
             </p>
           </div>
-          <div className="bg-white border border-gray-300 shadow-md shadow-[#FE7123] h-96 rounded-lg p-4">
+          <div className="flex flex-col justify-center items-center bg-white border border-gray-300 shadow-md shadow-[#FE7123] h-auto rounded-lg p-4">
+            <h1 className="uppercase text-[#FE7123] font-bold lg:text-xl md:text-2xl sm:text-lg">
+              rate trend
+            </h1>
             <img
               src="/keuntungan3.png"
               alt="Keuntungan 3"
-              className="w-[12rem] sm:w-[16rem]"
+              className="lg:w-[16rem] md:w-[16rem] sm:w-[12rem]"
             />
-            <p className="text-lg font-medium">
-              Meningkatkan produktivitas dalam mengelola ulasan tamu di OTA
+            <p className="text-base font-medium">
+              Dengan Rate Trend, pengguna dapat melihat tren penilaian destinasi
+              seiring waktu dan sentimen.
             </p>
           </div>
         </div>
-        <h2 className="text-3xl mt-20 font-bold bg-gradient-to-r from-[#FE7123] to-[#F6D45E] bg-clip-text text-transparent transition-all duration-300 hover:bg-gradient-to-l hover:from-[#F6D45E] hover:to-[#FE7123]">
-          PENGGUNA TERPERCAYA
-        </h2>
-
-        <div className="h-40 w-80 mx-auto">
-          <img src="/mgm.png" alt="mgm image" className="" />
-        </div>
-        <p className="font-poppins font-medium">
-          PT Metropolitan Golden Management (MGM)
-        </p>
       </section>
 
       {/* Kata - Kata */}
-      <section className="bg-gradient-to-tr from-[#FE7123] to-[#F6D45E] text-white text-center py-16">
+      <section className="bg-gradient-to-tr from-[#FE7123] to-[#F6D45E] text-white text-center py-32">
         <p className="text-2xl font-bold max-w-2xl mx-auto">
-          "Kami Berkomitmen Untuk Mendukung Peningkatan Usaha Di Bidang
-          Pariwisata Dan Perhotelan Di Indonesia Dengan Cara Membantu Usaha
-          Hotel Skala Kecil Dan Menengah Untuk Tetap Bisa Bersaing Di Dunia
-          Digital"
+          "Visi kami adalah menjadikan Ajhelen sebagai platform terdepan dalam
+          memberdayakan industri pariwisata Indonesia. Kami berkomitmen untuk
+          membantu wisatawan melalui pemanfaatan teknologi yang inovatif"
         </p>
       </section>
 
       {/* Footer */}
       <footer className="bg-white py-8">
-        <div className="grid grid-flow-row-dense grid-cols-2">
+        <div className="grid grid-flow-row-dense grid-cols-3">
           <div className="px-4 flex items-start">
             <img
               src="/logo.png"
@@ -275,8 +406,18 @@ export default function Home() {
               alt="Logo Ajhelen"
               width={80}
               height={60}
-              className="items-start"
+              className="items-start lg:h-20 lg:w-20 md:h-20 md:w-20 sm:h-12 sm:w-12"
             />
+          </div>
+
+          <div className="text-center px-4">
+            <p className="text-xl font-bold">
+              Badan Riset dan Inovasi Nasional (BRIN)
+            </p>
+            <p className="text-justify">
+              Jl. Babarsari, Tambak Bayan, Caturtunggal, Kec. Depok, Kabupaten
+              Sleman, Daerah Istimewa Yogyakarta 55281
+            </p>
           </div>
 
           <div className="text-end px-4">
@@ -291,7 +432,6 @@ export default function Home() {
 
       <hr className="w-[]" />
 
-      {/* <div className="bg-gradient-to-tr from-[#FE7123] to-[#F6D45E] text-center py-2 text-white"> */}
       <div className="text-center py-2 text-black bg-white">
         <p className="">&copy;copyright 2024</p>
       </div>
