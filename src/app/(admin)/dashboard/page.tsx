@@ -37,6 +37,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Skeleton } from "@/components/ui/skeleton";
 import GISSentimentMap from "@/components/dashboard/gis-sentiment-map";
+import DialogFlowChat from "@/components/dashboard/dialogflow-chat";
 
 export default function DashboardPage() {
   const [selectedRange, setSelectedRange] = React.useState<
@@ -132,378 +133,345 @@ export default function DashboardPage() {
   console.log(datas);
 
   return (
-    <ContentLayout title="Dashboard">
-      {/* Breadcrumb */}
-      <Breadcrumb>
-        <BreadcrumbList>
-          <BreadcrumbItem>
-            <BreadcrumbPage>Dashboard</BreadcrumbPage>
-          </BreadcrumbItem>
-        </BreadcrumbList>
-      </Breadcrumb>
+    <>
+      <ContentLayout title="Dashboard">
+        {/* Breadcrumb */}
+        <Breadcrumb>
+          <BreadcrumbList>
+            <BreadcrumbItem>
+              <BreadcrumbPage>Dashboard</BreadcrumbPage>
+            </BreadcrumbItem>
+          </BreadcrumbList>
+        </Breadcrumb>
 
-      {/* Date Range Selector */}
-      <div className="flex justify-between items-center my-4 text-black">
-        <div className="flex gap-2">
-          <Button
-            className={`${
-              selectedRange === "7days"
-                ? "bg-blue-500 text-white"
-                : "bg-white text-black hover:text-white hover:bg-black"
-            }`}
-            onClick={() => handleRangeClick("7days")}
-          >
-            {loading ? <Skeleton className="w-16 h-4" /> : "7 Hari"}
-          </Button>
-          <Button
-            className={`${
-              selectedRange === "30days"
-                ? "bg-blue-500 text-white"
-                : "bg-white text-black hover:text-white hover:bg-black"
-            }`}
-            onClick={() => handleRangeClick("30days")}
-          >
-            {loading ? <Skeleton className="w-16 h-4" /> : "30 Hari"}
-          </Button>
-          <Button
-            className={`${
-              selectedRange === "6months"
-                ? "bg-blue-500 text-white"
-                : "bg-white text-black hover:text-white hover:bg-black"
-            }`}
-            onClick={() => handleRangeClick("6months")}
-          >
-            {loading ? <Skeleton className="w-16 h-4" /> : "6 Bulan"}
-          </Button>
-          <Button
-            className={`${
-              selectedRange === "12months"
-                ? "bg-blue-500 text-white"
-                : "bg-white text-black hover:text-white hover:bg-black"
-            }`}
-            onClick={() => handleRangeClick("12months")}
-          >
-            {loading ? <Skeleton className="w-16 h-4" /> : "12 Bulan"}
-          </Button>
-        </div>
+        {/* Date Range Selector */}
+        <div className="flex justify-between items-center my-4 text-black">
+          <div className="flex gap-2">
+            <Button
+              className={`${selectedRange === "7days"
+                  ? "bg-blue-500 text-white"
+                  : "bg-white text-black hover:text-white hover:bg-black"
+                }`}
+              onClick={() => handleRangeClick("7days")}
+            >
+              {loading ? <Skeleton className="w-16 h-4" /> : "7 Hari"}
+            </Button>
+            <Button
+              className={`${selectedRange === "30days"
+                  ? "bg-blue-500 text-white"
+                  : "bg-white text-black hover:text-white hover:bg-black"
+                }`}
+              onClick={() => handleRangeClick("30days")}
+            >
+              {loading ? <Skeleton className="w-16 h-4" /> : "30 Hari"}
+            </Button>
+            <Button
+              className={`${selectedRange === "6months"
+                  ? "bg-blue-500 text-white"
+                  : "bg-white text-black hover:text-white hover:bg-black"
+                }`}
+              onClick={() => handleRangeClick("6months")}
+            >
+              {loading ? <Skeleton className="w-16 h-4" /> : "6 Bulan"}
+            </Button>
+            <Button
+              className={`${selectedRange === "12months"
+                  ? "bg-blue-500 text-white"
+                  : "bg-white text-black hover:text-white hover:bg-black"
+                }`}
+              onClick={() => handleRangeClick("12months")}
+            >
+              {loading ? <Skeleton className="w-16 h-4" /> : "12 Bulan"}
+            </Button>
+          </div>
 
-        {/* Pilih Destinasi Dropdown */}
-        <div>
-          <DropdownMenu onOpenChange={(open) => setIsDropdownOpen(open)}>
-            <DropdownMenuTrigger asChild>
-              <Button
-                variant="outline"
-                className="flex h-10 items-center justify-between rounded-md border 
+          {/* Pilih Destinasi Dropdown */}
+          <div>
+            <DropdownMenu onOpenChange={(open) => setIsDropdownOpen(open)}>
+              <DropdownMenuTrigger asChild>
+                <Button
+                  variant="outline"
+                  className="flex h-10 items-center justify-between rounded-md border 
                   border-input bg-transparent px-3 py-2 text-sm ring-offset-background 
                   placeholder:text-muted-foreground focus:outline-none focus:ring-2 
                   focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed 
                   disabled:opacity-50 lg:w-[100%] md:w-full sm:w-full"
-              >
-                {loading ? (
-                  <Skeleton className="mr-2 h-4 w-4" />
-                ) : (
-                  <TbMapSearch className="mr-2 h-4 w-4" />
-                )}
-                {loading ? (
-                  <Skeleton className="w-24 h-4" />
-                ) : (
-                  selectedDestination
-                )}
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent className="w-[100%] flex flex-col items-center text-center">
-              <DropdownMenuItem
-                onClick={() => setSelectedDestination("Pilih Destinasi")}
-                className="cursor-pointer"
-              >
-                Semua Destinasi
-              </DropdownMenuItem>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem
-                onClick={() => setSelectedDestination("Likupang")}
-                className="cursor-pointer"
-              >
-                Likupang
-              </DropdownMenuItem>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem
-                onClick={() => setSelectedDestination("Borobudur")}
-                className="cursor-pointer"
-              >
-                Borobudur
-              </DropdownMenuItem>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem
-                onClick={() => setSelectedDestination("Mandalika")}
-                className="cursor-pointer"
-              >
-                Mandalika
-              </DropdownMenuItem>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem
-                onClick={() => setSelectedDestination("Labuan Bajo")}
-                className="cursor-pointer"
-              >
-                Labuan Bajo
-              </DropdownMenuItem>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem
-                onClick={() => setSelectedDestination("Danau Toba")}
-                className="cursor-pointer"
-              >
-                Danau Toba
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
-        </div>
-      </div>
-
-      {/* Maps / GIS Dashboard */}
-      {/* <GISSentimentMap /> */}
-      {/* Card Dashboard */}
-      <div className="grid gap-4 lg:grid-cols-5 md:grid-cols-3 sm:grid-cols-1 grid-rows-1 mt-2">
-        <Link href="/dashboard/performa">
-          <Card className="rounded-lg border-none mt-6 hover:bg-gray-100">
-            <CardHeader>
-              <CardTitle className="flex flex-auto gap-1">
-                Performa
-                <HoverCard>
-                  <HoverCardTrigger className="cursor-pointer">
-                    <FaRegQuestionCircle />
-                  </HoverCardTrigger>
-                  <HoverCardContent className="z-50 bg-white shadow-md rounded-md">
-                    <p className="text-justify font-normal text-sm">
-                      Nilai Performa menunjukkan rata rata jumlah bintang tiap
-                      destinasi.
-                    </p>
-                  </HoverCardContent>
-                </HoverCard>
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="p-6">
-              {loading ? (
-                <Skeleton className="w-16 h-6" />
-              ) : (
-                <h1 className="font-bold text-2xl">
-                  {Math.round(datas.averageRating * 10) / 10} ⭐
-                </h1>
-              )}
-            </CardContent>
-          </Card>
-        </Link>
-
-        <Link href="/dashboard/tingkat-respon">
-          <Card className="rounded-lg border-none mt-6 hover:bg-gray-100">
-            <CardHeader>
-              <CardTitle className="flex flex-auto gap-1">
-                Tingkat Respon
-                <HoverCard>
-                  <HoverCardTrigger className="cursor-pointer">
-                    <FaRegQuestionCircle />
-                  </HoverCardTrigger>
-                  <HoverCardContent className="z-50 bg-white shadow-md rounded-md">
-                    <p className="text-justify font-normal text-sm">
-                      Tingkat Respon merupakan tingkat pencapaian destinasi yang
-                      dihitung berdasarkan perbandingan antara pengunjung yang
-                      hanya memberikan bintang dengan seluruh jumlah review.
-                    </p>
-                  </HoverCardContent>
-                </HoverCard>
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="p-6">
-              {loading ? (
-                <Skeleton className="w-16 h-6" />
-              ) : (
-                <h1 className="font-bold text-2xl">0.0</h1>
-              )}
-            </CardContent>
-          </Card>
-        </Link>
-
-        <Link href="/dashboard/ulasan">
-          <Card className="rounded-lg border-none mt-6 hover:bg-gray-100">
-            <CardHeader>
-              <CardTitle className="flex flex-auto gap-1">
-                Ulasan
-                <HoverCard>
-                  <HoverCardTrigger className="cursor-pointer">
-                    <FaRegQuestionCircle />
-                  </HoverCardTrigger>
-                  <HoverCardContent className="z-50 bg-white shadow-md rounded-md">
-                    <p className="text-justify font-normal text-sm">
-                      Ulasan merupakan jumlah seluruh response atau komentar
-                      pada tiap destinasi.
-                    </p>
-                  </HoverCardContent>
-                </HoverCard>
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="p-6">
-              {loading ? (
-                <Skeleton className="w-16 h-6" />
-              ) : (
-                <h1 className="font-bold text-2xl">{datas.totalReviews}</h1>
-              )}
-            </CardContent>
-          </Card>
-        </Link>
-
-        <Link href="/dashboard/popularitas">
-          <Card className="rounded-lg border-none mt-6 hover:bg-gray-100">
-            <CardHeader>
-              <CardTitle className="flex flex-auto gap-1">
-                Popularitas
-                <HoverCard>
-                  <HoverCardTrigger className="cursor-pointer">
-                    <FaRegQuestionCircle />
-                  </HoverCardTrigger>
-                  <HoverCardContent className="z-50 bg-white shadow-md rounded-md">
-                    <p className="text-justify font-normal text-sm">
-                      Nilai Popularitas menunjukkan jumlah user yang memberikan
-                      response positif.
-                    </p>
-                  </HoverCardContent>
-                </HoverCard>
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="p-6">
-              {loading ? (
-                <Skeleton className="w-16 h-6" />
-              ) : (
-                <h1 className="font-bold text-2xl">{datas.positive}</h1>
-              )}
-            </CardContent>
-          </Card>
-        </Link>
-
-        <Link href="/dashboard/penilaian-keseluruhan">
-          <Card className="rounded-lg border-none mt-6 hover:bg-gray-100">
-            <CardHeader>
-              <CardTitle className="flex flex-auto text-sm gap-1">
-                <h1 className="mt-[-2px]">Penilaian Keseluruhan</h1>
-                <HoverCard>
-                  <HoverCardTrigger className="cursor-pointer">
-                    <FaRegQuestionCircle />
-                  </HoverCardTrigger>
-                  <HoverCardContent className="z-50 bg-white shadow-md rounded-md">
-                    <p className="text-justify font-normal text-sm">
-                      Penilaian Keseluruhan adalah jumlah keseluruhan penilaian
-                      ulasan yang diterima.
-                    </p>
-                  </HoverCardContent>
-                </HoverCard>
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="p-6">
-              {loading ? (
-                <Skeleton className="w-16 h-6" />
-              ) : (
-                <h1 className="font-bold text-2xl">0</h1>
-              )}
-            </CardContent>
-          </Card>
-        </Link>
-      </div>
-
-      {/* Chart & Top Keyword */}
-      <div className="grid gap-4 lg:grid-cols-6 md:grid-cols-1 sm:grid-cols-1 grid-rows-1 text-black py-4">
-        <div className="col-span-4">
-          <Card className="lg:h-[29rem]">
-            <CardHeader>
-              <CardTitle className="flex flex-auto gap-1">
-                Jumlah Ulasan
-                <HoverCard>
-                  <HoverCardTrigger className="cursor-pointer">
-                    <FaRegQuestionCircle />
-                  </HoverCardTrigger>
-                  <HoverCardContent className="z-50 bg-white shadow-md rounded-md">
-                    <p className="text-justify font-normal text-sm">
-                      Trend rating unit dari waktu ke waktu.
-                    </p>
-                  </HoverCardContent>
-                </HoverCard>
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="flex justify-center">
-                <div className="lg:w-[100%] md:w-[70%] sm:w-[40%]">
+                >
                   {loading ? (
-                    <Skeleton className="w-full h-48" />
+                    <Skeleton className="mr-2 h-4 w-4" />
                   ) : (
-                    <ChartDashboard data={datas.reviewsByDate} />
+                    <TbMapSearch className="mr-2 h-4 w-4" />
                   )}
-                </div>
-              </div>
-            </CardContent>
-          </Card>
+                  {loading ? (
+                    <Skeleton className="w-24 h-4" />
+                  ) : (
+                    selectedDestination
+                  )}
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="w-[100%] flex flex-col items-center text-center">
+                <DropdownMenuItem
+                  onClick={() => setSelectedDestination("Pilih Destinasi")}
+                  className="cursor-pointer"
+                >
+                  Semua Destinasi
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem
+                  onClick={() => setSelectedDestination("Likupang")}
+                  className="cursor-pointer"
+                >
+                  Likupang
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem
+                  onClick={() => setSelectedDestination("Borobudur")}
+                  className="cursor-pointer"
+                >
+                  Borobudur
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem
+                  onClick={() => setSelectedDestination("Mandalika")}
+                  className="cursor-pointer"
+                >
+                  Mandalika
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem
+                  onClick={() => setSelectedDestination("Labuan Bajo")}
+                  className="cursor-pointer"
+                >
+                  Labuan Bajo
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem
+                  onClick={() => setSelectedDestination("Danau Toba")}
+                  className="cursor-pointer"
+                >
+                  Danau Toba
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
         </div>
-        <div className="col-span-2">
-          <Card className="h-[29rem]">
-            <CardHeader>
-              <CardTitle className="flex flex-auto gap-1">
-                Top Keyword
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-start text-base text-[#B0B2B2]">
-                10 kata yang sering muncul pada review
-              </p>
-              {loading ? (
-                <Skeleton className="w-full h-6" />
-              ) : (
-                <TopKeywords data={datas.topKeywords} />
-              )}
-            </CardContent>
-          </Card>
-        </div>
-      </div>
 
-      {/* Overview Status, Dampak, Sentimen, & Customer Feedback */}
-      <div className="flex w-full">
-        <div className="grid gap-4 lg:grid-cols-3 md:grid-cols-1 sm:grid-cols-1">
-          <div className="flex w-full">
-            <Card>
+        {/* Maps / GIS Dashboard */}
+        {/* <GISSentimentMap /> */}
+        {/* Card Dashboard */}
+        <div className="grid gap-4 lg:grid-cols-5 md:grid-cols-3 sm:grid-cols-1 grid-rows-1 mt-2">
+          <Link href="/dashboard/performa">
+            <Card className="rounded-lg border-none mt-6 hover:bg-gray-100">
               <CardHeader>
                 <CardTitle className="flex flex-auto gap-1">
-                  Overview Status
+                  Performa
                   <HoverCard>
                     <HoverCardTrigger className="cursor-pointer">
                       <FaRegQuestionCircle />
                     </HoverCardTrigger>
                     <HoverCardContent className="z-50 bg-white shadow-md rounded-md">
                       <p className="text-justify font-normal text-sm">
-                        Distribusi review dari masing - masing OTA.
+                        Nilai Performa menunjukkan rata rata jumlah bintang tiap
+                        destinasi.
+                      </p>
+                    </HoverCardContent>
+                  </HoverCard>
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="p-6">
+                {loading ? (
+                  <Skeleton className="w-16 h-6" />
+                ) : (
+                  <h1 className="font-bold text-2xl">
+                    {Math.round(datas.averageRating * 10) / 10} ⭐
+                  </h1>
+                )}
+              </CardContent>
+            </Card>
+          </Link>
+
+          <Link href="/dashboard/tingkat-respon">
+            <Card className="rounded-lg border-none mt-6 hover:bg-gray-100">
+              <CardHeader>
+                <CardTitle className="flex flex-auto gap-1">
+                  Tingkat Respon
+                  <HoverCard>
+                    <HoverCardTrigger className="cursor-pointer">
+                      <FaRegQuestionCircle />
+                    </HoverCardTrigger>
+                    <HoverCardContent className="z-50 bg-white shadow-md rounded-md">
+                      <p className="text-justify font-normal text-sm">
+                        Tingkat Respon merupakan tingkat pencapaian destinasi yang
+                        dihitung berdasarkan perbandingan antara pengunjung yang
+                        hanya memberikan bintang dengan seluruh jumlah review.
+                      </p>
+                    </HoverCardContent>
+                  </HoverCard>
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="p-6">
+                {loading ? (
+                  <Skeleton className="w-16 h-6" />
+                ) : (
+                  <h1 className="font-bold text-2xl">0.0</h1>
+                )}
+              </CardContent>
+            </Card>
+          </Link>
+
+          <Link href="/dashboard/ulasan">
+            <Card className="rounded-lg border-none mt-6 hover:bg-gray-100">
+              <CardHeader>
+                <CardTitle className="flex flex-auto gap-1">
+                  Ulasan
+                  <HoverCard>
+                    <HoverCardTrigger className="cursor-pointer">
+                      <FaRegQuestionCircle />
+                    </HoverCardTrigger>
+                    <HoverCardContent className="z-50 bg-white shadow-md rounded-md">
+                      <p className="text-justify font-normal text-sm">
+                        Ulasan merupakan jumlah seluruh response atau komentar
+                        pada tiap destinasi.
+                      </p>
+                    </HoverCardContent>
+                  </HoverCard>
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="p-6">
+                {loading ? (
+                  <Skeleton className="w-16 h-6" />
+                ) : (
+                  <h1 className="font-bold text-2xl">{datas.totalReviews}</h1>
+                )}
+              </CardContent>
+            </Card>
+          </Link>
+
+          <Link href="/dashboard/popularitas">
+            <Card className="rounded-lg border-none mt-6 hover:bg-gray-100">
+              <CardHeader>
+                <CardTitle className="flex flex-auto gap-1">
+                  Popularitas
+                  <HoverCard>
+                    <HoverCardTrigger className="cursor-pointer">
+                      <FaRegQuestionCircle />
+                    </HoverCardTrigger>
+                    <HoverCardContent className="z-50 bg-white shadow-md rounded-md">
+                      <p className="text-justify font-normal text-sm">
+                        Nilai Popularitas menunjukkan jumlah user yang memberikan
+                        response positif.
+                      </p>
+                    </HoverCardContent>
+                  </HoverCard>
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="p-6">
+                {loading ? (
+                  <Skeleton className="w-16 h-6" />
+                ) : (
+                  <h1 className="font-bold text-2xl">{datas.positive}</h1>
+                )}
+              </CardContent>
+            </Card>
+          </Link>
+
+          <Link href="/dashboard/penilaian-keseluruhan">
+            <Card className="rounded-lg border-none mt-6 hover:bg-gray-100">
+              <CardHeader>
+                <CardTitle className="flex flex-auto text-sm gap-1">
+                  <h1 className="mt-[-2px]">Penilaian Keseluruhan</h1>
+                  <HoverCard>
+                    <HoverCardTrigger className="cursor-pointer">
+                      <FaRegQuestionCircle />
+                    </HoverCardTrigger>
+                    <HoverCardContent className="z-50 bg-white shadow-md rounded-md">
+                      <p className="text-justify font-normal text-sm">
+                        Penilaian Keseluruhan adalah jumlah keseluruhan penilaian
+                        ulasan yang diterima.
+                      </p>
+                    </HoverCardContent>
+                  </HoverCard>
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="p-6">
+                {loading ? (
+                  <Skeleton className="w-16 h-6" />
+                ) : (
+                  <h1 className="font-bold text-2xl">0</h1>
+                )}
+              </CardContent>
+            </Card>
+          </Link>
+        </div>
+
+        {/* Chart & Top Keyword */}
+        <div className="grid gap-4 lg:grid-cols-6 md:grid-cols-1 sm:grid-cols-1 grid-rows-1 text-black py-4">
+          <div className="col-span-4">
+            <Card className="lg:h-[29rem]">
+              <CardHeader>
+                <CardTitle className="flex flex-auto gap-1">
+                  Jumlah Ulasan
+                  <HoverCard>
+                    <HoverCardTrigger className="cursor-pointer">
+                      <FaRegQuestionCircle />
+                    </HoverCardTrigger>
+                    <HoverCardContent className="z-50 bg-white shadow-md rounded-md">
+                      <p className="text-justify font-normal text-sm">
+                        Trend rating unit dari waktu ke waktu.
                       </p>
                     </HoverCardContent>
                   </HoverCard>
                 </CardTitle>
               </CardHeader>
               <CardContent>
+                <div className="flex justify-center">
+                  <div className="lg:w-[100%] md:w-[70%] sm:w-[40%]">
+                    {loading ? (
+                      <Skeleton className="w-full h-48" />
+                    ) : (
+                      <ChartDashboard data={datas.reviewsByDate} />
+                    )}
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+          <div className="col-span-2">
+            <Card className="h-[29rem]">
+              <CardHeader>
+                <CardTitle className="flex flex-auto gap-1">
+                  Top Keyword
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-start text-base text-[#B0B2B2]">
+                  10 kata yang sering muncul pada review
+                </p>
                 {loading ? (
                   <Skeleton className="w-full h-6" />
                 ) : (
-                  <OverviewStatus />
+                  <TopKeywords data={datas.topKeywords} />
                 )}
               </CardContent>
             </Card>
           </div>
+        </div>
 
-          <div className="flex w-full flex-grow flex-col gap-2">
-            <Link href="/dashboard/dampak">
-              <Card className="hover:border-neutral-600">
+        {/* Overview Status, Dampak, Sentimen, & Customer Feedback */}
+        <div className="flex w-full">
+          <div className="grid gap-4 lg:grid-cols-3 md:grid-cols-1 sm:grid-cols-1">
+            <div className="flex w-full">
+              <Card>
                 <CardHeader>
                   <CardTitle className="flex flex-auto gap-1">
-                    Impact
+                    Overview Status
                     <HoverCard>
                       <HoverCardTrigger className="cursor-pointer">
                         <FaRegQuestionCircle />
                       </HoverCardTrigger>
                       <HoverCardContent className="z-50 bg-white shadow-md rounded-md">
                         <p className="text-justify font-normal text-sm">
-                          Nilai Dampak didapatkan dari perhitungan sentimen
-                          masing - masing review yang dapat bernilai positif dan
-                          negatif.
+                          Distribusi review dari masing - masing OTA.
                         </p>
                       </HoverCardContent>
                     </HoverCard>
@@ -513,64 +481,96 @@ export default function DashboardPage() {
                   {loading ? (
                     <Skeleton className="w-full h-6" />
                   ) : (
-                    <Impact
+                    <OverviewStatus />
+                  )}
+                </CardContent>
+              </Card>
+            </div>
+
+            <div className="flex w-full flex-grow flex-col gap-2">
+              <Link href="/dashboard/dampak">
+                <Card className="hover:border-neutral-600">
+                  <CardHeader>
+                    <CardTitle className="flex flex-auto gap-1">
+                      Impact
+                      <HoverCard>
+                        <HoverCardTrigger className="cursor-pointer">
+                          <FaRegQuestionCircle />
+                        </HoverCardTrigger>
+                        <HoverCardContent className="z-50 bg-white shadow-md rounded-md">
+                          <p className="text-justify font-normal text-sm">
+                            Nilai Dampak didapatkan dari perhitungan sentimen
+                            masing - masing review yang dapat bernilai positif dan
+                            negatif.
+                          </p>
+                        </HoverCardContent>
+                      </HoverCard>
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    {loading ? (
+                      <Skeleton className="w-full h-6" />
+                    ) : (
+                      <Impact
+                        positive={datas.positive}
+                        negative={datas.negative}
+                      />
+                    )}
+                  </CardContent>
+                </Card>
+              </Link>
+
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex flex-auto gap-1">
+                    Sentiment Overview
+                    <HoverCard>
+                      <HoverCardTrigger className="cursor-pointer">
+                        <FaRegQuestionCircle />
+                      </HoverCardTrigger>
+                      <HoverCardContent className="z-50 bg-white shadow-md rounded-md">
+                        <p className="text-justify font-normal text-sm">
+                          Statistik perbandingan sentimen review customer.
+                        </p>
+                      </HoverCardContent>
+                    </HoverCard>
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  {loading ? (
+                    <Skeleton className="w-full h-6" />
+                  ) : (
+                    <SentimentOverview
+                      total={datas.totalReviews}
                       positive={datas.positive}
                       negative={datas.negative}
+                      netral={datas.netral}
                     />
                   )}
                 </CardContent>
               </Card>
-            </Link>
+            </div>
 
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex flex-auto gap-1">
-                  Sentiment Overview
-                  <HoverCard>
-                    <HoverCardTrigger className="cursor-pointer">
-                      <FaRegQuestionCircle />
-                    </HoverCardTrigger>
-                    <HoverCardContent className="z-50 bg-white shadow-md rounded-md">
-                      <p className="text-justify font-normal text-sm">
-                        Statistik perbandingan sentimen review customer.
-                      </p>
-                    </HoverCardContent>
-                  </HoverCard>
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                {loading ? (
-                  <Skeleton className="w-full h-6" />
-                ) : (
-                  <SentimentOverview
-                    total={datas.totalReviews}
-                    positive={datas.positive}
-                    negative={datas.negative}
-                    netral={datas.netral}
-                  />
-                )}
-              </CardContent>
-            </Card>
-          </div>
-
-          <div className="flex w-full flex-grow">
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex flex-auto gap-1">
-                  Customer Feedback
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="items-center">
-                {loading ? (
-                  <Skeleton className="w-full h-6" />
-                ) : (
-                  <CustomerFeedback />
-                )}
-              </CardContent>
-            </Card>
+            <div className="flex w-full flex-grow">
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex flex-auto gap-1">
+                    Customer Feedback
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="items-center">
+                  {loading ? (
+                    <Skeleton className="w-full h-6" />
+                  ) : (
+                    <CustomerFeedback />
+                  )}
+                </CardContent>
+              </Card>
+            </div>
           </div>
         </div>
-      </div>
-    </ContentLayout>
+      </ContentLayout>
+      <DialogFlowChat />
+    </>
   );
 }
