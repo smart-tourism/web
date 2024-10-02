@@ -1,4 +1,4 @@
-import { login } from "@/app/lib/mysql/service";
+import { login } from "@/app/lib/mysql/auth-service";
 import { compare } from "bcrypt";
 import { NextAuthOptions } from "next-auth";
 import { z } from "zod";

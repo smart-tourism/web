@@ -49,9 +49,8 @@ export default function DashboardPage() {
   });
 
   React.useEffect(() => {
-    // Simulate a loading delay
     const timeout = setTimeout(() => {
-      setLoading(false); // Data is now loaded
+      setLoading(false);
     }, 1000);
 
     return () => clearTimeout(timeout);
@@ -69,14 +68,13 @@ export default function DashboardPage() {
 
   const refreshData = (range: string, customDate?: DateRange) => {
     console.log("Refreshing data for range:", range, customDate);
-    // Add logic to fetch and refresh data based on selected range or custom date
   };
 
   const handleRangeClick = (
     range: "7days" | "30days" | "6months" | "12months"
   ) => {
     setSelectedRange(range);
-    setCustomDate(undefined); // Reset custom date picker
+    setCustomDate(undefined);
 
     let dateRange;
     switch (range) {
@@ -96,8 +94,42 @@ export default function DashboardPage() {
     refreshData(range, dateRange);
   };
 
+  // Fetch data
   const [selectedDestination, setSelectedDestination] =
     useState<string>("Pilih Destinasi");
+  const [datas, setDatas] = useState({
+    averageRating: 0,
+    totalReviews: 0,
+    reviewsByDate: [],
+    positive: 0,
+    netral: 0,
+    negative: 0,
+    topKeywords: [],
+  });
+
+  React.useEffect(() => {
+    const fetchData = async () => {
+      const response = await fetch(
+        `/api/dashboard?tempat_wisata=${encodeURIComponent(
+          selectedDestination
+        )}`
+      );
+      const res = await response.json();
+      setDatas({
+        averageRating: res.data.averageRating,
+        totalReviews: res.data.totalReviews,
+        reviewsByDate: res.data.reviewsByDate,
+        positive: res.data.positive,
+        netral: res.data.netral,
+        negative: res.data.negative,
+        topKeywords: res.data.dataTopKeywords,
+      });
+    };
+
+    fetchData();
+  }, [selectedDestination]);
+
+  console.log(datas);
 
   return (
     <ContentLayout title="Dashboard">
@@ -252,7 +284,9 @@ export default function DashboardPage() {
               {loading ? (
                 <Skeleton className="w-16 h-6" />
               ) : (
-                <h1 className="font-bold text-2xl">0.0 ⭐</h1>
+                <h1 className="font-bold text-2xl">
+                  {Math.round(datas.averageRating * 10) / 10} ⭐
+                </h1>
               )}
             </CardContent>
           </Card>
@@ -309,7 +343,7 @@ export default function DashboardPage() {
               {loading ? (
                 <Skeleton className="w-16 h-6" />
               ) : (
-                <h1 className="font-bold text-2xl">0</h1>
+                <h1 className="font-bold text-2xl">{datas.totalReviews}</h1>
               )}
             </CardContent>
           </Card>
@@ -337,7 +371,7 @@ export default function DashboardPage() {
               {loading ? (
                 <Skeleton className="w-16 h-6" />
               ) : (
-                <h1 className="font-bold text-2xl">0</h1>
+                <h1 className="font-bold text-2xl">{datas.positive}</h1>
               )}
             </CardContent>
           </Card>
@@ -397,7 +431,7 @@ export default function DashboardPage() {
                   {loading ? (
                     <Skeleton className="w-full h-48" />
                   ) : (
-                    <ChartDashboard />
+                    <ChartDashboard data={datas.reviewsByDate} />
                   )}
                 </div>
               </div>
@@ -415,7 +449,11 @@ export default function DashboardPage() {
               <p className="text-start text-base text-[#B0B2B2]">
                 10 kata yang sering muncul pada review
               </p>
-              {loading ? <Skeleton className="w-full h-6" /> : <TopKeywords />}
+              {loading ? (
+                <Skeleton className="w-full h-6" />
+              ) : (
+                <TopKeywords data={datas.topKeywords} />
+              )}
             </CardContent>
           </Card>
         </div>
@@ -472,7 +510,14 @@ export default function DashboardPage() {
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  {loading ? <Skeleton className="w-full h-6" /> : <Impact />}
+                  {loading ? (
+                    <Skeleton className="w-full h-6" />
+                  ) : (
+                    <Impact
+                      positive={datas.positive}
+                      negative={datas.negative}
+                    />
+                  )}
                 </CardContent>
               </Card>
             </Link>
@@ -497,7 +542,12 @@ export default function DashboardPage() {
                 {loading ? (
                   <Skeleton className="w-full h-6" />
                 ) : (
-                  <SentimentOverview />
+                  <SentimentOverview
+                    total={datas.totalReviews}
+                    positive={datas.positive}
+                    negative={datas.negative}
+                    netral={datas.netral}
+                  />
                 )}
               </CardContent>
             </Card>
