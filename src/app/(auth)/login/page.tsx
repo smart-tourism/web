@@ -48,7 +48,7 @@ const SignInPage: React.FC = ({ searchParams }: any) => {
     } catch (error: any) {
       setIsLoading(false);
       setStatus("error");
-      setError("Email atau password salah");
+      setError("Terjadi kesalahan saat login");
     }
   };
 
@@ -73,9 +73,7 @@ const SignInPage: React.FC = ({ searchParams }: any) => {
               className="flex p-4 mt-4 text-red-950 rounded-lg bg-red-300"
               role="alert"
             >
-              <div className="ml-3 font-normal">
-                {error || "Terjadi kesalahan, silakan coba lagi."}
-              </div>
+              <div className="ml-3 font-normal">{error}</div>
               <button
                 type="button"
                 className="ml-auto -mx-1.5 -my-1.5 bg-red-50 text-red-500 rounded-lg focus:ring-2 focus:ring-red-400 p-1.5 hover:bg-red-200 inline-flex h-8 w-8"

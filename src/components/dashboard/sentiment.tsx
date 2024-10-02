@@ -12,12 +12,6 @@ import {
 
 export const description = "A donut chart with text";
 
-const chartData = [
-  { sentiment: "Positif", visitors: 275, fill: "rgb(76, 155, 117, 1)" },
-  { sentiment: "Netral", visitors: 200, fill: "rgb(250, 222, 100, 1)" },
-  { sentiment: "Negatif", visitors: 287, fill: "rgb(255, 97, 113, 1)" },
-];
-
 const chartConfig = {
   visitors: {
     label: "Total",
@@ -36,10 +30,16 @@ const chartConfig = {
   },
 } satisfies ChartConfig;
 
-export function SentimentOverview() {
-  const totalVisitors = React.useMemo(() => {
-    return chartData.reduce((acc, curr) => acc + curr.visitors, 0);
-  }, []);
+export function SentimentOverview(props: any) {
+  const { total, positive, netral, negative } = props;
+
+  const chartData = [
+    { sentiment: "Positif", visitors: positive, fill: "rgb(76, 155, 117, 1)" },
+    { sentiment: "Netral", visitors: netral, fill: "rgb(250, 222, 100, 1)" },
+    { sentiment: "Negatif", visitors: negative, fill: "rgb(255, 97, 113, 1)" },
+  ];
+
+  const totalVisitors = total;
 
   return (
     <div className="flex items-center justify-center space-x-8 w-full">
@@ -78,7 +78,7 @@ export function SentimentOverview() {
                         y={(viewBox.cy || 0) + 18}
                         className="fill-muted-foreground"
                       >
-                        Visitors
+                        Ulasan
                       </tspan>
                     </text>
                   );

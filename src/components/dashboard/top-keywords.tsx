@@ -1,26 +1,20 @@
 import { ScrollArea } from "@/components/ui/scroll-area";
 
-export default function TopKeywords() {
-  const keywords = [
-    { text: "Kamar Bagus", count: 2 },
-    { text: "Kamar Luas", count: 2 },
-    { text: "Kebersihan Sangat Terawat", count: 2 },
-    { text: "Coffee Break Enak", count: 1 },
-    { text: "Cold Meat Very Little Variation", count: 1 },
-    { text: "Dinner Enak Banget", count: 1 },
-    { text: "Dinner Enak Banget", count: 1 },
-    { text: "Dinner Enak Banget", count: 1 },
-    { text: "Dinner Enak Banget", count: 1 },
-    { text: "Dinner Enak Banget", count: 1 },
-    { text: "Dinner Enak Banget", count: 1 },
-    { text: "Dinner Enak Banget", count: 1 },
-  ];
+interface Keyword {
+  text: string;
+  count: number;
+}
 
+interface TopKeywordsProps {
+  data: Keyword[];
+}
+
+export default function TopKeywords({ data }: TopKeywordsProps) {
   return (
     <ScrollArea className="h-[340px] max-w-[350px] mt-2">
       <div>
         <div className="flex flex-wrap gap-2 mt-4">
-          {keywords.map((keyword, index) => (
+          {data.map((keyword: Keyword, index: number) => (
             <div
               key={index}
               className="flex items-center bg-gray-200 px-2 py-1 rounded-md text-sm"

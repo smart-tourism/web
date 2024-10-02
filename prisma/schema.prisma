@@ -7,6 +7,13 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model users {
+  id       Int    @id @default(autoincrement())
+  fullname String @db.VarChar(100)
+  email    String @unique(map: "email") @db.VarChar(100)
+  password String @db.VarChar(255)
+}
+
 model faqs {
   id       Int       @id @default(autoincrement())
   question String    @db.Text
@@ -16,30 +23,25 @@ model faqs {
 }
 
 model sentiments {
-  id            Int    @id @default(autoincrement())
-  tempat_wisata String @db.VarChar(50)
-  id_review     String @db.VarChar(75)
-  komentar      String @db.Text
+  id            Int      @id @default(autoincrement())
+  tempat_wisata String   @db.VarChar(50)
+  id_review     String   @db.VarChar(75)
+  komentar      String   @db.Text
   rating        Int
-  label         String @db.VarChar(10)
-  bahasa        String @db.VarChar(10)
-  tokenized     String @db.Text
+  label         String   @db.VarChar(10)
+  bahasa        String   @db.VarChar(10)
+  tokenized     String   @db.Text
+  date          DateTime @db.DateTime(0)
 }
 
 model sentiments_ato {
-  id            Int    @id @default(autoincrement())
-  tempat_wisata String @db.VarChar(50)
-  id_review     String @db.VarChar(75)
-  komentar      String @db.Text
+  id            Int      @id @default(autoincrement())
+  tempat_wisata String   @db.VarChar(50)
+  id_review     String   @db.VarChar(75)
+  komentar      String   @db.Text
   rating        Int
-  label         String @db.VarChar(10)
-  bahasa        String @db.VarChar(10)
-  tokenized     String @db.Text
-}
-
-model users {
-  id       Int    @id @default(autoincrement())
-  fullname String @db.VarChar(100)
-  email    String @unique(map: "email") @db.VarChar(100)
-  password String @db.VarChar(255)
+  label         String   @db.VarChar(10)
+  bahasa        String   @db.VarChar(10)
+  tokenized     String   @db.Text
+  date          DateTime @db.DateTime(0)
 }

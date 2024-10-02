@@ -17,6 +17,7 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
+import { count } from "console";
 
 const generateChartData = (numDays: number) => {
   const chartData = [];
@@ -38,14 +39,16 @@ const chartConfig = {
   },
 } satisfies ChartConfig;
 
-export function ChartDashboard() {
-  const chartData = generateChartData(30); // Generate data for the last 30 days, but display only 10 entries
-
+export function ChartDashboard({
+  data,
+}: {
+  data: { date: string; count: number }[];
+}) {
   return (
     <ChartContainer config={chartConfig}>
       <LineChart
         accessibilityLayer
-        data={chartData}
+        data={data}
         margin={{
           left: 12,
           right: 12,
@@ -70,11 +73,11 @@ export function ChartDashboard() {
           cursor={false}
           content={({ payload }) => {
             if (payload && payload.length > 0) {
-              const { date, days } = payload[0].payload;
+              const { date, count } = payload[0].payload;
               return (
                 <div className="tooltip-content text-black bg-white p-2 rounded-lg">
                   <p>{`${date}`}</p>
-                  <p>{`Performa: ${days}`}</p>
+                  <p>{`Ulasan: ${count}`}</p>
                 </div>
               );
             }
@@ -82,7 +85,7 @@ export function ChartDashboard() {
           }}
         />
         <Line
-          dataKey="days"
+          dataKey="count"
           type="monotone"
           stroke="rgb(0, 100, 211, 1)"
           strokeWidth={2}
