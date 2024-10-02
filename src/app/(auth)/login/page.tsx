@@ -36,7 +36,7 @@ const SignInPage: React.FC = ({ searchParams }: any) => {
       });
       if (!res?.error) {
         if (notCallbackUrl.includes(callbackUrlPath)) {
-          push("/dashboard");
+          push("/maps");
         } else {
           push(callbackUrlPath);
         }
