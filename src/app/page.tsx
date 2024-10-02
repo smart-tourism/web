@@ -1,5 +1,6 @@
 "use client";
 
+import DialogFlowChat from "@/components/dashboard/dialogflow-chat";
 import { signIn } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
@@ -141,35 +142,7 @@ export default function Home() {
       </div>
 
       {/* Chat Popup */}
-      {showChatPopup && (
-        <div className="fixed bottom-24 right-6 bg-white rounded-lg shadow-lg p-4 z-50 w-80">
-          <div className="flex justify-between items-center">
-            <h3 className="font-semibold text-lg">Ajhelen Chat</h3>
-            <button
-              className="text-red-500 hover:text-red-600"
-              onClick={() => setShowChatPopup(false)}
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-6 w-6"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                strokeWidth={2}
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              </svg>
-            </button>
-          </div>
-          <div className="mt-4">
-            <p className="text-gray-600">Halo! Ada yang bisa kami bantu?</p>
-          </div>
-        </div>
-      )}
+      <DialogFlowChat/>
 
       {/* Hero Section */}
       <section

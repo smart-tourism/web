@@ -36,8 +36,6 @@ import {
   DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
 import { Skeleton } from "@/components/ui/skeleton";
-import GISSentimentMap from "@/components/dashboard/gis-sentiment-map";
-import DialogFlowChat from "@/components/dashboard/dialogflow-chat";
 
 export default function DashboardPage() {
   const [selectedRange, setSelectedRange] = React.useState<
@@ -570,7 +568,6 @@ export default function DashboardPage() {
           </div>
         </div>
       </ContentLayout>
-      <DialogFlowChat />
     </>
   );
 }
