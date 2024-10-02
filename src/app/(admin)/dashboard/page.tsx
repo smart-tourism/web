@@ -227,7 +227,7 @@ export default function DashboardPage() {
       </div>
 
       {/* Maps / GIS Dashboard */}
-      <GISSentimentMap />
+      {/* <GISSentimentMap /> */}
       {/* Card Dashboard */}
       <div className="grid gap-4 lg:grid-cols-5 md:grid-cols-3 sm:grid-cols-1 grid-rows-1 mt-2">
         <Link href="/dashboard/performa">

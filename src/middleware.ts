@@ -11,4 +11,5 @@ export default withAuth(mainMiddleware, [
   "dashboard",
   "similar-destination",
   "rate-trend",
+  "maps",
 ]);
