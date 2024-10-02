@@ -1,6 +1,5 @@
 "use client";
 import React, { useState } from "react";
-import { ContentLayout } from "@/components/admin-panel/content-layout";
 import GISSentimentMap from "@/components/dashboard/gis-sentiment-map";
 import DestinationCard from "@/components/maps/card-destination";
 
@@ -56,27 +55,25 @@ export default function MapsPage() {
   };
 
   return (
-    <ContentLayout title="Maps">
-      <div className="flex">
-        <div className="w-2/3 pr-4">
-          <GISSentimentMap moveToLocation={mapCoordinates} /> {/* Pass the coordinates here */}
-        </div>
-        <div className="w-1/3 space-y-4 flex flex-col">
-          <h1 className="text-2xl font-bold mb-1 text-gray-600 mt-[10px] text-right">Top 5 DPSP</h1>
-          <div className="space-y-4 h-[540px] overflow-y-scroll mt-[10px]">
-            {destinations.map((destination) => (
-              <DestinationCard
-                key={destination.rank}
-                rank={destination.rank}
-                title={destination.title}
-                location={destination.location}
-                imageUrl={destination.imageUrl}
-                onClick={() => handleCardClick(destination.lat, destination.lng)} // Send lat and lng on click
-              />
-            ))}
-          </div>
+    <div className="flex bg-gray-100 min-h-screen"> 
+      <div className="w-2/3 pr-4 bg-white p-4 rounded-md shadow-md"> 
+        <GISSentimentMap moveToLocation={mapCoordinates} /> {/* Pass the coordinates here */}
+      </div>
+      <div className="w-1/3 space-y-4 flex flex-col bg-gray-50 p-4 rounded-md shadow-md">
+        <h1 className="text-2xl font-bold mb-1 text-gray-600 mt-[10px] text-right">Top 5 DPSP</h1>
+        <div className="space-y-4 h-[540px] overflow-y-scroll mt-[10px]">
+          {destinations.map((destination) => (
+            <DestinationCard
+              key={destination.rank}
+              rank={destination.rank}
+              title={destination.title}
+              location={destination.location}
+              imageUrl={destination.imageUrl}
+              onClick={() => handleCardClick(destination.lat, destination.lng)} // Send lat and lng on click
+            />
+          ))}
         </div>
       </div>
-    </ContentLayout>
+    </div>
   );
 }
