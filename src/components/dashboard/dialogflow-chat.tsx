@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { Button } from "@/components/ui/button"
 import { MessageCircleIcon, XIcon } from 'lucide-react'
+import { AiFillWechat } from 'react-icons/ai'
 
 export default function DialogFlowChat() {
   const [isOpen, setIsOpen] = useState(false)
@@ -13,8 +14,8 @@ export default function DialogFlowChat() {
     <div className="fixed right-4 bottom-4 z-50">
       {isOpen ? (
         <div className="bg-white rounded-lg shadow-lg overflow-hidden w-96 h-96 flex flex-col">
-          <div className="flex justify-between items-center p-4 bg-primary text-primary-foreground">
-            <h2 className="text-lg font-semibold">Chat!</h2>
+          <div className="flex justify-between items-center p-4 bg-dialogflow text-primary-foreground">
+            <h2 className="text-lg font-semibold">Ajhelen Chat</h2>
             <Button
               variant="ghost"
               size="icon"
@@ -34,13 +35,13 @@ export default function DialogFlowChat() {
           ></iframe>
         </div>
       ) : (
-        <Button
+        <div
           onClick={() => setIsOpen(true)}
-          className="rounded-full w-12 h-12 shadow-lg"
+          className="fixed bottom-6 right-6 bg-white text-white rounded-full p-3 shadow-lg cursor-pointer z-50"
           aria-label="Open chat"
         >
-          <MessageCircleIcon className="h-6 w-6" />
-        </Button>
+          <AiFillWechat className="fill-[#FE7123] text-4xl" />
+        </div>
       )}
     </div>
   )
