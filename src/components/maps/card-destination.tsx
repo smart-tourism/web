@@ -8,18 +8,22 @@ interface DestinationCardProps {
   onClick: () => void; // onClick event handler
 }
 
-const DestinationCard: React.FC<DestinationCardProps> = ({ 
-  rank, title, location, imageUrl, onClick 
+const DestinationCard: React.FC<DestinationCardProps> = ({
+  rank,
+  title,
+  location,
+  imageUrl,
+  onClick,
 }) => {
   return (
-    <div 
-      className="p-6 max-w-sm mx-auto bg-white rounded-xl shadow-lg flex justify-between items-center space-x-4 hover:bg-gray-200 transition-colors cursor-pointer" 
+    <div
+      className="p-6 max-w-sm mx-auto bg-white rounded-xl shadow-lg flex justify-between items-center space-x-4 hover:bg-gray-200 transition-colors cursor-pointer"
       onClick={onClick} // Pastikan onClick dipasang di wrapper utama
     >
       <div className="flex items-center space-x-4">
         <div className="flex-shrink-0">
           <div className="w-12 h-12 flex items-center justify-center bg-blue-600 text-white rounded-full">
-            <span className="text-lg font-bold">#{rank}</span>
+            <span className="text-lg font-bold">{rank}</span>
           </div>
         </div>
         <div>
