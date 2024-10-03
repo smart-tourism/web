@@ -81,8 +81,8 @@ export default function Home() {
           <div className="flex items-center">
             <Image src="/logo.png" alt="Logo Polije" width={150} height={50} />
             <Image
-              src="/logo-ajhelen.png"
-              alt="Logo Ajhelen"
+              src="/logo-explorenesia.png"
+              alt="Logo explorenesia"
               width={40}
               height={40}
             />
@@ -142,7 +142,7 @@ export default function Home() {
       </div>
 
       {/* Chat Popup */}
-      <DialogFlowChat/>
+      <DialogFlowChat />
 
       {/* Hero Section */}
       <section
@@ -375,8 +375,8 @@ export default function Home() {
               className="items-start"
             />
             <img
-              src="/logo-ajhelen.png"
-              alt="Logo Ajhelen"
+              src="/logo-explorenesia.png"
+              alt="Logo ExploreNesia"
               width={80}
               height={60}
               className="items-start lg:h-20 lg:w-20 md:h-20 md:w-20 sm:h-12 sm:w-12"
