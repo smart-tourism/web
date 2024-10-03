@@ -1,8 +1,10 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { number } from "zod";
 
-export default function CustomerFeedback() {
+export default function CustomerFeedback(props: any) {
+  const { positiveFeedbacks, negativeFeedbacks } = props;
   const router = useRouter();
   const [isMounted, setIsMounted] = useState(false); // For client-side rendering check
 
@@ -10,29 +12,13 @@ export default function CustomerFeedback() {
     setIsMounted(true); // Only after the component has been mounted
   }, []);
 
-  const feedbackCategoriesPraises = [
-    { label: "Meal", count: 0 },
-    { label: "Surrounding", count: 0 },
-    { label: "General", count: 0 },
-    { label: "Facility", count: 0 },
-    { label: "Location", count: 0 },
-    { label: "Value", count: 0 },
-    { label: "Room", count: 0 },
-    { label: "Quality", count: 0 },
-    { label: "Service", count: 0 },
-  ];
+  const feedbackCategoriesPraises = Object.entries(positiveFeedbacks).map(
+    ([key, value]) => ({ label: key, count: value as number })
+  );
 
-  const feedbackCategoriesComplaints = [
-    { label: "Meal", count: 0 },
-    { label: "Surrounding", count: 0 },
-    { label: "General", count: 0 },
-    { label: "Facility", count: 0 },
-    { label: "Location", count: 0 },
-    { label: "Value", count: 0 },
-    { label: "Room", count: 0 },
-    { label: "Quality", count: 0 },
-    { label: "Service", count: 0 },
-  ];
+  const feedbackCategoriesComplaints = Object.entries(negativeFeedbacks).map(
+    ([key, value]) => ({ label: key, count: value as number })
+  );
 
   // Function to handle navigation to specific category
   const handleNavigation = (
