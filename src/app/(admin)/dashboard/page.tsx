@@ -99,6 +99,7 @@ export default function DashboardPage() {
   const [datas, setDatas] = useState({
     averageRating: 0,
     totalReviews: 0,
+    positivePercentage: 0,
     reviewsByDate: [],
     positive: 0,
     netral: 0,
@@ -119,6 +120,7 @@ export default function DashboardPage() {
       setDatas({
         averageRating: res.data.averageRating,
         totalReviews: res.data.totalReviews,
+        positivePercentage: res.data.positivePercentage,
         reviewsByDate: res.data.reviewsByDate,
         positive: res.data.positive,
         netral: res.data.netral,
@@ -131,6 +133,8 @@ export default function DashboardPage() {
 
     fetchData();
   }, [selectedDestination]);
+
+  console.log(datas);
 
   return (
     <>
@@ -274,7 +278,7 @@ export default function DashboardPage() {
                       <FaRegQuestionCircle />
                     </HoverCardTrigger>
                     <HoverCardContent className="z-50 bg-white shadow-md rounded-md">
-                      <p className="text-justify font-normal text-sm">
+                      <p className="font-normal text-sm">
                         Nilai Performa menunjukkan rata rata jumlah bintang tiap
                         destinasi.
                       </p>
@@ -304,7 +308,7 @@ export default function DashboardPage() {
                       <FaRegQuestionCircle />
                     </HoverCardTrigger>
                     <HoverCardContent className="z-50 bg-white shadow-md rounded-md">
-                      <p className="text-justify font-normal text-sm">
+                      <p className="font-normal text-sm">
                         Tingkat Respon merupakan tingkat pencapaian destinasi
                         yang dihitung berdasarkan perbandingan antara pengunjung
                         yang hanya memberikan bintang dengan seluruh jumlah
@@ -318,7 +322,7 @@ export default function DashboardPage() {
                 {loading ? (
                   <Skeleton className="w-16 h-6" />
                 ) : (
-                  <h1 className="font-bold text-2xl">0.0</h1>
+                  <h1 className="font-bold text-2xl">100%</h1>
                 )}
               </CardContent>
             </Card>
@@ -334,7 +338,7 @@ export default function DashboardPage() {
                       <FaRegQuestionCircle />
                     </HoverCardTrigger>
                     <HoverCardContent className="z-50 bg-white shadow-md rounded-md">
-                      <p className="text-justify font-normal text-sm">
+                      <p className="font-normal text-sm">
                         Ulasan merupakan jumlah seluruh response atau komentar
                         pada tiap destinasi.
                       </p>
@@ -362,9 +366,9 @@ export default function DashboardPage() {
                       <FaRegQuestionCircle />
                     </HoverCardTrigger>
                     <HoverCardContent className="z-50 bg-white shadow-md rounded-md">
-                      <p className="text-justify font-normal text-sm">
-                        Nilai Popularitas menunjukkan jumlah user yang
-                        memberikan response positif.
+                      <p className="font-normal text-sm">
+                        Nilai Popularitas menunjukkan presentase jumlah ulasan
+                        positif dari seluruh ulasan.
                       </p>
                     </HoverCardContent>
                   </HoverCard>
@@ -374,7 +378,9 @@ export default function DashboardPage() {
                 {loading ? (
                   <Skeleton className="w-16 h-6" />
                 ) : (
-                  <h1 className="font-bold text-2xl">{datas.positive}</h1>
+                  <h1 className="font-bold text-2xl">
+                    {datas.positivePercentage}%
+                  </h1>
                 )}
               </CardContent>
             </Card>
@@ -390,9 +396,9 @@ export default function DashboardPage() {
                       <FaRegQuestionCircle />
                     </HoverCardTrigger>
                     <HoverCardContent className="z-50 bg-white shadow-md rounded-md">
-                      <p className="text-justify font-normal text-sm">
+                      <p className="font-normal text-sm">
                         Penilaian Keseluruhan adalah jumlah keseluruhan
-                        penilaian ulasan yang diterima.
+                        penilaian positif yang diterima.
                       </p>
                     </HoverCardContent>
                   </HoverCard>
@@ -402,7 +408,7 @@ export default function DashboardPage() {
                 {loading ? (
                   <Skeleton className="w-16 h-6" />
                 ) : (
-                  <h1 className="font-bold text-2xl">0</h1>
+                  <h1 className="font-bold text-2xl">{datas.positive}</h1>
                 )}
               </CardContent>
             </Card>

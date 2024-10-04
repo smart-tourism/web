@@ -22,6 +22,17 @@ export const getData = async (tempatWisata: string) => {
       // total ulasan
       const totalReviews = await prismaClient.sentiments.count();
 
+      // presentase persen ulasan positif
+      const positiveReviews = await prismaClient.sentiments.count({
+        where: {
+          label: "positif",
+        },
+      });
+
+      const positivePercentage = Math.round(
+        (positiveReviews / totalReviews) * 100
+      );
+
       // jumlah ulasan lima hari terakhir
       const lastFiveDates = await prismaClient.sentiments.findMany({
         select: {
@@ -228,6 +239,7 @@ export const getData = async (tempatWisata: string) => {
       const response = {
         averageRating: averageRating._avg.rating,
         totalReviews,
+        positivePercentage,
         reviewsByDate,
         positive: result.positive,
         netral: result.neutral,
@@ -257,6 +269,18 @@ export const getData = async (tempatWisata: string) => {
         tempat_wisata: tempatWisata,
       },
     });
+
+    // presentase persen ulasan positif
+    const positiveReviews = await prismaClient.sentiments.count({
+      where: {
+        label: "positif",
+        tempat_wisata: tempatWisata,
+      },
+    });
+
+    const positivePercentage = Math.round(
+      (positiveReviews / totalReviews) * 100
+    );
 
     // jumlah ulasan lima hari terakhir
     const lastFiveDates = await prismaClient.sentiments.findMany({
@@ -476,6 +500,7 @@ export const getData = async (tempatWisata: string) => {
     const response = {
       averageRating: averageRating._avg.rating,
       totalReviews,
+      positivePercentage,
       reviewsByDate,
       positive: result.positive,
       netral: result.neutral,
