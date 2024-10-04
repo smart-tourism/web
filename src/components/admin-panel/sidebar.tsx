@@ -32,8 +32,8 @@ export function Sidebar() {
         >
           <Link href="/dashboard" className="flex items-center gap-2 mt-2">
             <img
-              src="/logo-ajhelen.png"
-              alt="Logo Ajhelen"
+              src="/logo-explorenesia.png"
+              alt="Logo ExploreNesia"
               className={cn(
                 "font-bold text-lg whitespace-nowrap transition-[transform,opacity,display] ease-in-out duration-300",
                 sidebar?.isOpen === false ? "" : "translate-x-0 opacity-100"

@@ -12,6 +12,7 @@ const SignInPage: React.FC = ({ searchParams }: any) => {
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [callbackUrlPath, setCallbackUrlPath] = useState("/");
+  const [showPassword, setShowPassword] = useState(false);
   const { push } = useRouter();
 
   const notCallbackUrl = ["/", "/login", "/seed"];
@@ -56,7 +57,7 @@ const SignInPage: React.FC = ({ searchParams }: any) => {
     <div className="bg-[#F5F4F7] min-h-screen flex flex-col items-center justify-center px-6">
       <div className="text-center mb-8">
         <div className="flex justify-center">
-          <img src="/logo-ajhelen.png" alt="logo" width="140px" />
+          <img src="/logo-explorenesia.png" alt="logo" width="140px" />
         </div>
 
         <h4 className="font-semibold text-2xl text-black">
@@ -119,23 +120,68 @@ const SignInPage: React.FC = ({ searchParams }: any) => {
                 className="w-full h-12 mt-2 border border-primary rounded-md py-2 px-4 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary duration-500 text-black"
               />
             </div>
-            <div className="flex mt-4 items-start flex-col">
+            <div className="flex mt-4 items-start flex-col relative">
               <label
                 htmlFor="password"
                 className="text-primary font-semibold text-black text-xl"
               >
                 Kata Sandi
               </label>
-              <input
-                type="password"
-                name="password"
-                id="password"
-                placeholder="Masukkan Kata Sandi"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-                className="w-full h-12 mt-2 border border-primary rounded-md py-2 px-4 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary duration-500 text-black"
-              />
+              <div className="relative w-full">
+                <input
+                  type={showPassword ? "text" : "password"}
+                  name="password"
+                  id="password"
+                  placeholder="Masukkan Kata Sandi"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                  className="w-full h-12 mt-2 border border-primary rounded-md py-2 px-4 pr-10 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary duration-500 text-black"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-600"
+                >
+                  {showPassword ? (
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      className="w-6 h-6"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M15 12m-4 0a4 4 0 108 0 4 4 0 10-8 0zM12 5.5a9 9 0 00-9 9M12 5.5a9 9 0 019 9"
+                      />
+                    </svg>
+                  ) : (
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      className="w-6 h-6"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M13.875 18.825a9.99 9.99 0 01-1.875.175 9.99 9.99 0 01-9-9M12 5.5a9 9 0 019 9M15 12m-4 0a4 4 0 108 0 4 4 0 10-8 0z"
+                      />
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M3 3l18 18"
+                      />
+                    </svg>
+                  )}
+                </button>
+              </div>
             </div>
 
             <div className="flex flex-col mt-[40px] mb-2">
