@@ -164,7 +164,7 @@ export default function Home() {
               Your Personalized Travel Companion to Indonesia's Top Destinations
             </h1>
             <p className="mt-8 text-center text-sm sm:text-base md:text-lg lg:text-xl">
-              Explore Indonesia's Hidden Gems with Ajhelen!
+              Explore Indonesia's Hidden Gems with Explorenesia!
             </p>
           </div>
           <Link href={"/login"}>
@@ -270,7 +270,7 @@ export default function Home() {
             MENGENAL KAMI LEBIH DEKAT
           </h2>
           <p className="max-w-2xl mx-auto mb-6 text-justify">
-            Ajhelen adalah aplikasi travel yang memberikan rekomendasi
+            Explorenesia adalah aplikasi travel yang memberikan rekomendasi
             perjalanan terbaik ke destinasi unggulan Indonesia. Temukan
             pengalaman terbaik di Likupang, Mandalika, Borobudur, Labuan Bajo,
             dan Danau Toba — lima Destinasi Pariwisata Super Prioritas (DPSP)
@@ -307,7 +307,7 @@ export default function Home() {
       {/* Keuntungan Menggunakan Robota Section */}
       <section className="bg-white text-center py-16" id="fitur">
         <h1 className="lg:text-4xl md:text-4xl sm:text-4xl uppercase font-bold mb-6 bg-gradient-to-r from-[#FE7123] to-[#F6D45E] bg-clip-text text-transparent transition-all duration-300 hover:bg-gradient-to-l hover:from-[#F6D45E] hover:to-[#FE7123]">
-          Fitur Unggulan Ajhelen
+          Fitur Unggulan Explorenesia
         </h1>
         <div className="grid grid-flow-row-dense grid-cols-3 grid-rows-auto sm:grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto p-4">
           <div className="flex flex-col justify-center items-center bg-white border border-gray-300 shadow-md shadow-[#FE7123] h-auto rounded-lg p-4">
@@ -358,9 +358,9 @@ export default function Home() {
       {/* Kata - Kata */}
       <section className="bg-gradient-to-tr from-[#FE7123] to-[#F6D45E] text-white text-center py-32">
         <p className="text-2xl font-bold max-w-2xl mx-auto">
-          "Visi kami adalah menjadikan Ajhelen sebagai platform terdepan dalam
-          memberdayakan industri pariwisata Indonesia. Kami berkomitmen untuk
-          membantu wisatawan melalui pemanfaatan teknologi yang inovatif"
+          "Visi kami adalah menjadikan Explorenesia sebagai platform terdepan
+          dalam memberdayakan industri pariwisata Indonesia. Kami berkomitmen
+          untuk membantu wisatawan melalui pemanfaatan teknologi yang inovatif"
         </p>
       </section>
 
