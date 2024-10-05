@@ -10,11 +10,11 @@ import { FaBars, FaTimes } from "react-icons/fa"; // Import icons for hamburger 
 
 // Data gambar destinasi
 const destinations = [
-  { name: "Likupang", image: "/likupang.jpg" },
-  { name: "Mandalika", image: "/mandalika.jpg" },
-  { name: "Borobudur", image: "/borobudur.jpg" },
-  { name: "Labuan Bajo", image: "/labuanbajo.jpg" },
-  { name: "Danau Toba", image: "/danautoba.jpg" },
+  { name: "Likupang", image: "/images/Likupang.jpg" },
+  { name: "Mandalika", image: "/images/Mandalika.jpg" },
+  { name: "Borobudur", image: "/images/Candi%20Borobudur.jpg" },
+  { name: "Labuan Bajo", image: "/images/Labuan%20Bajo.jpg" },
+  { name: "Danau Toba", image: "/images/Danau%20Toba.jpg" },
 ];
 
 export default function Home() {
@@ -193,7 +193,7 @@ export default function Home() {
           {/* Gambar 1 */}
           <div
             className="relative bg-cover bg-center h-80 w-80 rounded-md shadow-lg overflow-hidden transition-transform duration-500 hover:scale-105 hover:shadow-2xl"
-            style={{ backgroundImage: "url(/likupang.jpg)" }}
+            style={{ backgroundImage: "url(/images/Likupang.jpg)" }}
           >
             <div className="absolute inset-0 bg-black bg-opacity-20 flex items-end p-4">
               <p className="text-white font-bold text-lg">Likupang</p>
@@ -204,7 +204,7 @@ export default function Home() {
           <div
             className="relative bg-cover bg-center h-80 w-80 rounded-md shadow-lg overflow-hidden transition-transform duration-500 hover:scale-105 hover:shadow-2xl"
             style={{
-              backgroundImage: "url(/mandalika.jpg)",
+              backgroundImage: "url(/images/Mandalika.jpg)",
             }}
           >
             <div className="absolute inset-0 bg-black bg-opacity-20 flex items-end p-4">
@@ -216,7 +216,7 @@ export default function Home() {
           <div
             className="relative bg-cover bg-center h-80 w-80 rounded-md shadow-lg overflow-hidden transition-transform duration-500 hover:scale-105 hover:shadow-2xl"
             style={{
-              backgroundImage: "url(/borobudur.jpg)",
+              backgroundImage: "url(/images/Candi%20Borobudur.jpg)",
             }}
           >
             <div className="absolute inset-0 bg-black bg-opacity-20 flex items-end p-4">
@@ -228,7 +228,7 @@ export default function Home() {
           <div
             className="relative bg-cover bg-center h-80 w-80 rounded-md shadow-lg overflow-hidden transition-transform duration-500 hover:scale-105 hover:shadow-2xl"
             style={{
-              backgroundImage: "url(/labuanbajo.jpg)",
+              backgroundImage: "url(/images/Labuan%20Bajo.jpg)",
             }}
           >
             <div className="absolute inset-0 bg-black bg-opacity-20 flex items-end p-4">
@@ -240,7 +240,7 @@ export default function Home() {
           <div
             className="relative bg-cover bg-center h-80 w-80 rounded-md shadow-lg overflow-hidden transition-transform duration-500 hover:scale-105 hover:shadow-2xl"
             style={{
-              backgroundImage: "url(/danautoba.jpg)",
+              backgroundImage: "url(/images/Danau%20Toba.jpg)",
             }}
           >
             <div className="absolute inset-0 bg-black bg-opacity-20 flex items-end p-4">
