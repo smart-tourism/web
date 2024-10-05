@@ -36,8 +36,13 @@ import {
   DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
 import { Skeleton } from "@/components/ui/skeleton";
+import { NextRequest } from "next/server";
+import { useSearchParams } from "next/navigation";
 
 export default function DashboardPage() {
+  const searchParams = useSearchParams();
+  let tempatWisata = searchParams.get("location");
+
   const [selectedRange, setSelectedRange] = React.useState<
     "7days" | "30days" | "6months" | "12months" | "custom" | undefined
   >();
@@ -94,8 +99,10 @@ export default function DashboardPage() {
   };
 
   // Fetch data
-  const [selectedDestination, setSelectedDestination] =
-    useState<string>("Pilih Destinasi");
+  const [selectedDestination, setSelectedDestination] = tempatWisata
+    ? useState<string>(tempatWisata)
+    : useState<string>("Pilih Destinasi");
+
   const [datas, setDatas] = useState({
     averageRating: 0,
     totalReviews: 0,
@@ -233,7 +240,7 @@ export default function DashboardPage() {
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem
-                  onClick={() => setSelectedDestination("Borobudur")}
+                  onClick={() => setSelectedDestination("Candi Borobudur")}
                   className="cursor-pointer"
                 >
                   Borobudur
