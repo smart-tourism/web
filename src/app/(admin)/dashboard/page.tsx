@@ -315,7 +315,9 @@ export default function DashboardPage() {
                       <FaRegQuestionCircle />
                     </HoverCardTrigger>
                     <HoverCardContent className="z-50 bg-white shadow-md rounded-md">
+
                       <p className="font-normal text-sm">
+
                         Tingkat Respon merupakan tingkat pencapaian destinasi
                         yang dihitung berdasarkan perbandingan antara pengunjung
                         yang hanya memberikan bintang dengan seluruh jumlah
@@ -373,9 +375,12 @@ export default function DashboardPage() {
                       <FaRegQuestionCircle />
                     </HoverCardTrigger>
                     <HoverCardContent className="z-50 bg-white shadow-md rounded-md">
+
+
                       <p className="font-normal text-sm">
                         Nilai Popularitas menunjukkan presentase jumlah ulasan
                         positif dari seluruh ulasan.
+
                       </p>
                     </HoverCardContent>
                   </HoverCard>
@@ -403,9 +408,11 @@ export default function DashboardPage() {
                       <FaRegQuestionCircle />
                     </HoverCardTrigger>
                     <HoverCardContent className="z-50 bg-white shadow-md rounded-md">
+
                       <p className="font-normal text-sm">
                         Penilaian Keseluruhan adalah jumlah keseluruhan
                         penilaian positif yang diterima.
+
                       </p>
                     </HoverCardContent>
                   </HoverCard>
