@@ -146,37 +146,41 @@ export default function DashboardPage() {
         <div className="flex justify-between items-center my-4 text-black">
           <div className="flex gap-2">
             <Button
-              className={`${selectedRange === "7days"
+              className={`${
+                selectedRange === "7days"
                   ? "bg-blue-500 text-white"
                   : "bg-white text-black hover:text-white hover:bg-black"
-                }`}
+              }`}
               onClick={() => handleRangeClick("7days")}
             >
               {loading ? <Skeleton className="w-16 h-4" /> : "7 Hari"}
             </Button>
             <Button
-              className={`${selectedRange === "30days"
+              className={`${
+                selectedRange === "30days"
                   ? "bg-blue-500 text-white"
                   : "bg-white text-black hover:text-white hover:bg-black"
-                }`}
+              }`}
               onClick={() => handleRangeClick("30days")}
             >
               {loading ? <Skeleton className="w-16 h-4" /> : "30 Hari"}
             </Button>
             <Button
-              className={`${selectedRange === "6months"
+              className={`${
+                selectedRange === "6months"
                   ? "bg-blue-500 text-white"
                   : "bg-white text-black hover:text-white hover:bg-black"
-                }`}
+              }`}
               onClick={() => handleRangeClick("6months")}
             >
               {loading ? <Skeleton className="w-16 h-4" /> : "6 Bulan"}
             </Button>
             <Button
-              className={`${selectedRange === "12months"
+              className={`${
+                selectedRange === "12months"
                   ? "bg-blue-500 text-white"
                   : "bg-white text-black hover:text-white hover:bg-black"
-                }`}
+              }`}
               onClick={() => handleRangeClick("12months")}
             >
               {loading ? <Skeleton className="w-16 h-4" /> : "12 Bulan"}
@@ -299,9 +303,10 @@ export default function DashboardPage() {
                     </HoverCardTrigger>
                     <HoverCardContent className="z-50 bg-white shadow-md rounded-md">
                       <p className="text-justify font-normal text-sm">
-                        Tingkat Respon merupakan tingkat pencapaian destinasi yang
-                        dihitung berdasarkan perbandingan antara pengunjung yang
-                        hanya memberikan bintang dengan seluruh jumlah review.
+                        Tingkat Respon merupakan tingkat pencapaian destinasi
+                        yang dihitung berdasarkan perbandingan antara pengunjung
+                        yang hanya memberikan bintang dengan seluruh jumlah
+                        review.
                       </p>
                     </HoverCardContent>
                   </HoverCard>
@@ -356,8 +361,8 @@ export default function DashboardPage() {
                     </HoverCardTrigger>
                     <HoverCardContent className="z-50 bg-white shadow-md rounded-md">
                       <p className="text-justify font-normal text-sm">
-                        Nilai Popularitas menunjukkan jumlah user yang memberikan
-                        response positif.
+                        Nilai Popularitas menunjukkan jumlah user yang
+                        memberikan response positif.
                       </p>
                     </HoverCardContent>
                   </HoverCard>
@@ -384,8 +389,8 @@ export default function DashboardPage() {
                     </HoverCardTrigger>
                     <HoverCardContent className="z-50 bg-white shadow-md rounded-md">
                       <p className="text-justify font-normal text-sm">
-                        Penilaian Keseluruhan adalah jumlah keseluruhan penilaian
-                        ulasan yang diterima.
+                        Penilaian Keseluruhan adalah jumlah keseluruhan
+                        penilaian ulasan yang diterima.
                       </p>
                     </HoverCardContent>
                   </HoverCard>
@@ -498,8 +503,8 @@ export default function DashboardPage() {
                         <HoverCardContent className="z-50 bg-white shadow-md rounded-md">
                           <p className="text-justify font-normal text-sm">
                             Nilai Dampak didapatkan dari perhitungan sentimen
-                            masing - masing review yang dapat bernilai positif dan
-                            negatif.
+                            masing - masing review yang dapat bernilai positif
+                            dan negatif.
                           </p>
                         </HoverCardContent>
                       </HoverCard>
