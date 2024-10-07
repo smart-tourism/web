@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import GISSentimentMap from "@/components/dashboard/gis-sentiment-map";
 import DestinationCard from "@/components/maps/card-destination";
 
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 export default function MapsPage() {
   const [mapCoordinates, setMapCoordinates] = useState<{
     lat: number;
@@ -58,24 +59,29 @@ export default function MapsPage() {
   };
 
   return (
-    <div className="flex flex-col bg-gray-100 min-h-screen">
+    <div className="flex flex-col bg-white min-h-screen">
       <div className="w-full pr-4 bg-white p-4 rounded-md shadow-md">
         <GISSentimentMap moveToLocation={mapCoordinates} />{" "}
         {/* Pass the coordinates here */}
       </div>
-      <div className="space-y-4 flex bg-white p-4">
-        <div className="space-y-4 flex">
-          {destinations.map((destination) => (
-            <DestinationCard
-              key={destination.rank}
-              rank={destination.rank}
-              title={destination.title}
-              location={destination.location}
-              imageUrl={destination.imageUrl}
-              onClick={() => handleCardClick(destination.lat, destination.lng)} // Send lat and lng on click
-            />
-          ))}
-        </div>
+      <div className="space-y-4 flex bg-white p-4 mb-2">
+        <ScrollArea className="">
+          <div className="space-y-4 flex mb-8">
+            {destinations.map((destination) => (
+              <DestinationCard
+                key={destination.rank}
+                rank={destination.rank}
+                title={destination.title}
+                location={destination.location}
+                imageUrl={destination.imageUrl}
+                onClick={() =>
+                  handleCardClick(destination.lat, destination.lng)
+                } // Send lat and lng on click
+              />
+            ))}
+          </div>
+          <ScrollBar orientation="horizontal" className="cursor-pointer" />
+        </ScrollArea>
       </div>
     </div>
   );

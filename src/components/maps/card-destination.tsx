@@ -17,8 +17,8 @@ const DestinationCard: React.FC<DestinationCardProps> = ({
 }) => {
   return (
     <div
-      className="p-6 max-w-sm mx-2 bg-white rounded-xl shadow-lg flex justify-between items-center space-x-4 hover:bg-gray-200 transition-colors cursor-pointer"
-      onClick={onClick} // Pastikan onClick dipasang di wrapper utama
+      className="p-4 min-w-[250px] sm:min-w-[300px] mx-auto sm:mx-2 bg-white rounded-xl shadow-lg flex justify-between items-center space-x-4 hover:bg-gray-200 transition-colors cursor-pointer"
+      onClick={onClick}
     >
       <div className="flex items-center space-x-4">
         <div className="flex-shrink-0">
