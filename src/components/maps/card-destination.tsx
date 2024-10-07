@@ -17,7 +17,7 @@ const DestinationCard: React.FC<DestinationCardProps> = ({
 }) => {
   return (
     <div
-      className="p-6 max-w-sm mx-auto bg-white rounded-xl shadow-lg flex justify-between items-center space-x-4 hover:bg-gray-200 transition-colors cursor-pointer"
+      className="p-6 max-w-sm mx-2 bg-white rounded-xl shadow-lg flex justify-between items-center space-x-4 hover:bg-gray-200 transition-colors cursor-pointer"
       onClick={onClick} // Pastikan onClick dipasang di wrapper utama
     >
       <div className="flex items-center space-x-4">

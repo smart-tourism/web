@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Command,
   CommandEmpty,
@@ -26,10 +26,10 @@ type Destination = {
 // Tipe untuk detail informasi destinasi
 type DetailType = {
   ratePrice: string;
-  performa: number;
-  responseRate: number;
+  performa: any;
+  responseRate: string;
   reviews: number;
-  popularity: string;
+  popularity: number;
   overallRating: number;
   location: string;
 };
@@ -43,61 +43,6 @@ const dpspDestinations: Destination[] = [
   { name: "LabuanBajo", image: "/labuanbajo.jpg" },
 ];
 
-// Definisikan destinationDetails menggunakan Record untuk tipe dinamis
-const destinationDetails: Record<string, DetailType> = {
-  Borobudur: {
-    ratePrice: "Coming Soon",
-    performa: 5.0,
-    responseRate: 7.84,
-    reviews: 0.0,
-    popularity: "0.00%",
-    overallRating: 0,
-    location:
-      "Jalan Badrawati, Kecamatan Borobudur, Kabupaten Magelang, Jawa Tengah, Indonesia.",
-  },
-  Mandalika: {
-    ratePrice: "Coming Soon",
-    performa: 4.0,
-    responseRate: 8.8,
-    reviews: 9.81,
-    popularity: "100%",
-    overallRating: 16,
-    location:
-      "Kawasan Ekonomi Khusus Mandalika, Lombok Tengah, Nusa Tenggara Barat, Indonesia.",
-  },
-  LabuanBajo: {
-    ratePrice: "Coming Soon",
-    performa: 5.0,
-    responseRate: 7.84,
-    reviews: 0.0,
-    popularity: "0.00%",
-    overallRating: 0,
-    location:
-      "Jalan Badrawati, Kecamatan Borobudur, Kabupaten Magelang, Jawa Tengah, Indonesia.",
-  },
-  Likupang: {
-    ratePrice: "Coming Soon",
-    performa: 4.0,
-    responseRate: 8.8,
-    reviews: 9.81,
-    popularity: "100%",
-    overallRating: 16,
-    location:
-      "Kawasan Ekonomi Khusus Mandalika, Lombok Tengah, Nusa Tenggara Barat, Indonesia.",
-  },
-  DanauToba: {
-    ratePrice: "Coming Soon",
-    performa: 4.0,
-    responseRate: 8.8,
-    reviews: 9.81,
-    popularity: "100%",
-    overallRating: 16,
-    location:
-      "Kawasan Ekonomi Khusus Mandalika, Lombok Tengah, Nusa Tenggara Barat, Indonesia.",
-  },
-  // Tambahkan detail untuk destinasi lain sama kayak diatas
-};
-
 // Komponen untuk menampilkan detail destinasi
 const DestinationDetails = ({
   name,
@@ -108,20 +53,27 @@ const DestinationDetails = ({
   showDetails: boolean;
   toggleDetails: () => void;
 }) => {
-  // Ambil detail dari destinationDetails menggunakan name
-  const details = destinationDetails[name];
+  const [details, setDetails] = useState<DetailType>();
+
+  useEffect(() => {
+    const fetchDetails = async () => {
+      const response = await fetch(
+        `/api/similar-destination?name=${encodeURIComponent(name)}`
+      );
+      const data = await response.json();
+      setDetails(data.data);
+    };
+    fetchDetails();
+  }, [name]);
 
   return (
     <div className="relative border-2 border-gray-200 rounded-lg p-4 text-center shadow-md bg-white h-auto w-[300px] max-w-[300px]">
-      {/* Gambar destinasi */}
       <img
         src={`/${name.toLowerCase().replace(" ", "-")}.jpg`}
         alt={name}
         className="h-40 w-full object-cover mb-2 rounded"
       />
       <h3 className="font-bold text-lg mb-2 text-black">{name}</h3>
-
-      {/* Tombol Show/Hide Details */}
       <button
         className="text-blue-500 hover:underline mb-2"
         onClick={toggleDetails}
@@ -129,14 +81,14 @@ const DestinationDetails = ({
         {showDetails ? "Hide Details" : "Show Details"}
       </button>
 
-      {/* Tampilkan Detail jika showDetails true */}
       {showDetails && details && (
         <div className="text-center text-sm mt-2 text-black">
           <p>
             <strong>Rate Price:</strong> {details.ratePrice}
           </p>
           <p>
-            <strong>Performa:</strong> {details.performa}
+            <strong>Performa:</strong>{" "}
+            {Math.round(details.performa.rating * 10) / 10} ⭐
           </p>
           <p>
             <strong>Tingkat Response:</strong> {details.responseRate}
@@ -145,7 +97,7 @@ const DestinationDetails = ({
             <strong>Ulasan:</strong> {details.reviews}
           </p>
           <p>
-            <strong>Popularitas:</strong> {details.popularity}
+            <strong>Popularitas:</strong> {details.popularity}%
           </p>
           <p>
             <strong>Penilaian Keseluruhan:</strong> {details.overallRating}

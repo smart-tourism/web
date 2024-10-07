@@ -36,8 +36,13 @@ import {
   DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
 import { Skeleton } from "@/components/ui/skeleton";
+import { NextRequest } from "next/server";
+import { useSearchParams } from "next/navigation";
 
 export default function DashboardPage() {
+  const searchParams = useSearchParams();
+  let tempatWisata = searchParams.get("location");
+
   const [selectedRange, setSelectedRange] = React.useState<
     "7days" | "30days" | "6months" | "12months" | "custom" | undefined
   >();
@@ -94,16 +99,21 @@ export default function DashboardPage() {
   };
 
   // Fetch data
-  const [selectedDestination, setSelectedDestination] =
-    useState<string>("Pilih Destinasi");
+  const [selectedDestination, setSelectedDestination] = tempatWisata
+    ? useState<string>(tempatWisata)
+    : useState<string>("Pilih Destinasi");
+
   const [datas, setDatas] = useState({
     averageRating: 0,
     totalReviews: 0,
+    positivePercentage: 0,
     reviewsByDate: [],
     positive: 0,
     netral: 0,
     negative: 0,
     topKeywords: [],
+    positiveFeedback: [],
+    negativeFeedback: [],
   });
 
   React.useEffect(() => {
@@ -117,11 +127,14 @@ export default function DashboardPage() {
       setDatas({
         averageRating: res.data.averageRating,
         totalReviews: res.data.totalReviews,
+        positivePercentage: res.data.positivePercentage,
         reviewsByDate: res.data.reviewsByDate,
         positive: res.data.positive,
         netral: res.data.netral,
         negative: res.data.negative,
         topKeywords: res.data.dataTopKeywords,
+        positiveFeedback: res.data.sortedPositiveFeedback,
+        negativeFeedback: res.data.sortedNegativeFeedback,
       });
     };
 
@@ -227,7 +240,7 @@ export default function DashboardPage() {
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem
-                  onClick={() => setSelectedDestination("Borobudur")}
+                  onClick={() => setSelectedDestination("Candi Borobudur")}
                   className="cursor-pointer"
                 >
                   Borobudur
@@ -272,7 +285,7 @@ export default function DashboardPage() {
                       <FaRegQuestionCircle />
                     </HoverCardTrigger>
                     <HoverCardContent className="z-50 bg-white shadow-md rounded-md">
-                      <p className="text-justify font-normal text-sm">
+                      <p className="font-normal text-sm">
                         Nilai Performa menunjukkan rata rata jumlah bintang tiap
                         destinasi.
                       </p>
@@ -302,7 +315,9 @@ export default function DashboardPage() {
                       <FaRegQuestionCircle />
                     </HoverCardTrigger>
                     <HoverCardContent className="z-50 bg-white shadow-md rounded-md">
-                      <p className="text-justify font-normal text-sm">
+
+                      <p className="font-normal text-sm">
+
                         Tingkat Respon merupakan tingkat pencapaian destinasi
                         yang dihitung berdasarkan perbandingan antara pengunjung
                         yang hanya memberikan bintang dengan seluruh jumlah
@@ -316,7 +331,7 @@ export default function DashboardPage() {
                 {loading ? (
                   <Skeleton className="w-16 h-6" />
                 ) : (
-                  <h1 className="font-bold text-2xl">0.0</h1>
+                  <h1 className="font-bold text-2xl">100%</h1>
                 )}
               </CardContent>
             </Card>
@@ -332,7 +347,7 @@ export default function DashboardPage() {
                       <FaRegQuestionCircle />
                     </HoverCardTrigger>
                     <HoverCardContent className="z-50 bg-white shadow-md rounded-md">
-                      <p className="text-justify font-normal text-sm">
+                      <p className="font-normal text-sm">
                         Ulasan merupakan jumlah seluruh response atau komentar
                         pada tiap destinasi.
                       </p>
@@ -360,9 +375,12 @@ export default function DashboardPage() {
                       <FaRegQuestionCircle />
                     </HoverCardTrigger>
                     <HoverCardContent className="z-50 bg-white shadow-md rounded-md">
-                      <p className="text-justify font-normal text-sm">
-                        Nilai Popularitas menunjukkan jumlah user yang
-                        memberikan response positif.
+
+
+                      <p className="font-normal text-sm">
+                        Nilai Popularitas menunjukkan presentase jumlah ulasan
+                        positif dari seluruh ulasan.
+
                       </p>
                     </HoverCardContent>
                   </HoverCard>
@@ -372,7 +390,9 @@ export default function DashboardPage() {
                 {loading ? (
                   <Skeleton className="w-16 h-6" />
                 ) : (
-                  <h1 className="font-bold text-2xl">{datas.positive}</h1>
+                  <h1 className="font-bold text-2xl">
+                    {datas.positivePercentage}%
+                  </h1>
                 )}
               </CardContent>
             </Card>
@@ -388,9 +408,11 @@ export default function DashboardPage() {
                       <FaRegQuestionCircle />
                     </HoverCardTrigger>
                     <HoverCardContent className="z-50 bg-white shadow-md rounded-md">
-                      <p className="text-justify font-normal text-sm">
+
+                      <p className="font-normal text-sm">
                         Penilaian Keseluruhan adalah jumlah keseluruhan
-                        penilaian ulasan yang diterima.
+                        penilaian positif yang diterima.
+
                       </p>
                     </HoverCardContent>
                   </HoverCard>
@@ -400,7 +422,7 @@ export default function DashboardPage() {
                 {loading ? (
                   <Skeleton className="w-16 h-6" />
                 ) : (
-                  <h1 className="font-bold text-2xl">0</h1>
+                  <h1 className="font-bold text-2xl">{datas.positive}</h1>
                 )}
               </CardContent>
             </Card>
@@ -565,7 +587,10 @@ export default function DashboardPage() {
                   {loading ? (
                     <Skeleton className="w-full h-6" />
                   ) : (
-                    <CustomerFeedback />
+                    <CustomerFeedback
+                      positiveFeedbacks={datas.positiveFeedback}
+                      negativeFeedbacks={datas.negativeFeedback}
+                    />
                   )}
                 </CardContent>
               </Card>

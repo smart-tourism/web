@@ -13,7 +13,7 @@ export async function GET(request: NextRequest) {
   }
 
   switch (tempatWisata) {
-    case "Borobudur":
+    case "Candi Borobudur":
       tempatWisata = "Borobudur Temple";
       break;
     case "Likupang":

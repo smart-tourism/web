@@ -10,11 +10,11 @@ import { FaBars, FaTimes } from "react-icons/fa"; // Import icons for hamburger 
 
 // Data gambar destinasi
 const destinations = [
-  { name: "Likupang", image: "/likupang.jpg" },
-  { name: "Mandalika", image: "/mandalika.jpg" },
-  { name: "Borobudur", image: "/borobudur.jpg" },
-  { name: "Labuan Bajo", image: "/labuanbajo.jpg" },
-  { name: "Danau Toba", image: "/danautoba.jpg" },
+  { name: "Likupang", image: "/images/Likupang.jpg" },
+  { name: "Mandalika", image: "/images/Mandalika.jpg" },
+  { name: "Borobudur", image: "/images/Candi%20Borobudur.jpg" },
+  { name: "Labuan Bajo", image: "/images/Labuan%20Bajo.jpg" },
+  { name: "Danau Toba", image: "/images/Danau%20Toba.jpg" },
 ];
 
 export default function Home() {
@@ -189,11 +189,11 @@ export default function Home() {
         <h2 className="text-4xl uppercase font-bold mb-6 bg-gradient-to-r from-[#FE7123] to-[#F6D45E] bg-clip-text text-transparent transition-all duration-300 hover:bg-gradient-to-l hover:from-[#F6D45E] hover:to-[#FE7123]">
           Destinasi Unggulan
         </h2>
-        <div className="grid lg:grid-cols-3 md:grid-cols-1 sm:grid-cols-1 gap-4 max-w-5xl mx-auto justify-center">
+        <div className="flex flex-wrap justify-center gap-4 max-w-5xl mx-auto">
           {/* Gambar 1 */}
           <div
             className="relative bg-cover bg-center h-80 w-80 rounded-md shadow-lg overflow-hidden transition-transform duration-500 hover:scale-105 hover:shadow-2xl"
-            style={{ backgroundImage: "url(/likupang.jpg)" }}
+            style={{ backgroundImage: "url(/images/Likupang.jpg)" }}
           >
             <div className="absolute inset-0 bg-black bg-opacity-20 flex items-end p-4">
               <p className="text-white font-bold text-lg">Likupang</p>
@@ -204,7 +204,7 @@ export default function Home() {
           <div
             className="relative bg-cover bg-center h-80 w-80 rounded-md shadow-lg overflow-hidden transition-transform duration-500 hover:scale-105 hover:shadow-2xl"
             style={{
-              backgroundImage: "url(/mandalika.jpg)",
+              backgroundImage: "url(/images/Mandalika.jpg)",
             }}
           >
             <div className="absolute inset-0 bg-black bg-opacity-20 flex items-end p-4">
@@ -216,7 +216,7 @@ export default function Home() {
           <div
             className="relative bg-cover bg-center h-80 w-80 rounded-md shadow-lg overflow-hidden transition-transform duration-500 hover:scale-105 hover:shadow-2xl"
             style={{
-              backgroundImage: "url(/borobudur.jpg)",
+              backgroundImage: "url(/images/Candi%20Borobudur.jpg)",
             }}
           >
             <div className="absolute inset-0 bg-black bg-opacity-20 flex items-end p-4">
@@ -224,31 +224,27 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="lg:col-span-3 md:col-span-1 sm:col-span-1">
-            <div className="flex justify-center gap-6">
-              {/* Gambar 4 */}
-              <div
-                className="relative bg-cover bg-center h-80 w-80 rounded-md shadow-lg overflow-hidden transition-transform duration-500 hover:scale-105 hover:shadow-2xl"
-                style={{
-                  backgroundImage: "url(/labuanbajo.jpg)",
-                }}
-              >
-                <div className="absolute inset-0 bg-black bg-opacity-20 flex items-end p-4">
-                  <p className="text-white font-bold text-lg">Labuan Bajo</p>
-                </div>
-              </div>
+          {/* Gambar 4 */}
+          <div
+            className="relative bg-cover bg-center h-80 w-80 rounded-md shadow-lg overflow-hidden transition-transform duration-500 hover:scale-105 hover:shadow-2xl"
+            style={{
+              backgroundImage: "url(/images/Labuan%20Bajo.jpg)",
+            }}
+          >
+            <div className="absolute inset-0 bg-black bg-opacity-20 flex items-end p-4">
+              <p className="text-white font-bold text-lg">Labuan Bajo</p>
+            </div>
+          </div>
 
-              {/* Gambar 5 */}
-              <div
-                className="relative bg-cover bg-center h-80 w-80 rounded-md shadow-lg overflow-hidden transition-transform duration-500 hover:scale-105 hover:shadow-2xl"
-                style={{
-                  backgroundImage: "url(/danautoba.jpg)",
-                }}
-              >
-                <div className="absolute inset-0 bg-black bg-opacity-20 flex items-end p-4">
-                  <p className="text-white font-bold text-lg">Danau Toba</p>
-                </div>
-              </div>
+          {/* Gambar 5 */}
+          <div
+            className="relative bg-cover bg-center h-80 w-80 rounded-md shadow-lg overflow-hidden transition-transform duration-500 hover:scale-105 hover:shadow-2xl"
+            style={{
+              backgroundImage: "url(/images/Danau%20Toba.jpg)",
+            }}
+          >
+            <div className="absolute inset-0 bg-black bg-opacity-20 flex items-end p-4">
+              <p className="text-white font-bold text-lg">Danau Toba</p>
             </div>
           </div>
         </div>

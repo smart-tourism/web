@@ -22,6 +22,17 @@ export const getData = async (tempatWisata: string) => {
       // total ulasan
       const totalReviews = await prismaClient.sentiments.count();
 
+      // presentase persen ulasan positif
+      const positiveReviews = await prismaClient.sentiments.count({
+        where: {
+          label: "positif",
+        },
+      });
+
+      const positivePercentage = Math.round(
+        (positiveReviews / totalReviews) * 100
+      );
+
       // jumlah ulasan lima hari terakhir
       const lastFiveDates = await prismaClient.sentiments.findMany({
         select: {
@@ -114,15 +125,128 @@ export const getData = async (tempatWisata: string) => {
           ?._count.label,
       };
 
+      // customer feedback positive
+      const positiveFeedbacks = [
+        "bagus",
+        "oke",
+        "nyaman",
+        "indah",
+        "murah",
+        "recommended",
+        "keren",
+        "enak",
+        "mantep",
+      ];
+
+      const sentimentsPositiveFeedback = await prismaClient.sentiments.findMany(
+        {
+          select: {
+            tokenized: true,
+          },
+        }
+      );
+
+      const positiveFeedbackCountMap: { [key: string]: number } = {};
+
+      positiveFeedbacks.forEach((positiveFeedback) => {
+        positiveFeedbackCountMap[positiveFeedback] = 0;
+      });
+
+      sentimentsPositiveFeedback.forEach((sentiment) => {
+        const fixedTokenized = sentiment.tokenized.replace(/'/g, '"');
+
+        let tokens;
+        try {
+          tokens = JSON.parse(fixedTokenized);
+        } catch (error) {
+          console.error("Error parsing tokenized data:", error);
+          return;
+        }
+
+        const uniqueTokens = new Set(
+          tokens.map((token: string) => token.trim().toLowerCase())
+        );
+        positiveFeedbacks.forEach((positiveFeedback) => {
+          if (uniqueTokens.has(positiveFeedback)) {
+            positiveFeedbackCountMap[positiveFeedback]++;
+          }
+        });
+      });
+
+      const sortedPositiveFeedback = Object.entries(positiveFeedbackCountMap)
+        .sort(([, a], [, b]) => b - a)
+        .reduce((acc: Record<string, number>, [key, value]) => {
+          acc[key] = value;
+          return acc;
+        }, {});
+
+      // customer feedback negative
+      const negativeFeedbacks = [
+        "jelek",
+        "kotor",
+        "bau",
+        "jijik",
+        "mahal",
+        "tidak nyaman",
+        "basi",
+        "buruk",
+        "lama",
+      ];
+
+      const sentimentsNegativeFeedback = await prismaClient.sentiments.findMany(
+        {
+          select: {
+            tokenized: true,
+          },
+        }
+      );
+
+      const negativeFeedbackCountMap: { [key: string]: number } = {};
+
+      negativeFeedbacks.forEach((negativeFeedback) => {
+        negativeFeedbackCountMap[negativeFeedback] = 0;
+      });
+
+      sentimentsNegativeFeedback.forEach((sentiment) => {
+        const fixedTokenized = sentiment.tokenized.replace(/'/g, '"');
+
+        let tokens;
+        try {
+          tokens = JSON.parse(fixedTokenized);
+        } catch (error) {
+          console.error("Error parsing tokenized data:", error);
+          return;
+        }
+
+        const uniqueTokens = new Set(
+          tokens.map((token: string) => token.trim().toLowerCase())
+        );
+        negativeFeedbacks.forEach((negativeFeedback) => {
+          if (uniqueTokens.has(negativeFeedback)) {
+            negativeFeedbackCountMap[negativeFeedback]++;
+          }
+        });
+      });
+
+      const sortedNegativeFeedback = Object.entries(negativeFeedbackCountMap)
+        .sort(([, a], [, b]) => b - a)
+        .reduce((acc: Record<string, number>, [key, value]) => {
+          acc[key] = value;
+          return acc;
+        }, {});
+
       // response
       const response = {
         averageRating: averageRating._avg.rating,
         totalReviews,
+        positivePercentage,
         reviewsByDate,
         positive: result.positive,
         netral: result.neutral,
         negative: result.negative,
         dataTopKeywords,
+        sortedPositiveFeedback,
+        sortedNegativeFeedback,
       };
 
       return response;
@@ -145,6 +269,18 @@ export const getData = async (tempatWisata: string) => {
         tempat_wisata: tempatWisata,
       },
     });
+
+    // presentase persen ulasan positif
+    const positiveReviews = await prismaClient.sentiments.count({
+      where: {
+        label: "positif",
+        tempat_wisata: tempatWisata,
+      },
+    });
+
+    const positivePercentage = Math.round(
+      (positiveReviews / totalReviews) * 100
+    );
 
     // jumlah ulasan lima hari terakhir
     const lastFiveDates = await prismaClient.sentiments.findMany({
@@ -248,15 +384,130 @@ export const getData = async (tempatWisata: string) => {
         .label,
     };
 
+    // customer feedback positive
+    const positiveFeedbacks = [
+      "bagus",
+      "oke",
+      "nyaman",
+      "indah",
+      "murah",
+      "recommended",
+      "keren",
+      "enak",
+      "mantep",
+    ];
+
+    const sentimentsPositiveFeedback = await prismaClient.sentiments.findMany({
+      select: {
+        tokenized: true,
+      },
+      where: {
+        tempat_wisata: tempatWisata,
+      },
+    });
+
+    const positiveFeedbackCountMap: { [key: string]: number } = {};
+
+    positiveFeedbacks.forEach((positiveFeedback) => {
+      positiveFeedbackCountMap[positiveFeedback] = 0;
+    });
+
+    sentimentsPositiveFeedback.forEach((sentiment) => {
+      const fixedTokenized = sentiment.tokenized.replace(/'/g, '"');
+
+      let tokens;
+      try {
+        tokens = JSON.parse(fixedTokenized);
+      } catch (error) {
+        console.error("Error parsing tokenized data:", error);
+        return;
+      }
+
+      const uniqueTokens = new Set(
+        tokens.map((token: string) => token.trim().toLowerCase())
+      );
+      positiveFeedbacks.forEach((positiveFeedback) => {
+        if (uniqueTokens.has(positiveFeedback)) {
+          positiveFeedbackCountMap[positiveFeedback]++;
+        }
+      });
+    });
+
+    const sortedPositiveFeedback = Object.entries(positiveFeedbackCountMap)
+      .sort(([, a], [, b]) => b - a)
+      .reduce((acc: Record<string, number>, [key, value]) => {
+        acc[key] = value;
+        return acc;
+      }, {});
+
+    // customer feedback negative
+    const negativeFeedbacks = [
+      "jelek",
+      "kotor",
+      "bau",
+      "jijik",
+      "mahal",
+      "tidak nyaman",
+      "basi",
+      "buruk",
+      "lama",
+    ];
+
+    const sentimentsNegativeFeedback = await prismaClient.sentiments.findMany({
+      select: {
+        tokenized: true,
+      },
+      where: {
+        tempat_wisata: tempatWisata,
+      },
+    });
+
+    const negativeFeedbackCountMap: { [key: string]: number } = {};
+
+    negativeFeedbacks.forEach((negativeFeedback) => {
+      negativeFeedbackCountMap[negativeFeedback] = 0;
+    });
+
+    sentimentsNegativeFeedback.forEach((sentiment) => {
+      const fixedTokenized = sentiment.tokenized.replace(/'/g, '"');
+
+      let tokens;
+      try {
+        tokens = JSON.parse(fixedTokenized);
+      } catch (error) {
+        console.error("Error parsing tokenized data:", error);
+        return;
+      }
+
+      const uniqueTokens = new Set(
+        tokens.map((token: string) => token.trim().toLowerCase())
+      );
+      negativeFeedbacks.forEach((negativeFeedback) => {
+        if (uniqueTokens.has(negativeFeedback)) {
+          negativeFeedbackCountMap[negativeFeedback]++;
+        }
+      });
+    });
+
+    const sortedNegativeFeedback = Object.entries(negativeFeedbackCountMap)
+      .sort(([, a], [, b]) => b - a)
+      .reduce((acc: Record<string, number>, [key, value]) => {
+        acc[key] = value;
+        return acc;
+      }, {});
+
     // response
     const response = {
       averageRating: averageRating._avg.rating,
       totalReviews,
+      positivePercentage,
       reviewsByDate,
       positive: result.positive,
       netral: result.neutral,
       negative: result.negative,
       dataTopKeywords,
+      sortedPositiveFeedback,
+      sortedNegativeFeedback,
     };
     return response;
   } catch (error) {

@@ -3,9 +3,9 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 
 export default function OverviewStatus() {
   const keywords = [
-    { img: "/tiketdotcom-icon.png", text: "Ticket", count: 2 },
-    { img: "/traveloka-icon.png", text: "Traveloka", count: 2 },
-    { img: "/tripadvisor-icon.png", text: "Tripadvisor", count: 2 },
+    { img: "/tiketdotcom-icon.png", text: "Ticket", count: 0 },
+    { img: "/traveloka-icon.png", text: "Traveloka", count: 0 },
+    { img: "/tripadvisor-icon.png", text: "Tripadvisor", count: 0 },
   ];
 
   return (
