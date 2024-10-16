@@ -42,6 +42,7 @@ model sentiments_ato {
   rating        Int
   label         String   @db.VarChar(10)
   bahasa        String   @db.VarChar(10)
+  source        String   @db.VarChar(15)
   tokenized     String   @db.Text
   date          DateTime @db.DateTime(0)
 }
