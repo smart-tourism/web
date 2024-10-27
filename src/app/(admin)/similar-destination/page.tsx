@@ -39,8 +39,8 @@ const dpspDestinations: Destination[] = [
   { name: "Borobudur", image: "/borobudur.jpg" },
   { name: "Mandalika", image: "/mandalika.jpg" },
   { name: "Likupang", image: "/likupang.jpg" },
-  { name: "DanauToba", image: "/danautoba.jpg" },
-  { name: "LabuanBajo", image: "/labuanbajo.jpg" },
+  { name: "Danau Toba", image: "/danautoba.jpg" },
+  { name: "Labuan Bajo", image: "/labuanbajo.jpg" },
 ];
 
 // Komponen untuk menampilkan detail destinasi
@@ -69,7 +69,7 @@ const DestinationDetails = ({
   return (
     <div className="relative border-2 border-gray-200 rounded-lg p-4 text-center shadow-md bg-white h-auto w-[300px] max-w-[300px]">
       <img
-        src={`/${name.toLowerCase().replace(" ", "-")}.jpg`}
+        src={`/images/${name.replace(/\s+/g, "").toLowerCase()}.jpg`}
         alt={name}
         className="h-40 w-full object-cover mb-2 rounded"
       />
@@ -87,8 +87,8 @@ const DestinationDetails = ({
             <strong>Rate Price:</strong> {details.ratePrice}
           </p>
           <p>
-            <strong>Performa:</strong>{" "}
-            {Math.round(details.performa.rating * 10) / 10} ⭐
+            <strong>Performa:</strong> {Math.round(details.performa * 10) / 10}{" "}
+            ⭐
           </p>
           <p>
             <strong>Tingkat Response:</strong> {details.responseRate}

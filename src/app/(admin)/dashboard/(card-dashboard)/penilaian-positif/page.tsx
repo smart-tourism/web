@@ -3,10 +3,10 @@
 import Link from "next/link";
 import { ContentLayout } from "@/components/admin-panel/content-layout";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { ChartAll } from "@/components/dashboard/card-dashboard/penilaian-keseluruhan/charts/chart-all";
 import { ChartTraveloka } from "@/components/dashboard/card-dashboard/penilaian-keseluruhan/charts/chart-traveloka";
 import { ChartTiket } from "@/components/dashboard/card-dashboard/penilaian-keseluruhan/charts/chart-tiket";
 import { ChartTripadvisor } from "@/components/dashboard/card-dashboard/penilaian-keseluruhan/charts/chart-tripadvisor";
+import { ChartGoogle } from "@/components/dashboard/card-dashboard/penilaian-keseluruhan/charts/chart-google";
 
 import Image from "next/image";
 
@@ -18,10 +18,40 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
-import { useState } from "react";
+import React, { useState } from "react";
+import { useSearchParams } from "next/navigation";
 
 export default function DashboardPenilaianKeseruluhan() {
-  const [activeTab, setActiveTab] = useState("Semua");
+  const [activeTab, setActiveTab] = useState("google");
+  const searchParams = useSearchParams();
+  let tempatWisata = searchParams.get("location") || "";
+
+  // Fetch data
+  const [datas, setDatas] = useState({
+    reviewsByDate: [],
+  });
+
+  React.useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(
+          `/api/dashboard/penilaian-positif?tempat_wisata=${encodeURIComponent(
+            tempatWisata
+          )}&active_tab=${encodeURIComponent(activeTab)}`
+        );
+        if (!response.ok) throw new Error("Network response was not ok");
+        const res = await response.json();
+        setDatas({
+          reviewsByDate: res.data ? res.data : [],
+        });
+      } catch (error) {
+        console.error("Fetching data failed:", error);
+      }
+    };
+
+    fetchData();
+  }, [tempatWisata, activeTab]);
+
   return (
     <ContentLayout title="Dashboard">
       {/* Breadcumbs */}
@@ -51,19 +81,26 @@ export default function DashboardPenilaianKeseruluhan() {
           {/* Penilaian Keseruluhan OTA */}
           <div className="justify-center">
             <Tabs
-              defaultValue="Semua"
+              defaultValue="google"
               className=""
               onValueChange={(value) => setActiveTab(value)}
             >
               <TabsList className="w-full rounded-lg bg-white gap-2">
                 <TabsTrigger
-                  value="Semua"
+                  value="google"
                   className="w-1/2 text-center data-[state=active]:bg-[#4D4DC8] data-[state=active]:text-white hover:bg-[#4D4DC8] hover:text-white py-2"
                 >
-                  Semua
+                  <Image
+                    src="/google-icon.png"
+                    alt="google"
+                    width={20}
+                    height={20}
+                    className="mr-2"
+                  />
+                  Google Maps
                 </TabsTrigger>
                 <TabsTrigger
-                  value="Traveloka"
+                  value="traveloka"
                   className="w-1/2 text-center py-2 data-[state=active]:bg-[#4D4DC8] data-[state=active]:text-white hover:bg-[#4D4DC8] hover:text-white"
                 >
                   <Image
@@ -76,24 +113,24 @@ export default function DashboardPenilaianKeseruluhan() {
                   Traveloka
                 </TabsTrigger>
                 <TabsTrigger
-                  value="Tripadvisor"
+                  value="tripadvisor"
                   className="w-1/2 text-center py-2 data-[state=active]:bg-[#4D4DC8] data-[state=active]:text-white hover:bg-[#4D4DC8] hover:text-white"
                 >
                   <Image
                     src="/tripadvisor-icon.png"
                     alt="tripadvisor"
-                    width={130}
-                    height={130}
+                    width={40}
+                    height={40}
                     className="mr-2"
                   />
                   Tripadvisor
                 </TabsTrigger>
                 <TabsTrigger
-                  value="Tiket"
+                  value="tiket"
                   className="w-1/2 text-center py-2 data-[state=active]:bg-[#4D4DC8] data-[state=active]:text-white hover:bg-[#4D4DC8] hover:text-white"
                 >
                   <Image
-                    src="/tiketdotcom-icon.png"
+                    src="/tiket-icon.png"
                     alt="ticket.com"
                     width={20}
                     height={20}
@@ -102,10 +139,10 @@ export default function DashboardPenilaianKeseruluhan() {
                   Tiket
                 </TabsTrigger>
               </TabsList>
-              <TabsContent value="Semua"></TabsContent>
-              <TabsContent value="Traveloka"></TabsContent>
-              <TabsContent value="Tripadvisor"></TabsContent>
-              <TabsContent value="Tiket"></TabsContent>
+              <TabsContent value="google"></TabsContent>
+              <TabsContent value="traveloka"></TabsContent>
+              <TabsContent value="tripadvisor"></TabsContent>
+              <TabsContent value="tiket"></TabsContent>
             </Tabs>
           </div>
         </div>
@@ -113,28 +150,28 @@ export default function DashboardPenilaianKeseruluhan() {
         {/* Charts nanti berubah sesuai dengan tabs */}
         <div className="flex h-full w-full justify-center rounded-lg border-2">
           <div className="w-[80%]">
-            {activeTab === "Semua" && (
+            {activeTab === "google" && (
               <div>
                 {/* Charts All */}
-                <ChartAll />
+                <ChartGoogle data={datas.reviewsByDate} />
               </div>
             )}
-            {activeTab === "Traveloka" && (
+            {activeTab === "traveloka" && (
               <div className="mt-8">
                 {/* Charts Traveloka */}
-                <ChartTraveloka />
+                <ChartTraveloka data={datas.reviewsByDate} />
               </div>
             )}
-            {activeTab === "Tripadvisor" && (
+            {activeTab === "tripadvisor" && (
               <div className="mt-8">
                 {/* Charts Tripadvisor */}
-                <ChartTripadvisor />
+                <ChartTripadvisor data={datas.reviewsByDate} />
               </div>
             )}
-            {activeTab === "Tiket" && (
+            {activeTab === "tiket" && (
               <div className="mt-8">
                 {/* Charts Tiket */}
-                <ChartTiket />
+                <ChartTiket data={datas.reviewsByDate} />
               </div>
             )}
           </div>

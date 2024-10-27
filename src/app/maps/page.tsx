@@ -17,7 +17,7 @@ export default function MapsPage() {
       location: "Sumatera Utara",
       lat: 2.6845,
       lng: 98.8588,
-      imageUrl: "/danautoba.jpg",
+      imageUrl: "/images/danautoba.jpg",
     },
     {
       rank: 2,
@@ -25,7 +25,7 @@ export default function MapsPage() {
       location: "Jawa Tengah",
       lat: -7.6079,
       lng: 110.2038,
-      imageUrl: "/borobudur.jpg",
+      imageUrl: "/images/borobudur.jpg",
     },
     {
       rank: 3,
@@ -33,7 +33,7 @@ export default function MapsPage() {
       location: "Sulawesi Utara",
       lat: 1.6824,
       lng: 125.0568,
-      imageUrl: "/likupang.jpg",
+      imageUrl: "/images/likupang.jpg",
     },
     {
       rank: 4,
@@ -41,7 +41,7 @@ export default function MapsPage() {
       location: "Nusa Tenggara Barat",
       lat: -8.8955,
       lng: 116.2951,
-      imageUrl: "/mandalika.jpg",
+      imageUrl: "/images/mandalika.jpg",
     },
     {
       rank: 5,
@@ -49,9 +49,8 @@ export default function MapsPage() {
       location: "Nusa Tenggara Timur",
       lat: -8.4539,
       lng: 119.889,
-      imageUrl: "/labuanbajo.jpg",
+      imageUrl: "/images/labuanbajo.jpg",
     },
-    // Add other destinations similarly
   ];
 
   const handleCardClick = (lat: number, lng: number) => {

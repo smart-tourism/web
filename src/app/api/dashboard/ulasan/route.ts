@@ -1,11 +1,14 @@
-import { getData } from "@/app/lib/mysql/dashboard-service";
+import { getUlasanFiltered } from "@/app/lib/mysql/ulasan-service";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
   const tempatWisata = searchParams.get("tempat_wisata");
-  const dateRange = searchParams.get("dateRange");
   let arrTempatWisata: string[] = [];
+  const source = searchParams.get("source") || "";
+  const sentiment = searchParams.get("sentiment") || "";
+  const page = parseInt(searchParams.get("page") || "1", 10);
+  const limit = parseInt(searchParams.get("limit") || "10", 10);
 
   if (!tempatWisata) {
     return NextResponse.json(
@@ -574,24 +577,22 @@ export async function GET(request: NextRequest) {
       break;
   }
 
-  let parsedDateRange: { from?: Date; to?: Date } = {};
-  if (dateRange) {
-    parsedDateRange = JSON.parse(dateRange) || {};
-    if (Object.keys(parsedDateRange).length === 0) {
-      parsedDateRange = {};
-    }
-  }
-
   try {
-    const data = await getData(arrTempatWisata, parsedDateRange);
+    const { data, total } = await getUlasanFiltered(
+      arrTempatWisata,
+      source,
+      sentiment,
+      page,
+      limit
+    );
 
     return NextResponse.json(
-      { status: 200, message: "Success", data },
+      { status: 200, message: "Success", data, total },
       { status: 200 }
     );
   } catch (error) {
     return NextResponse.json(
-      { status: 500, message: "Failed to fetch average rating." },
+      { status: 500, message: "Failed to fetch reviews." },
       { status: 500 }
     );
   }

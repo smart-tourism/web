@@ -52,12 +52,7 @@ export function ChartImpactTiket() {
     <div className="grid grid-cols-1 justify-items-stretch gap-x-[10rem] gap-y-5 sm:grid-cols-2grid gap-8">
       <div className="flex flex-row items-center justify-between">
         <div className="flex gap-2">
-          <img
-            src="/tiketdotcom-icon.png"
-            alt="Ticket.com"
-            height={32}
-            width={32}
-          />
+          <img src="/tiket-icon.png" alt="Ticket.com" height={32} width={32} />
           <h2 className="text-2xl font-bold first-letter:uppercase">Tiket</h2>
         </div>
         <div className="flex flex-row gap-2">

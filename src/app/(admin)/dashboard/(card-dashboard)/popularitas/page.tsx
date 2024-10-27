@@ -93,7 +93,7 @@ export default function Dashboardpopularitas() {
                   className="w-1/2 text-center py-2 data-[state=active]:bg-[#4D4DC8] data-[state=active]:text-white hover:bg-[#4D4DC8] hover:text-white"
                 >
                   <Image
-                    src="/tiketdotcom-icon.png"
+                    src="/tiket-icon.png"
                     alt="ticket.com"
                     width={20}
                     height={20}

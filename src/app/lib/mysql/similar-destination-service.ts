@@ -1,186 +1,73 @@
 import { prismaClient } from "./init";
 
-export async function getDataBorobudur() {
-  const averageRating = await prismaClient.sentiments.aggregate({
-    _avg: {
-      rating: true,
-    },
-    where: {
-      tempat_wisata: "Borobudur Temple",
-    },
-  });
-
-  const totalReviews = await prismaClient.sentiments.count({
-    where: {
-      tempat_wisata: "Borobudur Temple",
-    },
-  });
-
-  const positifReviews = await prismaClient.sentiments.count({
-    where: {
-      label: "positif",
-      tempat_wisata: "Borobudur Temple",
-    },
-  });
-
-  const positivePercentage = Math.round((positifReviews / totalReviews) * 100);
-
-  return {
-    ratePrice: "Coming Soon",
-    performa: averageRating._avg,
-    responseRate: "100%",
-    reviews: totalReviews,
-    popularity: positivePercentage,
-    overallRating: positifReviews,
-    location:
-      "Jalan Borobudur, Kecamatan Borobudur, Kabupaten Magelang, Jawa Tengah, Indonesia.",
+type AverageRatingResult = {
+  _avg: {
+    rating: number | null;
   };
-}
+};
 
-export async function getDataLikupang() {
-  const averageRating = await prismaClient.sentiments.aggregate({
-    _avg: {
-      rating: true,
-    },
-    where: {
-      tempat_wisata: "Pantai Paal",
-    },
-  });
+export const getDataSimilar = async (tempatWisata: string[]) => {
+  try {
+    const queries = [
+      // query average rating
+      prismaClient.sentiments.aggregate({
+        _avg: { rating: true },
+        where: {
+          tempat_wisata: {
+            in: tempatWisata,
+          },
+        },
+      }),
 
-  const totalReviews = await prismaClient.sentiments.count({
-    where: {
-      tempat_wisata: "Pantai Paal",
-    },
-  });
+      // query total ulasan
+      prismaClient.sentiments.count({
+        where: {
+          tempat_wisata: {
+            in: tempatWisata,
+          },
+        },
+      }),
 
-  const positifReviews = await prismaClient.sentiments.count({
-    where: {
-      label: "positif",
-      tempat_wisata: "Pantai Paal",
-    },
-  });
+      // query total ulasan positif
+      prismaClient.sentiments.count({
+        where: {
+          label: "positif",
+          tempat_wisata: {
+            in: tempatWisata,
+          },
+        },
+      }),
+    ];
 
-  const positivePercentage = Math.round((positifReviews / totalReviews) * 100);
+    const [averageRatingResult, totalReviews, positifReviews] =
+      await Promise.all(queries);
 
-  return {
-    ratePrice: "Coming Soon",
-    performa: averageRating._avg,
-    responseRate: "100%",
-    reviews: totalReviews,
-    popularity: positivePercentage,
-    overallRating: positifReviews,
-    location:
-      "Jalan Paal, Kecamatan Paal, Kabupaten Magelang, Jawa Tengah, Indonesia.",
-  };
-}
+    // final average rating
+    const averageRating = (averageRatingResult as AverageRatingResult)._avg
+      .rating;
 
-export async function getDataMandalika() {
-  const averageRating = await prismaClient.sentiments.aggregate({
-    _avg: {
-      rating: true,
-    },
-    where: {
-      tempat_wisata: "Sirkuit Internasional Pertamina Mandalika",
-    },
-  });
+    // final total reviews
+    const totalReviewsCount =
+      typeof totalReviews === "number" ? totalReviews : 0;
 
-  const totalReviews = await prismaClient.sentiments.count({
-    where: {
-      tempat_wisata: "Sirkuit Internasional Pertamina Mandalika",
-    },
-  });
+    // final positive percentage
+    const positivePercentage =
+      totalReviewsCount && typeof positifReviews === "number"
+        ? Math.round((positifReviews / totalReviewsCount) * 100)
+        : 0;
 
-  const positifReviews = await prismaClient.sentiments.count({
-    where: {
-      label: "positif",
-      tempat_wisata: "Sirkuit Internasional Pertamina Mandalika",
-    },
-  });
-
-  const positivePercentage = Math.round((positifReviews / totalReviews) * 100);
-
-  return {
-    ratePrice: "Coming Soon",
-    performa: averageRating._avg,
-    responseRate: "100%",
-    reviews: totalReviews,
-    popularity: positivePercentage,
-    overallRating: positifReviews,
-    location:
-      "Jalan Mandalika, Kecamatan Mandalika, Kabupaten Magelang, Jawa Tengah, Indonesia.",
-  };
-}
-
-export async function getDataLabuanBajo() {
-  const averageRating = await prismaClient.sentiments.aggregate({
-    _avg: {
-      rating: true,
-    },
-    where: {
-      tempat_wisata: "Gua Batu Cermin",
-    },
-  });
-
-  const totalReviews = await prismaClient.sentiments.count({
-    where: {
-      tempat_wisata: "Gua Batu Cermin",
-    },
-  });
-
-  const positifReviews = await prismaClient.sentiments.count({
-    where: {
-      label: "positif",
-      tempat_wisata: "Gua Batu Cermin",
-    },
-  });
-
-  const positivePercentage = Math.round((positifReviews / totalReviews) * 100);
-
-  return {
-    ratePrice: "Coming Soon",
-    performa: averageRating._avg,
-    responseRate: "100%",
-    reviews: totalReviews,
-    popularity: positivePercentage,
-    overallRating: positifReviews,
-    location:
-      "Jalan Batu Cermin, Kecamatan Labuan Bajo, Kabupaten Magelang, Jawa Tengah, Indonesia.",
-  };
-}
-
-export async function getDataDanauToba() {
-  const averageRating = await prismaClient.sentiments.aggregate({
-    _avg: {
-      rating: true,
-    },
-    where: {
-      tempat_wisata: "Danau Toba",
-    },
-  });
-
-  const totalReviews = await prismaClient.sentiments.count({
-    where: {
-      tempat_wisata: "Danau Toba",
-    },
-  });
-
-  const positifReviews = await prismaClient.sentiments.count({
-    where: {
-      label: "positif",
-      tempat_wisata: "Danau Toba",
-    },
-  });
-
-  const positivePercentage = Math.round((positifReviews / totalReviews) * 100);
-
-  return {
-    ratePrice: "Coming Soon",
-    performa: averageRating._avg,
-    responseRate: "100%",
-    reviews: totalReviews,
-    popularity: positivePercentage,
-    overallRating: positifReviews,
-    location:
-      "Jalan Toba, Kecamatan Toba, Kabupaten Magelang, Jawa Tengah, Indonesia.",
-  };
-}
+    return {
+      ratePrice: "Coming Soon",
+      performa: averageRating,
+      responseRate: "100%",
+      reviews: totalReviews,
+      popularity: positivePercentage,
+      overallRating: positifReviews,
+      location:
+        "Jalan Borobudur, Kecamatan Borobudur, Kabupaten Magelang, Jawa Tengah, Indonesia.",
+    };
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    throw error;
+  }
+};

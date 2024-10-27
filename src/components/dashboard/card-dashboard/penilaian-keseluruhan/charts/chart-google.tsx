@@ -1,5 +1,6 @@
 "use client";
 
+import { TrendingUp } from "lucide-react";
 import {
   CartesianGrid,
   Line,
@@ -8,8 +9,27 @@ import {
   XAxis,
   Tooltip,
 } from "recharts";
+import { format, subDays } from "date-fns";
 
-import { ChartConfig, ChartContainer } from "@/components/ui/chart";
+import {
+  ChartConfig,
+  ChartContainer,
+  ChartTooltip,
+  ChartTooltipContent,
+} from "@/components/ui/chart";
+
+const generateChartData = (numDays: number) => {
+  const chartData = [];
+  const today = new Date();
+  for (let i = 0; i < numDays; i++) {
+    const date = subDays(today, i);
+    chartData.push({
+      date: format(date, "dd MMM yyyy"),
+      days: Math.floor(Math.random() * 10).toFixed(2), // for random data
+    });
+  }
+  return chartData.slice(0, 10).reverse();
+};
 
 const chartConfig = {
   days: {
@@ -18,7 +38,7 @@ const chartConfig = {
   },
 } satisfies ChartConfig;
 
-export function ChartDashboard({
+export function ChartGoogle({
   data,
 }: {
   data: { date: string; count: number }[];
@@ -43,7 +63,7 @@ export function ChartDashboard({
         />
 
         <YAxis
-          domain={[0, 100]}
+          domain={[0, 10]}
           tickLine={false}
           axisLine={false}
           tickMargin={8}
@@ -56,7 +76,7 @@ export function ChartDashboard({
               return (
                 <div className="tooltip-content text-black bg-white p-2 rounded-lg">
                   <p>{`${date}`}</p>
-                  <p>{`Ulasan: ${count}`}</p>
+                  <p>{`Penilaian Keseluruhan: ${count}`}</p>
                 </div>
               );
             }
@@ -66,10 +86,10 @@ export function ChartDashboard({
         <Line
           dataKey="count"
           type="monotone"
-          stroke="rgb(0, 100, 211, 1)"
+          stroke="rgb(24, 156, 220, 1)"
           strokeWidth={2}
           dot={{
-            fill: "rgb(0, 100, 211, 1)",
+            fill: "rgb(24, 156, 220, 1)",
           }}
           activeDot={{
             r: 6,

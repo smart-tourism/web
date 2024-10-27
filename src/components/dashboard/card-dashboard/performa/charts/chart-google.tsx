@@ -1,5 +1,6 @@
 "use client";
 
+import { TrendingUp } from "lucide-react";
 import {
   CartesianGrid,
   Line,
@@ -8,8 +9,27 @@ import {
   XAxis,
   Tooltip,
 } from "recharts";
+import { format, subDays } from "date-fns";
 
-import { ChartConfig, ChartContainer } from "@/components/ui/chart";
+import {
+  ChartConfig,
+  ChartContainer,
+  ChartTooltip,
+  ChartTooltipContent,
+} from "@/components/ui/chart";
+
+const generateChartData = (numDays: number) => {
+  const chartData = [];
+  const today = new Date();
+  for (let i = 0; i < numDays; i++) {
+    const date = subDays(today, i);
+    chartData.push({
+      date: format(date, "dd MMM yyyy"),
+      days: Math.floor(Math.random() * 10), // for random data
+    });
+  }
+  return chartData.slice(0, 10).reverse();
+};
 
 const chartConfig = {
   days: {
@@ -18,10 +38,10 @@ const chartConfig = {
   },
 } satisfies ChartConfig;
 
-export function ChartDashboard({
+export function ChartGoogle({
   data,
 }: {
-  data: { date: string; count: number }[];
+  data: { date: string; avg: number }[];
 }) {
   return (
     <ChartContainer config={chartConfig}>
@@ -43,20 +63,21 @@ export function ChartDashboard({
         />
 
         <YAxis
-          domain={[0, 100]}
+          domain={[0, 10]}
           tickLine={false}
           axisLine={false}
           tickMargin={8}
+          tickFormatter={(tick) => tick.toFixed(2)}
         />
         <Tooltip
           cursor={false}
           content={({ payload }) => {
             if (payload && payload.length > 0) {
-              const { date, count } = payload[0].payload;
+              const { date, avg } = payload[0].payload;
               return (
                 <div className="tooltip-content text-black bg-white p-2 rounded-lg">
                   <p>{`${date}`}</p>
-                  <p>{`Ulasan: ${count}`}</p>
+                  <p>{`Performa: ${avg}`}</p>
                 </div>
               );
             }
@@ -64,12 +85,12 @@ export function ChartDashboard({
           }}
         />
         <Line
-          dataKey="count"
+          dataKey="avg"
           type="monotone"
-          stroke="rgb(0, 100, 211, 1)"
+          stroke="rgb(24, 156, 220, 1)"
           strokeWidth={2}
           dot={{
-            fill: "rgb(0, 100, 211, 1)",
+            fill: "rgb(24, 156, 220, 1)",
           }}
           activeDot={{
             r: 6,

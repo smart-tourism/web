@@ -1,10 +1,10 @@
-import { getData } from "@/app/lib/mysql/dashboard-service";
+import { getDataRate } from "@/app/lib/mysql/rate-trend-service";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
   const tempatWisata = searchParams.get("tempat_wisata");
-  const dateRange = searchParams.get("dateRange");
+  const activeTab = searchParams.get("active_tab");
   let arrTempatWisata: string[] = [];
 
   if (!tempatWisata) {
@@ -574,17 +574,8 @@ export async function GET(request: NextRequest) {
       break;
   }
 
-  let parsedDateRange: { from?: Date; to?: Date } = {};
-  if (dateRange) {
-    parsedDateRange = JSON.parse(dateRange) || {};
-    if (Object.keys(parsedDateRange).length === 0) {
-      parsedDateRange = {};
-    }
-  }
-
   try {
-    const data = await getData(arrTempatWisata, parsedDateRange);
-
+    const data = await getDataRate(activeTab, arrTempatWisata);
     return NextResponse.json(
       { status: 200, message: "Success", data },
       { status: 200 }

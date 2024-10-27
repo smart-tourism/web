@@ -13,12 +13,12 @@ import { ChartConfig, ChartContainer } from "@/components/ui/chart";
 
 const chartConfig = {
   days: {
-    label: "Performa",
+    label: "Jumlah Ulasan",
     color: "hsl(var(--chart-1))",
   },
 } satisfies ChartConfig;
 
-export function ChartDashboard({
+export function ChartRateTrendGoogle({
   data,
 }: {
   data: { date: string; count: number }[];
@@ -43,7 +43,7 @@ export function ChartDashboard({
         />
 
         <YAxis
-          domain={[0, 100]}
+          domain={[0, 10]}
           tickLine={false}
           axisLine={false}
           tickMargin={8}
@@ -56,7 +56,7 @@ export function ChartDashboard({
               return (
                 <div className="tooltip-content text-black bg-white p-2 rounded-lg">
                   <p>{`${date}`}</p>
-                  <p>{`Ulasan: ${count}`}</p>
+                  <p>{`Jumlah Ulasan: ${count}`}</p>
                 </div>
               );
             }
@@ -66,10 +66,10 @@ export function ChartDashboard({
         <Line
           dataKey="count"
           type="monotone"
-          stroke="rgb(0, 100, 211, 1)"
+          stroke="rgb(24, 156, 220, 1)"
           strokeWidth={2}
           dot={{
-            fill: "rgb(0, 100, 211, 1)",
+            fill: "rgb(24, 156, 220, 1)",
           }}
           activeDot={{
             r: 6,

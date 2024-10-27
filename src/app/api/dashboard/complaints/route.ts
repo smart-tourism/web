@@ -1,10 +1,21 @@
-import { getData } from "@/app/lib/mysql/dashboard-service";
+const keywords = [
+  "jelek",
+  "kotor",
+  "bau",
+  "jijik",
+  "mahal",
+  "tidak nyaman",
+  "basi",
+  "buruk",
+  "lama",
+];
+
+import { getSentimentDataByKeywords } from "@/app/lib/mysql/feedback-service";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
   const tempatWisata = searchParams.get("tempat_wisata");
-  const dateRange = searchParams.get("dateRange");
   let arrTempatWisata: string[] = [];
 
   if (!tempatWisata) {
@@ -574,17 +585,8 @@ export async function GET(request: NextRequest) {
       break;
   }
 
-  let parsedDateRange: { from?: Date; to?: Date } = {};
-  if (dateRange) {
-    parsedDateRange = JSON.parse(dateRange) || {};
-    if (Object.keys(parsedDateRange).length === 0) {
-      parsedDateRange = {};
-    }
-  }
-
   try {
-    const data = await getData(arrTempatWisata, parsedDateRange);
-
+    const data = await getSentimentDataByKeywords(keywords, arrTempatWisata);
     return NextResponse.json(
       { status: 200, message: "Success", data },
       { status: 200 }

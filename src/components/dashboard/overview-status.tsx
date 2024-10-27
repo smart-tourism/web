@@ -1,11 +1,13 @@
 import Image from "next/image";
 import { ScrollArea } from "@/components/ui/scroll-area";
 
-export default function OverviewStatus() {
+export default function OverviewStatus(props: any) {
+  const { google, tiket, traveloka, tripadvisor } = props;
   const keywords = [
-    { img: "/tiketdotcom-icon.png", text: "Ticket", count: 0 },
-    { img: "/traveloka-icon.png", text: "Traveloka", count: 0 },
-    { img: "/tripadvisor-icon.png", text: "Tripadvisor", count: 0 },
+    { img: "/google-icon.png", text: "Google Maps", count: google },
+    { img: "/tripadvisor-icon.png", text: "Tripadvisor", count: tripadvisor },
+    { img: "/traveloka-icon.png", text: "Traveloka", count: traveloka },
+    { img: "/tiket-icon.png", text: "Ticket", count: tiket },
   ];
 
   return (
