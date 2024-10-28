@@ -107,7 +107,7 @@ export default function Home() {
             >
               <a
                 href="#beranda"
-                className="text-gray-700 hover:text-orange-600"
+                className="ml-5 text-gray-700 hover:text-orange-600"
               >
                 Beranda
               </a>
@@ -120,13 +120,13 @@ export default function Home() {
               <a href="#fitur" className="text-gray-700 hover:text-orange-600">
                 Fitur Unggulan
               </a>
+              <button
+                onClick={() => signIn()}
+                className=" md:inline-block mr-4 border-2 border-orange-200 py-1 px-4 font-bold text-[#f38e58] rounded transition-all duration-100 hover:bg-gradient-to-l hover:from-[#FE7123] hover:to-[#F6D45E] hover:text-white"
+              >
+                Masuk
+              </button>
             </nav>
-            <button
-              onClick={() => signIn()}
-              className="hidden md:inline-block mr-4 border-2 border-orange-200 py-1 px-4 font-bold text-[#f38e58] rounded transition-all duration-100 hover:bg-gradient-to-l hover:from-[#FE7123] hover:to-[#F6D45E] hover:text-white"
-            >
-              Masuk
-            </button>
           </div>
         </div>
       </header>
