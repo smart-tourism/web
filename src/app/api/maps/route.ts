@@ -6,8 +6,6 @@ export async function GET(request: NextRequest) {
   const tempatWisata = searchParams.get("name");
   let arrTempatWisata: string[] = [];
 
-  // console.log(tempatWisata);
-
   if (!tempatWisata) {
     return NextResponse.json(
       { status: 400, message: "Missing 'tempat_wisata' query parameter." },

@@ -193,7 +193,7 @@ export default function Home() {
           {/* Gambar 1 */}
           <div
             className="relative bg-cover bg-center h-80 w-80 rounded-md shadow-lg overflow-hidden transition-transform duration-500 hover:scale-105 hover:shadow-2xl"
-            style={{ backgroundImage: "url(/images/Likupang.jpg)" }}
+            style={{ backgroundImage: "url(/images/likupang.jpg)" }}
           >
             <div className="absolute inset-0 bg-black bg-opacity-20 flex items-end p-4">
               <p className="text-white font-bold text-lg">Likupang</p>
@@ -204,7 +204,7 @@ export default function Home() {
           <div
             className="relative bg-cover bg-center h-80 w-80 rounded-md shadow-lg overflow-hidden transition-transform duration-500 hover:scale-105 hover:shadow-2xl"
             style={{
-              backgroundImage: "url(/images/Mandalika.jpg)",
+              backgroundImage: "url(/images/mandalika.jpg)",
             }}
           >
             <div className="absolute inset-0 bg-black bg-opacity-20 flex items-end p-4">
@@ -216,7 +216,7 @@ export default function Home() {
           <div
             className="relative bg-cover bg-center h-80 w-80 rounded-md shadow-lg overflow-hidden transition-transform duration-500 hover:scale-105 hover:shadow-2xl"
             style={{
-              backgroundImage: "url(/images/Candi%20Borobudur.jpg)",
+              backgroundImage: "url(/images/borobudur.jpg)",
             }}
           >
             <div className="absolute inset-0 bg-black bg-opacity-20 flex items-end p-4">
@@ -228,7 +228,7 @@ export default function Home() {
           <div
             className="relative bg-cover bg-center h-80 w-80 rounded-md shadow-lg overflow-hidden transition-transform duration-500 hover:scale-105 hover:shadow-2xl"
             style={{
-              backgroundImage: "url(/images/Labuan%20Bajo.jpg)",
+              backgroundImage: "url(/images/labuanbajo.jpg)",
             }}
           >
             <div className="absolute inset-0 bg-black bg-opacity-20 flex items-end p-4">
@@ -240,7 +240,7 @@ export default function Home() {
           <div
             className="relative bg-cover bg-center h-80 w-80 rounded-md shadow-lg overflow-hidden transition-transform duration-500 hover:scale-105 hover:shadow-2xl"
             style={{
-              backgroundImage: "url(/images/Danau%20Toba.jpg)",
+              backgroundImage: "url(/images/danautoba.jpg)",
             }}
           >
             <div className="absolute inset-0 bg-black bg-opacity-20 flex items-end p-4">

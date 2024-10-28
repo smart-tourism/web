@@ -575,7 +575,6 @@ export async function GET(request: NextRequest) {
 
   try {
     const data = await getDataDampak(arrTempatWisata);
-    console.log("data:", data);
     return NextResponse.json(
       { status: 200, message: "Success", data },
       { status: 200 }
