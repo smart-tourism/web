@@ -10,11 +10,11 @@ import { FaBars, FaTimes } from "react-icons/fa"; // Import icons for hamburger 
 
 // Data gambar destinasi
 const destinations = [
-  { name: "Likupang", image: "/images/Likupang.jpg" },
-  { name: "Mandalika", image: "/images/Mandalika.jpg" },
-  { name: "Borobudur", image: "/images/Candi%20Borobudur.jpg" },
-  { name: "Labuan Bajo", image: "/images/Labuan%20Bajo.jpg" },
-  { name: "Danau Toba", image: "/images/Danau%20Toba.jpg" },
+  { name: "Likupang", image: "/images/likupang.jpg" },
+  { name: "Mandalika", image: "/images/mandalika.jpg" },
+  { name: "Borobudur", image: "/images/borobudur.jpg" },
+  { name: "Labuan Bajo", image: "/images/labuanbajo.jpg" },
+  { name: "Danau Toba", image: "/images/danautoba.jpg" },
 ];
 
 export default function Home() {
