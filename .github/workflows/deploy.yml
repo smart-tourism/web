@@ -1,43 +1,27 @@
 name: Deploy to VPS
-
 on:
   push:
     branches: [ prod ]
-
 jobs:
   deploy:
     runs-on: ubuntu-latest
     environment: prod
     steps:
-    - uses: actions/checkout@v2
-    
-    - name: Install Node.js
-      uses: actions/setup-node@v2
-      with:
-        node-version: '20'
-        
-    - name: Install pnpm
-      uses: pnpm/action-setup@v2
-      with:
-        version: 9.9.0
-        
-    - name: Install dependencies
-      run: pnpm install
-      
-    - name: Build
-      run: pnpm run build
-      
-    - name: Deploy to VPS
+    - name: Pull Latest Changes and Deploy
       uses: appleboy/ssh-action@master
       with:
         host: ${{ secrets.HOST }}
         username: ${{ secrets.USERNAME }}
         key: ${{ secrets.SSH_PRIVATE_KEY }}
+        command_timeout: "20m"
+        script_stop: true
         script: |
-          cd /home/ajhelen/smart-tourism-web 
-          git pull origin prod 
+          cd /home/ajhelen/smart-tourism-web
+          git pull origin prod
           echo "${{ secrets.ENV_FILE }}" > .env
+          sudo npm install -g pnpm
           pnpm install
+          npx prisma db pull
+          npx prisma generate
           pnpm run build
           pm2 restart smart-tourism
-
