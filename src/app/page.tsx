@@ -6,7 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { useState, useEffect } from "react";
 import { AiFillWechat } from "react-icons/ai";
-import { FaBars, FaTimes } from "react-icons/fa"; // Import icons for hamburger menu
+import { FaBars, FaTimes } from "react-icons/fa";
 
 // Data gambar destinasi
 const destinations = [
@@ -191,62 +191,87 @@ export default function Home() {
         </h2>
         <div className="flex flex-wrap justify-center gap-4 max-w-5xl mx-auto">
           {/* Gambar 1 */}
-          <div
-            className="relative bg-cover bg-center h-80 w-80 rounded-md shadow-lg overflow-hidden transition-transform duration-500 hover:scale-105 hover:shadow-2xl"
-            style={{ backgroundImage: "url(/images/Likupang.jpg)" }}
-          >
-            <div className="absolute inset-0 bg-black bg-opacity-20 flex items-end p-4">
-              <p className="text-white font-bold text-lg">Likupang</p>
+          <Link href={"/detaildestinasi/likupang"}>
+            <div
+              className="relative bg-cover bg-center h-80 w-80 rounded-md shadow-lg overflow-hidden transition-transform duration-500 hover:scale-105 hover:shadow-2xl"
+              style={{ backgroundImage: "url(/images/Likupang.jpg)" }}
+            >
+              <div className="absolute inset-0 bg-black bg-opacity-20 flex flex-col justify-end items-start space-y-2 p-4">
+                <p className="text-white font-bold text-lg">Likupang</p>
+                <button className="bg-[#FF8225] rounded-md text-white p-1.5 hover:bg-orange-500">
+                  Selengkapnya
+                </button>
+              </div>
             </div>
-          </div>
+          </Link>
 
           {/* Gambar 2 */}
-          <div
-            className="relative bg-cover bg-center h-80 w-80 rounded-md shadow-lg overflow-hidden transition-transform duration-500 hover:scale-105 hover:shadow-2xl"
-            style={{
-              backgroundImage: "url(/images/Mandalika.jpg)",
-            }}
-          >
-            <div className="absolute inset-0 bg-black bg-opacity-20 flex items-end p-4">
-              <p className="text-white font-bold text-lg">Mandalika</p>
+          <Link href={"/detaildestinasi/mandalika"}>
+            <div
+              className="relative bg-cover bg-center h-80 w-80 rounded-md shadow-lg overflow-hidden transition-transform duration-500 hover:scale-105 hover:shadow-2xl"
+              style={{
+                backgroundImage: "url(/images/Mandalika.jpg)",
+              }}
+            >
+              <div className="absolute inset-0 bg-black bg-opacity-20 flex flex-col justify-end items-start space-y-2 p-4">
+                <p className="text-white font-bold text-lg">Mandalika</p>
+                <button className="bg-[#FF8225] rounded-md text-white p-1.5 hover:bg-orange-500">
+                  Selengkapnya
+                </button>
+              </div>
             </div>
-          </div>
+          </Link>
 
           {/* Gambar 3 */}
-          <div
-            className="relative bg-cover bg-center h-80 w-80 rounded-md shadow-lg overflow-hidden transition-transform duration-500 hover:scale-105 hover:shadow-2xl"
-            style={{
-              backgroundImage: "url(/images/Candi%20Borobudur.jpg)",
-            }}
-          >
-            <div className="absolute inset-0 bg-black bg-opacity-20 flex items-end p-4">
-              <p className="text-white font-bold text-lg">Borobudur</p>
+          <Link href={"/detaildestinasi/borobudur"}>
+            <div
+              className="relative bg-cover bg-center h-80 w-80 rounded-md shadow-lg overflow-hidden transition-transform duration-500 hover:scale-105 hover:shadow-2xl"
+              style={{
+                backgroundImage: "url(/images/Candi%20Borobudur.jpg)",
+              }}
+            >
+              <div className="absolute inset-0 bg-black bg-opacity-20 flex flex-col justify-end items-start space-y-2 p-4">
+                <p className="text-white font-bold text-lg">Borobudur</p>
+                <button className="bg-[#FF8225] rounded-md text-white p-1.5 hover:bg-orange-500">
+                  Selengkapnya
+                </button>
+              </div>
             </div>
-          </div>
+          </Link>
 
           {/* Gambar 4 */}
-          <div
-            className="relative bg-cover bg-center h-80 w-80 rounded-md shadow-lg overflow-hidden transition-transform duration-500 hover:scale-105 hover:shadow-2xl"
-            style={{
-              backgroundImage: "url(/images/Labuan%20Bajo.jpg)",
-            }}
-          >
-            <div className="absolute inset-0 bg-black bg-opacity-20 flex items-end p-4">
-              <p className="text-white font-bold text-lg">Labuan Bajo</p>
+          <Link href={"/detaildestinasi/labuan-bajo"}>
+            <div
+              className="relative bg-cover bg-center h-80 w-80 rounded-md shadow-lg overflow-hidden transition-transform duration-500 hover:scale-105 hover:shadow-2xl"
+              style={{
+                backgroundImage: "url(/images/Labuan%20Bajo.jpg)",
+              }}
+            >
+              <div className="absolute inset-0 bg-black bg-opacity-20 flex flex-col justify-end items-start space-y-2 p-4">
+                <p className="text-white font-bold text-lg">Labuan Bajo</p>
+                <button className="bg-[#FF8225] rounded-md text-white p-1.5 hover:bg-orange-500">
+                  Selengkapnya
+                </button>
+              </div>
             </div>
-          </div>
+          </Link>
 
           {/* Gambar 5 */}
-          <div
-            className="relative bg-cover bg-center h-80 w-80 rounded-md shadow-lg overflow-hidden transition-transform duration-500 hover:scale-105 hover:shadow-2xl"
-            style={{
-              backgroundImage: "url(/images/Danau%20Toba.jpg)",
-            }}
-          >
-            <div className="absolute inset-0 bg-black bg-opacity-20 flex items-end p-4">
-              <p className="text-white font-bold text-lg">Danau Toba</p>
+          <Link href={"/detaildestinasi/danau-toba"}>
+            <div
+              className="relative bg-cover bg-center h-80 w-80 rounded-md shadow-lg overflow-hidden transition-transform duration-500 hover:scale-105 hover:shadow-2xl"
+              style={{
+                backgroundImage: "url(/images/Danau%20Toba.jpg)",
+              }}
+            >
+              <div className="absolute inset-0 bg-black bg-opacity-20 flex flex-col justify-end items-start space-y-2 p-4">
+                <p className="text-white font-bold text-lg">Danau Toba</p>
+                <button className="bg-[#FF8225] rounded-md text-white p-1.5 hover:bg-orange-500">
+                  Selengkapnya
+                </button>
+              </div>
             </div>
-          </div>
+          </Link>
         </div>
       </section>
 

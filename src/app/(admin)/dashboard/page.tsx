@@ -315,9 +315,7 @@ export default function DashboardPage() {
                       <FaRegQuestionCircle />
                     </HoverCardTrigger>
                     <HoverCardContent className="z-50 bg-white shadow-md rounded-md">
-
                       <p className="font-normal text-sm">
-
                         Tingkat Respon merupakan tingkat pencapaian destinasi
                         yang dihitung berdasarkan perbandingan antara pengunjung
                         yang hanya memberikan bintang dengan seluruh jumlah
@@ -375,12 +373,9 @@ export default function DashboardPage() {
                       <FaRegQuestionCircle />
                     </HoverCardTrigger>
                     <HoverCardContent className="z-50 bg-white shadow-md rounded-md">
-
-
                       <p className="font-normal text-sm">
                         Nilai Popularitas menunjukkan presentase jumlah ulasan
                         positif dari seluruh ulasan.
-
                       </p>
                     </HoverCardContent>
                   </HoverCard>
@@ -408,11 +403,9 @@ export default function DashboardPage() {
                       <FaRegQuestionCircle />
                     </HoverCardTrigger>
                     <HoverCardContent className="z-50 bg-white shadow-md rounded-md">
-
                       <p className="font-normal text-sm">
                         Penilaian Keseluruhan adalah jumlah keseluruhan
                         penilaian positif yang diterima.
-
                       </p>
                     </HoverCardContent>
                   </HoverCard>
@@ -432,7 +425,7 @@ export default function DashboardPage() {
         {/* Chart & Top Keyword */}
         <div className="grid gap-4 lg:grid-cols-6 md:grid-cols-1 sm:grid-cols-1 grid-rows-1 text-black py-4">
           <div className="col-span-4">
-            <Card className="lg:h-[29rem]">
+            <Card className="w-full h-full">
               <CardHeader>
                 <CardTitle className="flex flex-auto gap-1">
                   Jumlah Ulasan
@@ -449,20 +442,20 @@ export default function DashboardPage() {
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="flex justify-center">
-                  <div className="lg:w-[100%] md:w-[70%] sm:w-[40%]">
-                    {loading ? (
-                      <Skeleton className="w-full h-48" />
-                    ) : (
-                      <ChartDashboard data={datas.reviewsByDate} />
-                    )}
-                  </div>
+                {/* <div className=""> */}
+                <div className="h-full lg:w-[100%] md:w-[70%] sm:w-[40%]">
+                  {loading ? (
+                    <Skeleton className="w-full h-48" />
+                  ) : (
+                    <ChartDashboard data={datas.reviewsByDate} />
+                  )}
                 </div>
+                {/* </div> */}
               </CardContent>
             </Card>
           </div>
           <div className="col-span-2">
-            <Card className="h-[29rem]">
+            <Card className="h-full">
               <CardHeader>
                 <CardTitle className="flex flex-auto gap-1">
                   Top Keyword
