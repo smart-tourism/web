@@ -86,7 +86,7 @@ export default function RateTrendPage() {
   }, [selectedDestination, activeTab]);
 
   return (
-    <ContentLayout title="RateTrend">
+    <ContentLayout title="Rate Trend">
       <div className="flex h-full flex-col gap-6 mt-4">
         <div className="flex justify-between items-center">
           <div className="w-1/2">
