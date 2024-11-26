@@ -8,6 +8,17 @@ import React, { useState, useEffect } from "react";
 import { AiFillWechat } from "react-icons/ai";
 import { FaBars, FaTimes } from "react-icons/fa";
 
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { ScrollArea } from "@/components/ui/scroll-area";
+
 // Data gambar destinasi
 const destinations = [
   { name: "Likupang", image: "/images/Likupang.jpg" },
@@ -68,6 +79,39 @@ export default function Home() {
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
+
+  // Bagian Popup Fitur Unggulan
+  const [activeFeature, setActiveFeature] = useState<number | null>(null);
+
+  const features = [
+    {
+      title: "Dashboard",
+      image: "/keuntungan1.png",
+      popupImage: "/gambarDashboard.png",
+      description:
+        "Dashboard Performa Wisata memudahkan pengguna untuk memantau kinerja destinasi melalui data ulasan dan grafik.",
+      popupContent:
+        "Halaman ini akan menampilkan berbagai informasi terkait performa destinasi. Dashboard di website Explorenesia menyediakan tampilan yang intuitif dan informatif bagi pengguna setelah login. Di sini, pengguna dapat melihat statistik penting seperti tingkat respon, ulasan, popularitas, dan penilaian keseluruhan untuk masing-masing destinasi. Jika pengguna mengklik bagian Performa di Dashboard, mereka akan diarahkan ke tampilan yang lebih detail mengenai kinerja masing-masing destinasi.",
+    },
+    {
+      title: "Similar Destination",
+      image: "/keuntungan2.png",
+      popupImage: "/gambarSimilarDestination.png",
+      description:
+        "Fitur Similar Destination memberikan rekomendasi destinasi serupa berdasarkan preferensi pengguna.",
+      popupContent:
+        "Fitur Similar Destination pada ExploreNesia merekomendasikan destinasi wisata yang mirip dengan Destinasi Pariwisata Super Prioritas (DPSP) yang sedang dilihat, dengan informasi seperti Rate Price, Performa (contoh: 4.4 ⭐), Tingkat Respons (contoh: 100%), Jumlah Ulasan (contoh: 10,428), Popularitas (contoh: 82%), Penilaian Keseluruhan (contoh: 8,519), dan Lokasi Lengkap. Fitur ini dirancang untuk membantu pengguna membandingkan pilihan destinasi dengan karakteristik serupa sehingga mempermudah perencanaan perjalanan wisata.",
+    },
+    {
+      title: "Rate Trend",
+      image: "/keuntungan3.png",
+      popupImage: "/gambarRateTrend.png",
+      description:
+        "Dengan Rate Trend, pengguna dapat melihat tren penilaian destinasi seiring waktu dan sentimen.",
+      popupContent:
+        "Pada halaman ini, pengguna akan melihat grafik yang menunjukkan tren penilaian dari waktu ke waktu untuk masing-masing destinasi. Grafik ini memberikan gambaran visual tentang bagaimana tingkat kepuasan wisatawan berubah, serta memudahkan identifikasi pola atau fluktuasi dalam penilaian. Pengguna dapat menganalisis data ini untuk memahami periode puncak atau penurunan rating, sehingga dapat mengambil langkah-langkah strategis untuk meningkatkan pengalaman wisatawan.",
+    },
+  ];
 
   return (
     <div className="font-poppins text-gray-900 relative">
@@ -331,48 +375,56 @@ export default function Home() {
           Fitur Unggulan Explorenesia
         </h1>
         <div className="grid grid-flow-row-dense grid-cols-3 grid-rows-auto sm:grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto p-4">
-          <div className="flex flex-col justify-center items-center bg-white border border-gray-300 shadow-md shadow-[#FE7123] h-auto rounded-lg p-4">
-            <h1 className="uppercase text-[#FE7123] font-bold lg:text-2xl md:text-2xl sm:text-lg">
-              dashboard
-            </h1>
-            <img
-              src="/keuntungan1.png"
-              alt="Keuntungan 1"
-              className="lg:w-[16rem] md:w-[16rem] sm:w-[12rem]"
-            />
-            <p className="text-base font-medium">
-              Dashboard Performa Wisata memudahkan pengguna untuk memantau
-              kinerja destinasi melalui data ulasan dan grafik.
-            </p>
-          </div>
-          <div className="flex flex-col justify-center items-center bg-white border border-gray-300 shadow-md shadow-[#FE7123] h-auto rounded-lg p-4">
-            <h1 className="uppercase text-[#FE7123] font-bold lg:text-xl md:text-2xl sm:text-lg">
-              Similar Destination
-            </h1>
-            <img
-              src="/keuntungan2.png"
-              alt="Keuntungan 2"
-              className="lg:w-[16rem] md:w-[16rem] sm:w-[12rem]"
-            />
-            <p className="text-base font-medium">
-              Fitur Similar Destination memberikan rekomendasi destinasi serupa
-              berdasarkan preferensi pengguna.
-            </p>
-          </div>
-          <div className="flex flex-col justify-center items-center bg-white border border-gray-300 shadow-md shadow-[#FE7123] h-auto rounded-lg p-4">
-            <h1 className="uppercase text-[#FE7123] font-bold lg:text-xl md:text-2xl sm:text-lg">
-              rate trend
-            </h1>
-            <img
-              src="/keuntungan3.png"
-              alt="Keuntungan 3"
-              className="lg:w-[16rem] md:w-[16rem] sm:w-[12rem]"
-            />
-            <p className="text-base font-medium">
-              Dengan Rate Trend, pengguna dapat melihat tren penilaian destinasi
-              seiring waktu dan sentimen.
-            </p>
-          </div>
+          {features.map((feature, index) => (
+            <Dialog
+              key={index}
+              open={activeFeature === index}
+              onOpenChange={(isOpen) => setActiveFeature(isOpen ? index : null)}
+            >
+              <DialogTrigger asChild>
+                <div className="flex flex-col justify-center items-center bg-white border border-gray-300 shadow-md shadow-[#FE7123] h-auto rounded-lg p-4 transform transition-transform hover:scale-105 cursor-pointer">
+                  <h1 className="uppercase text-[#FE7123] font-bold lg:text-2xl md:text-2xl sm:text-lg">
+                    {feature.title}
+                  </h1>
+                  <img
+                    src={feature.image}
+                    alt={feature.title}
+                    className="lg:w-[16rem] md:w-[16rem] sm:w-[12rem]"
+                  />
+                  <p className="text-base font-medium text-center text-black">
+                    {feature.description}
+                  </p>
+                </div>
+              </DialogTrigger>
+              <DialogContent className="sm:max-w-[33vw]">
+                <DialogHeader>
+                  <DialogTitle className="text-[#FE7123] uppercase flex justify-center text-xl">
+                    {feature.title}
+                  </DialogTitle>
+                </DialogHeader>
+                <div className="py-4 flex flex-col items-center">
+                  <img
+                    src={feature.popupImage}
+                    alt={`Popup ${feature.title}`}
+                    className="w-[70%] mb-2 shadow-lg"
+                  />
+                  <ScrollArea className="h-[100px]">
+                    <p className="text-black text-justify px-4">
+                      {feature.popupContent}
+                    </p>
+                  </ScrollArea>
+                </div>
+                <DialogFooter>
+                  <button
+                    className="inline-flex justify-center rounded-md border border-transparent bg-orange-400 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-orange-500"
+                    onClick={() => setActiveFeature(null)}
+                  >
+                    Close
+                  </button>
+                </DialogFooter>
+              </DialogContent>
+            </Dialog>
+          ))}
         </div>
       </section>
 
