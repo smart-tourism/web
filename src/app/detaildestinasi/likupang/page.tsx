@@ -9,10 +9,24 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { ChartLikupang } from "@/components/detail-destinasi/likupang/chart-likupang";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import TopKeywordsLikupang from "@/components/detail-destinasi/likupang/topkeywords-likupang";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
 
 export default function LikupangDetail() {
   const router = useRouter();
   const [loading, setLoading] = React.useState(true);
+
+  const handleChartClick = () => {
+    router.push("/detaildestinasi/likupang/ulasan");
+  };
 
   const [datas, setDatas] = useState({
     averageRating: 0,
@@ -34,6 +48,14 @@ export default function LikupangDetail() {
 
     return () => clearTimeout(timeout);
   }, []);
+
+  const [isOpen, setIsOpen] = useState(false);
+  const [selection, setSelection] = useState<string>("");
+
+  const handleSelection = (choice: "SOLO" | "Family") => {
+    setSelection(choice);
+    setIsOpen(false);
+  };
 
   return (
     <div className="p-8 bg-white min-h-screen">
@@ -101,7 +123,7 @@ export default function LikupangDetail() {
       {/* Chart, Top Keywords, & Tingkat Respon */}
       <div className="grid gap-4 lg:grid-cols-3 md:grid-cols-1 sm:grid-cols-1 mt-10">
         {/* Card Jumlah Ulasan */}
-        <div className="col-span-2 flex w-full">
+        <div className="col-span-2 flex w-full cursor-pointer">
           <Card className="w-full">
             <CardHeader>
               <CardTitle>Jumlah Ulasan</CardTitle>
@@ -112,7 +134,9 @@ export default function LikupangDetail() {
                   <Skeleton className="w-full h-full" />
                 ) : (
                   <ScrollArea>
-                    <ChartLikupang />
+                    <div onClick={handleChartClick} className="cursor-pointer">
+                      <ChartLikupang />
+                    </div>
                   </ScrollArea>
                 )}
               </div>
@@ -157,9 +181,58 @@ export default function LikupangDetail() {
 
       {/* Tombol Aksi */}
       <div className="mt-8 text-center">
-        <button className="bg-orange-500 text-white text-lg font-bold px-6 py-3 rounded-lg shadow-lg hover:bg-orange-600">
+        <button
+          className="bg-orange-500 text-white text-lg font-bold px-6 py-3 rounded-lg shadow-lg hover:bg-orange-600"
+          onClick={() => setIsOpen(true)}
+        >
           Ingin Berkunjung Ke Destinasi Ini?
         </button>
+
+        {/* Dialog ShadCN */}
+        <Dialog open={isOpen} onOpenChange={setIsOpen}>
+          <DialogContent className="sm:max-w-[425px]">
+            <DialogHeader>
+              <DialogTitle className="flex justify-center items-center">
+                <img
+                  src="/help-circle.png"
+                  alt="Help"
+                  className="w-[20%] h-auto"
+                />
+              </DialogTitle>
+              <DialogDescription className="font-bold text-black text-center text-xl">
+                Perjalanan ini dilakukan sendiri atau bersama keluarga?
+              </DialogDescription>
+            </DialogHeader>
+
+            {/* Grid layout untuk dua tombol */}
+            <div className="grid grid-cols-2 gap-4 py-4">
+              <Button
+                variant="outline"
+                onClick={() => handleSelection("SOLO")}
+                className="bg-orange-500 text-white hover:bg-orange-600 font-bold hover:text-white"
+              >
+                SOLO
+              </Button>
+              <Button
+                variant="outline"
+                onClick={() => handleSelection("Family")}
+                className="bg-white border-[#FF8225] text-orange-500 hover:text-orange-600 hover:border-orange-600 font-bold"
+              >
+                Family
+              </Button>
+            </div>
+
+            {/* Footer dialog */}
+            {/* <DialogFooter>
+              <Button variant="secondary" onClick={() => setIsOpen(false)}>
+                Tutup
+              </Button>
+            </DialogFooter> */}
+          </DialogContent>
+        </Dialog>
+
+        {/* Menampilkan pilihan yang dipilih */}
+        {/* {selection && <p className="mt-4 text-lg">Anda memilih: {selection}</p>} */}
       </div>
     </div>
   );
