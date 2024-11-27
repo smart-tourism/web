@@ -43,7 +43,7 @@ export default function ChatBot() {
       {isOpen ? (
         <div className="bg-white rounded-lg shadow-lg overflow-hidden w-96 h-[26rem] flex flex-col">
           <div className="flex justify-between items-center p-4 bg-dialogflow text-primary-foreground">
-            <h2 className="text-lg font-semibold">Ajhelen Chat</h2>
+            <h2 className="text-lg font-semibold">Explorenesia Chat</h2>
             <Button
               variant="ghost"
               size="icon"
