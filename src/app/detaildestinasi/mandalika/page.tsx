@@ -19,6 +19,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
+import { ChartDashboard } from "@/components/dashboard/charts";
 
 export default function LikupangDetail() {
   const router = useRouter();
@@ -30,15 +31,9 @@ export default function LikupangDetail() {
 
   const [datas, setDatas] = useState({
     averageRating: 0,
-    totalReviews: 0,
-    positivePercentage: 0,
     reviewsByDate: [],
-    positive: 0,
-    netral: 0,
-    negative: 0,
     topKeywords: [],
-    positiveFeedback: [],
-    negativeFeedback: [],
+    tingkatRespon: "",
   });
 
   React.useEffect(() => {
@@ -48,6 +43,23 @@ export default function LikupangDetail() {
 
     return () => clearTimeout(timeout);
   }, []);
+
+  React.useEffect(() => {
+    const fetchData = async () => {
+      const response = await fetch(
+        `/api/detail-destinasi?tempat_wisata=mandalika`
+      );
+      const res = await response.json();
+      setDatas({
+        averageRating: res.data.averageRating,
+        reviewsByDate: res.data.reviewsByDate,
+        topKeywords: res.data.topKeywords,
+        tingkatRespon: res.data.tingkatRespon,
+      });
+    };
+
+    fetchData();
+  });
 
   const [isOpen, setIsOpen] = useState(false);
   const [selection, setSelection] = useState<string>("");
@@ -78,13 +90,15 @@ export default function LikupangDetail() {
         <div className="w-full md:w-2/3">
           <div className="relative">
             <img
-              src="/images/Mandalika.jpg"
+              src="/images/mandalika.jpg"
               alt="Likupang"
               className="w-full h-auto rounded-lg shadow-lg"
             />
             <div className="absolute top-4 right-4 bg-white px-3 py-1 rounded-md shadow-md flex items-center">
               <span className="text-yellow-500 font-bold">⭐</span>
-              <p className="ml-1 font-bold text-gray-800">4.0</p>
+              <p className="ml-1 font-bold text-gray-800">
+                {Math.round(datas.averageRating * 10) / 10}
+              </p>
             </div>
           </div>
         </div>
@@ -95,8 +109,8 @@ export default function LikupangDetail() {
             Detail Wisata:
           </h2>
           <p className="text-gray-700 leading-relaxed">
-            <strong>Mandalika</strong>adalah kawasan wisata seluas 20.035 hektar
-            yang berlokasi di <strong>Kabupaten Lombok Tengah</strong>,{" "}
+            <strong>Mandalika</strong> adalah kawasan wisata seluas 20.035
+            hektar yang berlokasi di <strong>Kabupaten Lombok Tengah</strong>,{" "}
             <strong>Nusa Tenggara Barat</strong>. Sejak 2017, Mandalika sudah
             diresmikan sebagai <strong>Kawasan Ekonomi Khusus (KEK)</strong>{" "}
             pariwisata yang direncanakan dapat menjadi kawasan wisata. Nama
@@ -131,7 +145,7 @@ export default function LikupangDetail() {
                 ) : (
                   <ScrollArea>
                     <div onClick={handleChartClick} className="cursor-pointer">
-                      <ChartMandalika />
+                      <ChartDashboard data={datas.reviewsByDate} />
                     </div>
                   </ScrollArea>
                 )}
@@ -147,7 +161,9 @@ export default function LikupangDetail() {
               <CardTitle>Tingkat Respon</CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="text-3xl font-bold text-orange-500">2.3%</p>
+              <p className="text-3xl font-bold text-orange-500">
+                {datas.tingkatRespon}
+              </p>
             </CardContent>
           </Card>
 

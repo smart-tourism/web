@@ -14,6 +14,13 @@ const extractPathname = (pathname: string) => {
   return parts[1];
 };
 
+const apiPaths = [
+  "/api/dashboard",
+  "/api/similar-destination",
+  "/api/rate-trend",
+  "/api/maps",
+];
+
 export default function withAuth(
   middleware: NextMiddleware,
   requireAuth: string[] = []
@@ -31,7 +38,10 @@ export default function withAuth(
       return NextResponse.redirect(new URL(dashboardPath, req.url));
     }
 
-    if (requireAuth.includes(path)) {
+    const isProtectedPath =
+      requireAuth.includes(path) || apiPaths.includes(pathname);
+
+    if (isProtectedPath && !token) {
       if (!token) {
         const url = new URL("/login", req.url);
         url.searchParams.set("callbackUrl", encodeURI(req.url));
