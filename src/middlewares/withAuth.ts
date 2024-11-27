@@ -16,6 +16,12 @@ const extractPathname = (pathname: string) => {
 
 const apiPaths = [
   "/api/dashboard",
+  "/api/dashboard/complaints",
+  "/api/dashboard/dampak",
+  "/api/dashboard/penilaian-positif",
+  "api/dashboard/ulasan",
+  "/api/dashboard/performa",
+  "/api/dashboard/praises",
   "/api/similar-destination",
   "/api/rate-trend",
   "/api/maps",
