@@ -1,12 +1,15 @@
-"use client";
+'use client';
+
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { XIcon } from "lucide-react";
+import { XIcon } from 'lucide-react';
 import { AiFillWechat } from "react-icons/ai";
 
 interface Message {
   text: string;
   isUser: boolean;
+  isLoading?: boolean;
+  isError?: boolean;
 }
 
 interface ChatResponse {
@@ -21,20 +24,32 @@ export default function ChatBot() {
   const [input, setInput] = useState<string>("");
 
   const sendMessage = async (message: string) => {
+    setMessages(prev => [...prev, { text: message, isUser: true }]);
+    setMessages(prev => [...prev, { text: "...", isUser: false, isLoading: true }]);
+
     try {
       const response = await fetch(`${process.env.chatBotUrl}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ question: message })
       });
+      
+      if (!response.ok) {
+        throw new Error('Gagal menghubungi chatbot');
+      }
+
       const data: ChatResponse = await response.json();
-      console.log(data)
-      setMessages([...messages,
-      { text: data.question, isUser: true },
-      { text: data.answer, isUser: false }
+      
+      setMessages(prev => [
+        ...prev.filter(msg => !msg.isLoading),
+        { text: data.answer, isUser: false }
       ]);
     } catch (error) {
       console.error(error);
+      setMessages(prev => [
+        ...prev.filter(msg => !msg.isLoading),
+        { text: "Failed to connect to chatbot", isUser: false, isError: true }
+      ]);
     }
   };
 
@@ -56,7 +71,11 @@ export default function ChatBot() {
           <div className="flex-grow overflow-y-auto p-4">
             {messages.map((msg, i) => (
               <div key={i} className={`mb-2 ${msg.isUser ? 'text-right' : 'text-left'}`}>
-                <div className={`inline-block p-2 rounded-lg ${msg.isUser ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}>
+                <div className={`inline-block p-2 rounded-lg ${
+                  msg.isUser ? 'bg-blue-500 text-white' : 
+                  msg.isError ? 'bg-red-500 text-white' :
+                  'bg-gray-200'
+                } ${msg.isLoading ? 'animate-pulse' : ''}`}>
                   {msg.text}
                 </div>
               </div>
@@ -92,3 +111,4 @@ export default function ChatBot() {
     </div>
   );
 }
+
