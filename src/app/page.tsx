@@ -1,23 +1,21 @@
 "use client";
 
-import DialogFlowChat from "@/components/dashboard/dialogflow-chat";
 import { signIn } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useState, useEffect } from "react";
-import { AiFillWechat } from "react-icons/ai";
 import { FaBars, FaTimes } from "react-icons/fa";
 
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import ChatBot from "@/components/dashboard/chatbot";
 
 // Data gambar destinasi
 const destinations = [
@@ -29,10 +27,8 @@ const destinations = [
 ];
 
 export default function Home() {
-  const [shine, setShine] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [fade, setFade] = useState(false);
-  const [showChatPopup, setShowChatPopup] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false); // State to control hamburger menu
 
@@ -51,16 +47,6 @@ export default function Home() {
     return () => clearInterval(interval);
   }, []);
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setShine(true);
-      setTimeout(() => setShine(false), 1000);
-    }, 1000);
-
-    return () => clearInterval(interval);
-  }, []);
-
-  // Mendeteksi scroll untuk mengecilkan navbar
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 50) {
@@ -117,9 +103,8 @@ export default function Home() {
     <div className="font-poppins text-gray-900 relative">
       {/* Header */}
       <header
-        className={`fixed w-full top-0 left-0 z-10 transition-all duration-300 ease-in-out ${
-          isScrolled ? "bg-white shadow-md p-2" : "bg-white p-4 shadow-md"
-        }`}
+        className={`fixed w-full top-0 left-0 z-10 transition-all duration-300 ease-in-out ${isScrolled ? "bg-white shadow-md p-2" : "bg-white p-4 shadow-md"
+          }`}
       >
         <div className="flex justify-between items-center max-w-9xl mx-auto">
           <div className="flex items-center">
@@ -145,9 +130,8 @@ export default function Home() {
 
             {/* Navbar Links */}
             <nav
-              className={`${
-                isMenuOpen ? "flex" : "hidden"
-              } flex-col md:flex md:flex-row md:items-center mr-10 space-x-5 space-y-4 md:space-y-0 md:space-x-5 transition-all duration-300 ease-in-out`}
+              className={`${isMenuOpen ? "flex" : "hidden"
+                } flex-col md:flex md:flex-row md:items-center mr-10 space-x-5 space-y-4 md:space-y-0 md:space-x-5 transition-all duration-300 ease-in-out`}
             >
               <a
                 href="#beranda"
@@ -177,16 +161,7 @@ export default function Home() {
 
       {/* Rest of the content (unchanged) */}
 
-      {/* Floating Chat Button */}
-      <div
-        className="fixed bottom-6 right-6 bg-white text-white rounded-full p-3 shadow-lg cursor-pointer z-50"
-        onClick={() => setShowChatPopup(true)}
-      >
-        <AiFillWechat className="fill-[#FE7123] text-4xl" />
-      </div>
-
-      {/* Chat Popup */}
-      <DialogFlowChat />
+      <ChatBot />
 
       {/* Hero Section */}
       <section
@@ -354,9 +329,8 @@ export default function Home() {
         </div>
         <div className="mx-auto max-w-2xl bg-white mt-8 shadow-lg rounded-lg">
           <div
-            className={`w-full lg:h-72 md:h-64 sm:h-52 shadow-lg rounded-lg overflow-hidden relative transition-opacity duration-500 ease-in-out ${
-              fade ? "opacity-0" : "opacity-100"
-            }`}
+            className={`w-full lg:h-72 md:h-64 sm:h-52 shadow-lg rounded-lg overflow-hidden relative transition-opacity duration-500 ease-in-out ${fade ? "opacity-0" : "opacity-100"
+              }`}
           >
             <Image
               src={destinations[currentImageIndex].image}
