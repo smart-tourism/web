@@ -165,7 +165,7 @@ export default function RateTrendPage() {
         {/* Pilih Destinasi Dropdown */}
         <div>
           <DropdownMenu onOpenChange={(open) => setIsDropdownOpen(open)}>
-            <DropdownMenuTrigger asChild>
+            <DropdownMenuTrigger asChild className="text-black">
               <Button
                 variant="outline"
                 className="flex h-10 items-center justify-between rounded-md border 
