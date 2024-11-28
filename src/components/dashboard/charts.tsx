@@ -1,6 +1,5 @@
 "use client";
 
-import { TrendingUp } from "lucide-react";
 import {
   CartesianGrid,
   Line,
@@ -9,28 +8,8 @@ import {
   XAxis,
   Tooltip,
 } from "recharts";
-import { format, subDays } from "date-fns";
 
-import {
-  ChartConfig,
-  ChartContainer,
-  ChartTooltip,
-  ChartTooltipContent,
-} from "@/components/ui/chart";
-import { count } from "console";
-
-const generateChartData = (numDays: number) => {
-  const chartData = [];
-  const today = new Date();
-  for (let i = 0; i < numDays; i++) {
-    const date = subDays(today, i);
-    chartData.push({
-      date: format(date, "dd MMM yyyy"),
-      days: Math.floor(Math.random() * 100).toFixed(2),
-    });
-  }
-  return chartData.slice(0, 10).reverse();
-};
+import { ChartConfig, ChartContainer } from "@/components/ui/chart";
 
 const chartConfig = {
   days: {

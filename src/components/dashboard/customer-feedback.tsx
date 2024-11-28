@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { number } from "zod";
 
 export default function CustomerFeedback(props: any) {
-  const { positiveFeedbacks, negativeFeedbacks } = props;
+  const { positiveFeedbacks, negativeFeedbacks, location } = props;
   const router = useRouter();
   const [isMounted, setIsMounted] = useState(false); // For client-side rendering check
 
@@ -28,9 +28,13 @@ export default function CustomerFeedback(props: any) {
     if (isMounted) {
       // Only allow navigation if the component is mounted
       if (type === "Praises") {
-        router.push(`/dashboard/praises?category=${category}`);
+        router.push(
+          `/dashboard/praises?category=${category}&location=${location}`
+        );
       } else {
-        router.push(`/dashboard/complaints?category=${category}`);
+        router.push(
+          `/dashboard/complaints?category=${category}&location=${location}`
+        );
       }
     }
   };

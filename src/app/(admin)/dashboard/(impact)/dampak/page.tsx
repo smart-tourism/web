@@ -10,13 +10,39 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
-import { useState } from "react";
+import React, { useState } from "react";
 import { ChartImpactAll } from "@/components/dashboard/impact-dashboard/chart-impact-all";
-import { ChartNegatif } from "@/components/dashboard/impact-dashboard/chart-negatif";
-import { ChartPositif } from "@/components/dashboard/impact-dashboard/chart-positif";
+import { useSearchParams } from "next/navigation";
 
 export default function DashboardTingkatRespon() {
-  const [activeTab, setActiveTab] = useState("Semua");
+  const searchParams = useSearchParams();
+  let tempatWisata = searchParams.get("location") || "";
+
+  // Fetch data
+  const [datas, setDatas] = useState({
+    reviewsByDate: [],
+  });
+
+  React.useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(
+          `/api/dashboard/dampak?tempat_wisata=${encodeURIComponent(
+            tempatWisata
+          )}`
+        );
+        if (!response.ok) throw new Error("Network response was not ok");
+        const res = await response.json();
+        setDatas({
+          reviewsByDate: res.data ? res.data : [],
+        });
+      } catch (error) {
+        console.error("Fetching data failed:", error);
+      }
+    };
+
+    fetchData();
+  }, [tempatWisata]);
 
   return (
     <ContentLayout title="Dashboard">
@@ -46,16 +72,7 @@ export default function DashboardTingkatRespon() {
         <div className="flex flex-col lg:flex-row gap-4">
           {/* Tabel & Chart OTA Impact */}
           <div className=" lg:w-full p-4 rounded-lg shadow-md border text-black">
-            <ChartImpactAll />
-          </div>
-
-          {/* Chart Impact Negative & Postive */}
-          <div className="flex w-[30%] h-full flex-grow flex-col gap-2">
-            {/* Chart Positive */}
-            <ChartPositif />
-
-            {/* Chart Negative */}
-            <ChartNegatif />
+            <ChartImpactAll data={datas.reviewsByDate} />
           </div>
         </div>
       </div>

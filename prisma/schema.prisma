@@ -24,24 +24,14 @@ model faqs {
 
 model sentiments {
   id            Int      @id @default(autoincrement())
-  tempat_wisata String   @db.VarChar(50)
+  tempat_wisata String   @db.VarChar(100)
   id_review     String   @db.VarChar(75)
   komentar      String   @db.Text
   rating        Int
   label         String   @db.VarChar(10)
+  score         String   @db.VarChar(30)
   bahasa        String   @db.VarChar(10)
+  source        String   @db.VarChar(25)
   tokenized     String   @db.Text
-  date          DateTime @db.DateTime(0)
-}
-
-model sentiments_ato {
-  id            Int      @id @default(autoincrement())
-  tempat_wisata String   @db.VarChar(50)
-  id_review     String   @db.VarChar(75)
-  komentar      String   @db.Text
-  rating        Int
-  label         String   @db.VarChar(10)
-  bahasa        String   @db.VarChar(10)
-  tokenized     String   @db.Text
-  date          DateTime @db.DateTime(0)
+  date          DateTime @db.Date
 }

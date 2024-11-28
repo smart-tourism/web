@@ -24,7 +24,7 @@ const center = {
 };
 
 const locations = [
-  { name: "Candi Borobudur", lat: -7.7956, lng: 110.3695 },
+  { name: "Borobudur", lat: -7.7956, lng: 110.3695 },
   { name: "Mandalika", lat: -8.8955, lng: 116.2951 },
   { name: "Likupang", lat: 1.6824, lng: 125.0568 },
   { name: "Labuan Bajo", lat: -8.4539, lng: 119.889 },
@@ -159,7 +159,9 @@ export default function GISSentimentMap({
                   </h2>
 
                   <img
-                    src={`/images/${selectedLocation.toLowerCase()}.jpg`}
+                    src={`/images/${selectedLocation
+                      .replace(/\s+/g, "")
+                      .toLowerCase()}.jpg`}
                     alt={selectedLocation}
                     className="w-full h-40 object-cover rounded-t-lg mb-4"
                   />
@@ -193,10 +195,9 @@ export default function GISSentimentMap({
                       <p className="text-gray-800 font-medium">
                         Average Score:{" "}
                         <span className="font-bold text-blue-600">
-                          {sentimentSummary.averageScore.rating
-                            ? Math.round(
-                                sentimentSummary.averageScore.rating * 10
-                              ) / 10
+                          {sentimentSummary.averageScore
+                            ? Math.round(sentimentSummary.averageScore * 10) /
+                              10
                             : 0}{" "}
                           ⭐
                         </span>

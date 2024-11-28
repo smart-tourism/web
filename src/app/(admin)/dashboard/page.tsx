@@ -3,7 +3,6 @@
 import * as React from "react";
 import { useCallback } from "react";
 import { addDays, subDays, subMonths } from "date-fns";
-import { DateRange } from "react-day-picker";
 import { ContentLayout } from "@/components/admin-panel/content-layout";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
@@ -44,16 +43,20 @@ export default function DashboardPage() {
   let tempatWisata = searchParams.get("location");
 
   const [selectedRange, setSelectedRange] = React.useState<
-    "7days" | "30days" | "6months" | "12months" | "custom" | undefined
+    "7days" | "30days" | "6months" | "12months" | undefined
   >();
-  const [loading, setLoading] = React.useState(true);
-  const [customDate, setCustomDate] = React.useState<DateRange | undefined>({
-    from: new Date(),
-    to: addDays(new Date(), 30),
+
+  const [dateRange, setDateRange] = useState<{ from?: Date; to?: Date }>({
+    from: undefined,
+    to: undefined,
   });
 
+  const [loading, setLoading] = React.useState(true);
+
+  const [responseRate, setResponseRate] = useState<string | null>(null);
   React.useEffect(() => {
     const timeout = setTimeout(() => {
+      setResponseRate("100%");
       setLoading(false);
     }, 1000);
 
@@ -70,15 +73,10 @@ export default function DashboardPage() {
     }
   }, [isDropdownOpen]);
 
-  const refreshData = (range: string, customDate?: DateRange) => {
-    console.log("Refreshing data for range:", range, customDate);
-  };
-
   const handleRangeClick = (
     range: "7days" | "30days" | "6months" | "12months"
   ) => {
     setSelectedRange(range);
-    setCustomDate(undefined);
 
     let dateRange;
     switch (range) {
@@ -95,7 +93,7 @@ export default function DashboardPage() {
         dateRange = { from: subMonths(new Date(), 12), to: new Date() };
         break;
     }
-    refreshData(range, dateRange);
+    setDateRange(dateRange);
   };
 
   // Fetch data
@@ -114,6 +112,10 @@ export default function DashboardPage() {
     topKeywords: [],
     positiveFeedback: [],
     negativeFeedback: [],
+    google: 0,
+    tripadvisor: 0,
+    traveloka: 0,
+    tiket: 0,
   });
 
   React.useEffect(() => {
@@ -121,7 +123,7 @@ export default function DashboardPage() {
       const response = await fetch(
         `/api/dashboard?tempat_wisata=${encodeURIComponent(
           selectedDestination
-        )}`
+        )}&dateRange=${encodeURIComponent(JSON.stringify(dateRange))}`
       );
       const res = await response.json();
       setDatas({
@@ -135,13 +137,15 @@ export default function DashboardPage() {
         topKeywords: res.data.dataTopKeywords,
         positiveFeedback: res.data.sortedPositiveFeedback,
         negativeFeedback: res.data.sortedNegativeFeedback,
+        google: res.data.google,
+        tripadvisor: res.data.tripadvisor,
+        traveloka: res.data.traveloka,
+        tiket: res.data.tiket,
       });
     };
 
     fetchData();
-  }, [selectedDestination]);
-
-  console.log(datas);
+  }, [selectedDestination, dateRange]);
 
   return (
     <>
@@ -275,7 +279,7 @@ export default function DashboardPage() {
         {/* <GISSentimentMap /> */}
         {/* Card Dashboard */}
         <div className="grid gap-4 lg:grid-cols-5 md:grid-cols-3 sm:grid-cols-1 grid-rows-1 mt-2">
-          <Link href="/dashboard/performa">
+          <Link href={`/dashboard/performa?location=${selectedDestination}`}>
             <Card className="rounded-lg border-none mt-6 hover:bg-gray-100">
               <CardHeader>
                 <CardTitle className="flex flex-auto gap-1">
@@ -305,7 +309,7 @@ export default function DashboardPage() {
             </Card>
           </Link>
 
-          <Link href="/dashboard/tingkat-respon">
+          <div>
             <Card className="rounded-lg border-none mt-6 hover:bg-gray-100">
               <CardHeader>
                 <CardTitle className="flex flex-auto gap-1">
@@ -329,17 +333,17 @@ export default function DashboardPage() {
                 {loading ? (
                   <Skeleton className="w-16 h-6" />
                 ) : (
-                  <h1 className="font-bold text-2xl">100%</h1>
+                  <h1 className="font-bold text-2xl">{responseRate}</h1>
                 )}
               </CardContent>
             </Card>
-          </Link>
+          </div>
 
-          <Link href="/dashboard/ulasan">
+          <Link href={`/dashboard/ulasan?location=${selectedDestination}`}>
             <Card className="rounded-lg border-none mt-6 hover:bg-gray-100">
               <CardHeader>
                 <CardTitle className="flex flex-auto gap-1">
-                  Ulasan
+                  Jumlah Ulasan
                   <HoverCard>
                     <HoverCardTrigger className="cursor-pointer">
                       <FaRegQuestionCircle />
@@ -363,7 +367,7 @@ export default function DashboardPage() {
             </Card>
           </Link>
 
-          <Link href="/dashboard/popularitas">
+          <div>
             <Card className="rounded-lg border-none mt-6 hover:bg-gray-100">
               <CardHeader>
                 <CardTitle className="flex flex-auto gap-1">
@@ -391,21 +395,23 @@ export default function DashboardPage() {
                 )}
               </CardContent>
             </Card>
-          </Link>
+          </div>
 
-          <Link href="/dashboard/penilaian-keseluruhan">
+          <Link
+            href={`/dashboard/penilaian-positif?location=${selectedDestination}`}
+          >
             <Card className="rounded-lg border-none mt-6 hover:bg-gray-100">
               <CardHeader>
                 <CardTitle className="flex flex-auto text-sm gap-1">
-                  <h1 className="mt-[-2px]">Penilaian Keseluruhan</h1>
+                  <h1 className="mt-[-2px]">Penilaian Positif</h1>
                   <HoverCard>
                     <HoverCardTrigger className="cursor-pointer">
                       <FaRegQuestionCircle />
                     </HoverCardTrigger>
                     <HoverCardContent className="z-50 bg-white shadow-md rounded-md">
                       <p className="font-normal text-sm">
-                        Penilaian Keseluruhan adalah jumlah keseluruhan
-                        penilaian positif yang diterima.
+                        Penilaian Positif adalah jumlah keseluruhan penilaian
+                        positif yang diterima.
                       </p>
                     </HoverCardContent>
                   </HoverCard>
@@ -499,14 +505,19 @@ export default function DashboardPage() {
                   {loading ? (
                     <Skeleton className="w-full h-6" />
                   ) : (
-                    <OverviewStatus />
+                    <OverviewStatus
+                      google={datas.google}
+                      tripadvisor={datas.tripadvisor}
+                      traveloka={datas.traveloka}
+                      tiket={datas.tiket}
+                    />
                   )}
                 </CardContent>
               </Card>
             </div>
 
             <div className="flex w-full flex-grow flex-col gap-2">
-              <Link href="/dashboard/dampak">
+              <Link href={`/dashboard/dampak?location=${selectedDestination}`}>
                 <Card className="hover:border-neutral-600">
                   <CardHeader>
                     <CardTitle className="flex flex-auto gap-1">
@@ -583,6 +594,7 @@ export default function DashboardPage() {
                     <CustomerFeedback
                       positiveFeedbacks={datas.positiveFeedback}
                       negativeFeedbacks={datas.negativeFeedback}
+                      location={selectedDestination}
                     />
                   )}
                 </CardContent>

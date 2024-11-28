@@ -1,191 +1,66 @@
 import { prismaClient } from "./init";
 
-export async function getDataBorobudur() {
-  const averageRating = await prismaClient.sentiments.aggregate({
-    _avg: {
-      rating: true,
-    },
-    where: {
-      tempat_wisata: "Borobudur Temple",
-    },
-  });
-
-  const totalReviews = await prismaClient.sentiments.count({
-    where: {
-      tempat_wisata: "Borobudur Temple",
-    },
-  });
-
-  const positifReviews = await prismaClient.sentiments.count({
-    where: {
-      label: "positif",
-      tempat_wisata: "Borobudur Temple",
-    },
-  });
-
-  const negatifReviews = await prismaClient.sentiments.count({
-    where: {
-      label: "negatif",
-      tempat_wisata: "Borobudur Temple",
-    },
-  });
-
-  return {
-    total: totalReviews,
-    positif: positifReviews,
-    negatif: negatifReviews,
-    performa: averageRating._avg,
+// type for average rating
+type AverageRatingResult = {
+  _avg: {
+    rating: number | null;
   };
-}
+};
 
-export async function getDataLikupang() {
-  const averageRating = await prismaClient.sentiments.aggregate({
-    _avg: {
-      rating: true,
-    },
-    where: {
-      tempat_wisata: "Pantai Paal",
-    },
-  });
+export const getDataMaps = async (tempatWisata: string[]) => {
+  try {
+    const queries = [
+      // query average rating
+      prismaClient.sentiments.aggregate({
+        _avg: { rating: true },
+        where:
+          tempatWisata.length > 0
+            ? { tempat_wisata: { in: tempatWisata } }
+            : undefined,
+      }),
 
-  const totalReviews = await prismaClient.sentiments.count({
-    where: {
-      tempat_wisata: "Pantai Paal",
-    },
-  });
+      // query total ulasan
+      prismaClient.sentiments.count({
+        where:
+          tempatWisata.length > 0
+            ? { tempat_wisata: { in: tempatWisata } }
+            : undefined,
+      }),
 
-  const positifReviews = await prismaClient.sentiments.count({
-    where: {
-      label: "positif",
-      tempat_wisata: "Pantai Paal",
-    },
-  });
+      // query total ulasan positif
+      prismaClient.sentiments.count({
+        where: {
+          label: "positif",
+          tempat_wisata:
+            tempatWisata.length > 0 ? { in: tempatWisata } : undefined,
+        },
+      }),
 
-  const negatifReviews = await prismaClient.sentiments.count({
-    where: {
-      label: "negatif",
-      tempat_wisata: "Pantai Paal",
-    },
-  });
+      // query total ulasan negatif
+      prismaClient.sentiments.count({
+        where: {
+          label: "negatif",
+          tempat_wisata:
+            tempatWisata.length > 0 ? { in: tempatWisata } : undefined,
+        },
+      }),
+    ];
 
-  return {
-    total: totalReviews,
-    positif: positifReviews,
-    negatif: negatifReviews,
-    performa: averageRating._avg,
-  };
-}
+    const [averageRatingResult, totalReviews, positifReviews, negatifReviews] =
+      await Promise.all(queries);
 
-export async function getDataMandalika() {
-  const averageRating = await prismaClient.sentiments.aggregate({
-    _avg: {
-      rating: true,
-    },
-    where: {
-      tempat_wisata: "Sirkuit Internasional Pertamina Mandalika",
-    },
-  });
+    // final average rating
+    const averageRating = (averageRatingResult as AverageRatingResult)._avg
+      .rating;
 
-  const totalReviews = await prismaClient.sentiments.count({
-    where: {
-      tempat_wisata: "Sirkuit Internasional Pertamina Mandalika",
-    },
-  });
-
-  const positifReviews = await prismaClient.sentiments.count({
-    where: {
-      label: "positif",
-      tempat_wisata: "Sirkuit Internasional Pertamina Mandalika",
-    },
-  });
-
-  const negatifReviews = await prismaClient.sentiments.count({
-    where: {
-      label: "negatif",
-      tempat_wisata: "Sirkuit Internasional Pertamina Mandalika",
-    },
-  });
-
-  return {
-    total: totalReviews,
-    positif: positifReviews,
-    negatif: negatifReviews,
-    performa: averageRating._avg,
-  };
-}
-
-export async function getDataLabuanBajo() {
-  const averageRating = await prismaClient.sentiments.aggregate({
-    _avg: {
-      rating: true,
-    },
-    where: {
-      tempat_wisata: "Gua Batu Cermin",
-    },
-  });
-
-  const totalReviews = await prismaClient.sentiments.count({
-    where: {
-      tempat_wisata: "Gua Batu Cermin",
-    },
-  });
-
-  const positifReviews = await prismaClient.sentiments.count({
-    where: {
-      label: "positif",
-      tempat_wisata: "Gua Batu Cermin",
-    },
-  });
-
-  const negatifReviews = await prismaClient.sentiments.count({
-    where: {
-      label: "negatif",
-      tempat_wisata: "Gua Batu Cermin",
-    },
-  });
-
-  return {
-    total: totalReviews,
-    positif: positifReviews,
-    negatif: negatifReviews,
-    performa: averageRating._avg,
-  };
-}
-
-export async function getDataDanauToba() {
-  const averageRating = await prismaClient.sentiments.aggregate({
-    _avg: {
-      rating: true,
-    },
-    where: {
-      tempat_wisata: "Danau Toba",
-    },
-  });
-
-  const totalReviews = await prismaClient.sentiments.count({
-    where: {
-      tempat_wisata: "Danau Toba",
-    },
-  });
-
-  const positifReviews = await prismaClient.sentiments.count({
-    where: {
-      label: "positif",
-      tempat_wisata: "Danau Toba",
-    },
-  });
-
-  const negatifReviews = await prismaClient.sentiments.count({
-    where: {
-      label: "negatif",
-      tempat_wisata: "Danau Toba",
-    },
-  });
-
-  return {
-    total: totalReviews,
-    positif: positifReviews,
-    negatif: negatifReviews,
-    performa: averageRating._avg,
-  };
-}
+    return {
+      total: totalReviews,
+      positif: positifReviews,
+      negatif: negatifReviews,
+      performa: averageRating,
+    };
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    throw error;
+  }
+};

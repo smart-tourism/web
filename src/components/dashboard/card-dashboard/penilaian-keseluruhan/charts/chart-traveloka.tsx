@@ -38,14 +38,16 @@ const chartConfig = {
   },
 } satisfies ChartConfig;
 
-export function ChartTraveloka() {
-  const chartData = generateChartData(30); // Generate data for the last 30 days, but display only 10 entries
-
+export function ChartTraveloka({
+  data,
+}: {
+  data: { date: string; count: number }[];
+}) {
   return (
     <ChartContainer config={chartConfig}>
       <LineChart
         accessibilityLayer
-        data={chartData}
+        data={data}
         margin={{
           left: 12,
           right: 12,
@@ -65,17 +67,16 @@ export function ChartTraveloka() {
           tickLine={false}
           axisLine={false}
           tickMargin={8}
-          tickFormatter={(tick) => tick.toFixed(2)}
         />
         <Tooltip
           cursor={false}
           content={({ payload }) => {
             if (payload && payload.length > 0) {
-              const { date, days } = payload[0].payload;
+              const { date, count } = payload[0].payload;
               return (
                 <div className="tooltip-content text-black bg-white p-2 rounded-lg">
                   <p>{`${date}`}</p>
-                  <p>{`Penilaian Keseluruhan: ${days}`}</p>
+                  <p>{`Penilaian Keseluruhan: ${count}`}</p>
                 </div>
               );
             }
@@ -83,7 +84,7 @@ export function ChartTraveloka() {
           }}
         />
         <Line
-          dataKey="days"
+          dataKey="count"
           type="monotone"
           stroke="rgb(24, 156, 220, 1)"
           strokeWidth={2}

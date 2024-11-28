@@ -21,11 +21,11 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 
 // Data gambar destinasi
 const destinations = [
-  { name: "Likupang", image: "/images/Likupang.jpg" },
-  { name: "Mandalika", image: "/images/Mandalika.jpg" },
-  { name: "Borobudur", image: "/images/Candi%20Borobudur.jpg" },
-  { name: "Labuan Bajo", image: "/images/Labuan%20Bajo.jpg" },
-  { name: "Danau Toba", image: "/images/Danau%20Toba.jpg" },
+  { name: "Likupang", image: "/images/likupang.jpg" },
+  { name: "Mandalika", image: "/images/mandalika.jpg" },
+  { name: "Borobudur", image: "/images/borobudur.jpg" },
+  { name: "Labuan Bajo", image: "/images/labuanbajo.jpg" },
+  { name: "Danau Toba", image: "/images/danautoba.jpg" },
 ];
 
 export default function Home() {
@@ -151,7 +151,7 @@ export default function Home() {
             >
               <a
                 href="#beranda"
-                className="text-gray-700 hover:text-orange-600"
+                className="ml-5 text-gray-700 hover:text-orange-600"
               >
                 Beranda
               </a>
@@ -244,7 +244,7 @@ export default function Home() {
           <Link href={"/detaildestinasi/likupang"}>
             <div
               className="relative bg-cover bg-center h-80 w-80 rounded-md shadow-lg overflow-hidden transition-transform duration-500 hover:scale-105 hover:shadow-2xl"
-              style={{ backgroundImage: "url(/images/Likupang.jpg)" }}
+              style={{ backgroundImage: "url(/images/likupang.jpg)" }}
             >
               <div className="absolute inset-0 bg-black bg-opacity-20 flex flex-col justify-end items-start space-y-2 p-4">
                 <p className="text-white font-bold text-lg">Likupang</p>
@@ -260,7 +260,7 @@ export default function Home() {
             <div
               className="relative bg-cover bg-center h-80 w-80 rounded-md shadow-lg overflow-hidden transition-transform duration-500 hover:scale-105 hover:shadow-2xl"
               style={{
-                backgroundImage: "url(/images/Mandalika.jpg)",
+                backgroundImage: "url(/images/mandalika.jpg)",
               }}
             >
               <div className="absolute inset-0 bg-black bg-opacity-20 flex flex-col justify-end items-start space-y-2 p-4">
@@ -277,7 +277,7 @@ export default function Home() {
             <div
               className="relative bg-cover bg-center h-80 w-80 rounded-md shadow-lg overflow-hidden transition-transform duration-500 hover:scale-105 hover:shadow-2xl"
               style={{
-                backgroundImage: "url(/images/Candi%20Borobudur.jpg)",
+                backgroundImage: "url(/images/borobudur.jpg)",
               }}
             >
               <div className="absolute inset-0 bg-black bg-opacity-20 flex flex-col justify-end items-start space-y-2 p-4">
@@ -294,7 +294,7 @@ export default function Home() {
             <div
               className="relative bg-cover bg-center h-80 w-80 rounded-md shadow-lg overflow-hidden transition-transform duration-500 hover:scale-105 hover:shadow-2xl"
               style={{
-                backgroundImage: "url(/images/Labuan%20Bajo.jpg)",
+                backgroundImage: "url(/images/labuanbajo.jpg)",
               }}
             >
               <div className="absolute inset-0 bg-black bg-opacity-20 flex flex-col justify-end items-start space-y-2 p-4">
@@ -311,7 +311,7 @@ export default function Home() {
             <div
               className="relative bg-cover bg-center h-80 w-80 rounded-md shadow-lg overflow-hidden transition-transform duration-500 hover:scale-105 hover:shadow-2xl"
               style={{
-                backgroundImage: "url(/images/Danau%20Toba.jpg)",
+                backgroundImage: "url(/images/danautoba.jpg)",
               }}
             >
               <div className="absolute inset-0 bg-black bg-opacity-20 flex flex-col justify-end items-start space-y-2 p-4">
