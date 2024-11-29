@@ -110,3 +110,32 @@ export const getDataDetailDestination = async (tempatWisata: string[]) => {
     throw error;
   }
 };
+
+export const getDataDetailDestinationReview = async (
+  tempatWisata: string[]
+) => {
+  try {
+    const sentiments = await prismaClient.sentiments.findMany({
+      select: {
+        id: true,
+        komentar: true,
+        source: true,
+        rating: true,
+        date: true,
+      },
+      where: {
+        tempat_wisata:
+          tempatWisata.length > 0 ? { in: tempatWisata } : undefined,
+      },
+      orderBy: {
+        date: "desc",
+      },
+      take: 10,
+    });
+
+    return sentiments;
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    throw error;
+  }
+};
