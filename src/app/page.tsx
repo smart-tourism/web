@@ -148,13 +148,19 @@ export default function Home() {
               <a href="#fitur" className="text-gray-700 hover:text-orange-600">
                 Fitur Unggulan
               </a>
-              <button
-                onClick={() => signIn()}
-                className=" md:inline-block mr-4 border-2 border-orange-200 py-1 px-4 font-bold text-[#f38e58] rounded transition-all duration-100 hover:bg-gradient-to-l hover:from-[#FE7123] hover:to-[#F6D45E] hover:text-white"
+              <a
+                href="#contact"
+                className="text-gray-700 hover:text-orange-600"
               >
-                Masuk
-              </button>
+                Kontak
+              </a>
             </nav>
+            <button
+              onClick={() => signIn()}
+              className="hidden md:inline-block mr-4 border-2 border-orange-200 py-1 px-4 font-bold text-[#f38e58] rounded transition-all duration-100 hover:bg-gradient-to-l hover:from-[#FE7123] hover:to-[#F6D45E] hover:text-white"
+            >
+              Masuk
+            </button>
           </div>
         </div>
       </header>
@@ -431,20 +437,57 @@ export default function Home() {
           </div>
 
           <div className="text-center px-4">
-            <p className="text-xl font-bold">
+            <p className="text-xl font-bold uppercase mb-2">
               Badan Riset dan Inovasi Nasional (BRIN)
             </p>
-            <p className="text-justify">
-              Jl. Babarsari, Tambak Bayan, Caturtunggal, Kec. Depok, Kabupaten
-              Sleman, Daerah Istimewa Yogyakarta 55281
+            <p className="text-end mb-2">
+              Gedung B.J. Habibie, Jl. M.H. Thamrin No. 8, Jakarta Pusat 10340
+            </p>
+            <p className="text-end">
+              Whatsapp:{" "}
+              <a
+                href="https://wa.me/6281119333639"
+                className="hover:text-orange-500"
+              >
+                +62811-1933-3639
+              </a>
+            </p>
+            <p className="text-end">
+              Email:{" "}
+              <a
+                href="mailto:ppid@brin.go.id"
+                className="hover:text-orange-500"
+              >
+                ppid@brin.go.id
+              </a>
             </p>
           </div>
 
-          <div className="text-end px-4">
-            <p className="text-xl font-bold">PT GLOBAL DATA INSPIRASI</p>
-            <p className="">
+          <div className="text-end px-4" id="contact">
+            <p className="text-xl font-bold uppercase mb-2">
+              PT GLOBAL DATA INSPIRASI
+            </p>
+            <p className="text-end mb-2">
               Jl. Cik di Tiro No.34, Tarban, Kec. Gondokusuman, Kota Yogyakarta,
               Daerah Istimewa Yogyakarta 55223
+            </p>
+            <p className="text-end">
+              Whatsapp:{" "}
+              <a
+                href="https://wa.me/6281520100171"
+                className="hover:text-orange-500"
+              >
+                +62815-2010-0171
+              </a>
+            </p>
+            <p className="text-end">
+              Email:{" "}
+              <a
+                href="mailto:info@datains.id"
+                className="hover:text-orange-500"
+              >
+                info@datains.id
+              </a>
             </p>
           </div>
         </div>

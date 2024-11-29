@@ -68,7 +68,7 @@ export default function UlasanPage() {
       </Button>
 
       <div className="flex justify-between items-center mb-4">
-        <h1 className="text-3xl font-semibold">Ulasan-Ulasan</h1>
+        <h1 className="text-3xl font-semibold">Ulasan</h1>
 
         {/* Total Ulasan di sebelah kanan */}
         <div className="text-lg font-bold">
