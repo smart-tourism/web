@@ -347,16 +347,18 @@ export default function Home() {
             dan Danau Toba — lima Destinasi Pariwisata Super Prioritas (DPSP)
             Indonesia.
           </p>
-          <button
-            className="text-[#FE7123] justify-center rounded-md text-sm ring-offset-background 
+          <a href="https://wa.me/6285648807492?text=Halo Selamat Siang!">
+            <button
+              className="text-[#FE7123] justify-center rounded-md text-sm ring-offset-background 
           transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring 
           focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-secondary 
           text-secondary-foreground h-10 px-4 py-2 border-4 border-orange-200 hover:bg-orange-100 
           sm:h-12 sm:w-36 lg:h-14 lg:w-[11.4rem] lg:text-lg z-10 mx-auto flex items-center gap-1 
           font-bold shadow-md shadow-black-400 hover:text-blue mt-4 mb-4 bg-white"
-          >
-            Hubungi Kami
-          </button>
+            >
+              Hubungi Kami
+            </button>
+          </a>
         </div>
         <div className="mx-auto max-w-2xl bg-white mt-8 shadow-lg rounded-lg">
           <div
