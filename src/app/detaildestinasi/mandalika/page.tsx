@@ -250,10 +250,10 @@ export default function LikupangDetail() {
               </DialogTitle>
             </DialogHeader>
 
-            <DialogDescription className="font-bold text-black text-center text-xl">
+            <DialogDescription className="font-bold text-black text-justify">
               {selection === "SOLO"
-                ? "Anda memilih untuk berkunjung sendirian."
-                : "Anda memilih untuk berkunjung bersama keluarga."}
+                ? "Wisata ini sangat cocok bagi anda yang suka tentang otomotif terutama pada saat diadakan event balapan, pengunjung mendapatkan pengalaman berharga pada saat menonton berbagai event yang diselenggarakan di sirkuit mandalika serta menikmati pemandangan alam sekitar sirkuit."
+                : "Anda dapat mengajak keluarga anda untuk berkunjung ke lokasi wisata ini karena disekitar lokasi sirkuit mandalika terdapat berbagai pemandangan alam sekitar yang bagus seperti pantai dan bukit keluarga anda juga dapat berfoto disekitar lokasi spot foto yang telah disediakan."}
             </DialogDescription>
 
             {/* Menutup popup kedua setelah membaca teks */}

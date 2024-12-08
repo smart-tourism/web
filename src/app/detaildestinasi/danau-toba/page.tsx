@@ -254,10 +254,10 @@ export default function LikupangDetail() {
               </DialogTitle>
             </DialogHeader>
 
-            <DialogDescription className="font-bold text-black text-center text-xl">
+            <DialogDescription className="font-bold text-black text-justify">
               {selection === "SOLO"
-                ? "Anda memilih untuk berkunjung sendirian."
-                : "Anda memilih untuk berkunjung bersama keluarga."}
+                ? "Bagi anda yang berwisata secara solo, disarankan membawa tripod atau hal pendukung lainnya karena banyak spot foto yang pemandangan yang bagus untuk diabadikan dengan kamera anda sendiri."
+                : "Wisata yang cocok untuk menghabiskan waktu bersama keluarga untuk menikmati pemandangan danau dan alam sekitar yang indah, disekitar danau toba juga banyak objek wisata bagus untuk dikunjungi dan banyak resort disekitar yang bagus."}
             </DialogDescription>
 
             {/* Menutup popup kedua setelah membaca teks */}

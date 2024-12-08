@@ -256,10 +256,10 @@ export default function LikupangDetail() {
               </DialogTitle>
             </DialogHeader>
 
-            <DialogDescription className="font-bold text-black text-center text-xl">
+            <DialogDescription className="font-bold text-black text-justify">
               {selection === "SOLO"
-                ? "Anda memilih untuk berkunjung sendirian."
-                : "Anda memilih untuk berkunjung bersama keluarga."}
+                ? "Wisata ke tempat ini cocok bagi anda yang suka petualangan ke wisata alam terutama pecinta gua karena terdapat salah satu wisata terkenal yaitu gua batu cermin, anda dapat mengeskplor keindahan gua dan juga tiket masuk yang cukup murah."
+                : "Wisata alam di tempat ini seperti gua batu cermin tidak disarankan untuk anak anak karena cukup berbahaya dan butuh pengawasan, namun anda dengan dengan anggota keluarga dapat mengeskplor dan mengunjungi wisata lainnya seperti pantai dan menikmati pemandangan alam."}
             </DialogDescription>
 
             {/* Menutup popup kedua setelah membaca teks */}
