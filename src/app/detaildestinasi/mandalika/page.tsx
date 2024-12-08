@@ -61,12 +61,16 @@ export default function LikupangDetail() {
     fetchData();
   });
 
-  const [isOpen, setIsOpen] = useState(false);
+  const [isFirstDialogOpen, setIsFirstDialogOpen] = useState(false);
+  const [isSecondDialogOpen, setIsSecondDialogOpen] = useState(false);
   const [selection, setSelection] = useState<string>("");
 
   const handleSelection = (choice: "SOLO" | "Family") => {
     setSelection(choice);
-    setIsOpen(false);
+    setIsFirstDialogOpen(false);
+    setTimeout(() => {
+      setIsSecondDialogOpen(true);
+    }, 200);
   };
 
   return (
@@ -191,17 +195,17 @@ export default function LikupangDetail() {
         </div>
       </div>
 
-      {/* Tombol Aksi */}
+      {/* Tombol Aksi untuk membuka popup pertama */}
       <div className="mt-8 text-center">
         <button
           className="bg-orange-500 text-white text-lg font-bold px-6 py-3 rounded-lg shadow-lg hover:bg-orange-600"
-          onClick={() => setIsOpen(true)}
+          onClick={() => setIsFirstDialogOpen(true)} // Buka popup pertama
         >
           Ingin Berkunjung Ke Destinasi Ini?
         </button>
 
-        {/* Dialog ShadCN */}
-        <Dialog open={isOpen} onOpenChange={setIsOpen}>
+        {/* Popup pertama: Dialog dengan tombol SOLO dan Family */}
+        <Dialog open={isFirstDialogOpen} onOpenChange={setIsFirstDialogOpen}>
           <DialogContent className="sm:max-w-[425px]">
             <DialogHeader>
               <DialogTitle className="flex justify-center items-center">
@@ -216,7 +220,6 @@ export default function LikupangDetail() {
               </DialogDescription>
             </DialogHeader>
 
-            {/* Grid layout untuk dua tombol */}
             <div className="grid grid-cols-2 gap-4 py-4">
               <Button
                 variant="outline"
@@ -233,18 +236,38 @@ export default function LikupangDetail() {
                 Family
               </Button>
             </div>
-
-            {/* Footer dialog */}
-            {/* <DialogFooter>
-              <Button variant="secondary" onClick={() => setIsOpen(false)}>
-                Tutup
-              </Button>
-            </DialogFooter> */}
           </DialogContent>
         </Dialog>
 
-        {/* Menampilkan pilihan yang dipilih */}
-        {/* {selection && <p className="mt-4 text-lg">Anda memilih: {selection}</p>} */}
+        {/* Popup kedua: Menampilkan teks berdasarkan pilihan */}
+        <Dialog open={isSecondDialogOpen} onOpenChange={setIsSecondDialogOpen}>
+          <DialogContent className="sm:max-w-[425px]">
+            <DialogHeader>
+              <DialogTitle className="flex justify-center items-center">
+                <h1 className="text-black uppercase text-3xl font-bold">
+                  {selection === "SOLO" ? "Solo" : "Family"}
+                </h1>
+              </DialogTitle>
+            </DialogHeader>
+
+            <DialogDescription className="font-bold text-black text-justify">
+              {selection === "SOLO"
+                ? "Wisata ini sangat cocok bagi anda yang suka tentang otomotif terutama pada saat diadakan event balapan, pengunjung mendapatkan pengalaman berharga pada saat menonton berbagai event yang diselenggarakan di sirkuit mandalika serta menikmati pemandangan alam sekitar sirkuit."
+                : "Anda dapat mengajak keluarga anda untuk berkunjung ke lokasi wisata ini karena disekitar lokasi sirkuit mandalika terdapat berbagai pemandangan alam sekitar yang bagus seperti pantai dan bukit keluarga anda juga dapat berfoto disekitar lokasi spot foto yang telah disediakan."}
+            </DialogDescription>
+
+            {/* Menutup popup kedua setelah membaca teks */}
+            <DialogFooter>
+              <Button
+                variant="outline"
+                onClick={() => setIsSecondDialogOpen(false)}
+                className="bg-orange-500 text-white hover:bg-orange-600 font-bold hover:text-white"
+              >
+                Tutup
+              </Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
       </div>
     </div>
   );
