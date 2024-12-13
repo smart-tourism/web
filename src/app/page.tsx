@@ -103,8 +103,9 @@ export default function Home() {
     <div className="font-poppins text-gray-900 relative">
       {/* Header */}
       <header
-        className={`fixed w-full top-0 left-0 z-10 transition-all duration-300 ease-in-out ${isScrolled ? "bg-white shadow-md p-2" : "bg-white p-4 shadow-md"
-          }`}
+        className={`fixed w-full top-0 left-0 z-10 transition-all duration-300 ease-in-out ${
+          isScrolled ? "bg-white shadow-md p-2" : "bg-white p-4 shadow-md"
+        }`}
       >
         <div className="flex justify-between items-center max-w-9xl mx-auto">
           <div className="flex items-center">
@@ -130,8 +131,9 @@ export default function Home() {
 
             {/* Navbar Links */}
             <nav
-              className={`${isMenuOpen ? "flex" : "hidden"
-                } flex-col md:flex md:flex-row md:items-center mr-10 space-x-5 space-y-4 md:space-y-0 md:space-x-5 transition-all duration-300 ease-in-out`}
+              className={`${
+                isMenuOpen ? "flex" : "hidden"
+              } flex-col md:flex md:flex-row md:items-center mr-10 space-x-5 space-y-4 md:space-y-0 md:space-x-5 transition-all duration-300 ease-in-out`}
             >
               <a
                 href="#beranda"
@@ -337,8 +339,9 @@ export default function Home() {
         </div>
         <div className="mx-auto max-w-2xl bg-white mt-8 shadow-lg rounded-lg">
           <div
-            className={`w-full lg:h-72 md:h-64 sm:h-52 shadow-lg rounded-lg overflow-hidden relative transition-opacity duration-500 ease-in-out ${fade ? "opacity-0" : "opacity-100"
-              }`}
+            className={`w-full lg:h-72 md:h-64 sm:h-52 shadow-lg rounded-lg overflow-hidden relative transition-opacity duration-500 ease-in-out ${
+              fade ? "opacity-0" : "opacity-100"
+            }`}
           >
             <Image
               src={destinations[currentImageIndex].image}
@@ -438,14 +441,14 @@ export default function Home() {
             />
           </div>
 
-          <div className="text-center px-4">
+          <div className="text-start px-5">
             <p className="text-xl font-bold uppercase mb-2">
               Badan Riset dan Inovasi Nasional (BRIN)
             </p>
-            <p className="text-end mb-2">
+            <p className="text-start mb-2">
               Gedung B.J. Habibie, Jl. M.H. Thamrin No. 8, Jakarta Pusat 10340
             </p>
-            <p className="text-end">
+            <p className="text-start">
               Whatsapp:{" "}
               <a
                 href="https://wa.me/6281119333639"
@@ -454,7 +457,7 @@ export default function Home() {
                 +62811-1933-3639
               </a>
             </p>
-            <p className="text-end">
+            <p className="text-start">
               Email:{" "}
               <a
                 href="mailto:ppid@brin.go.id"
@@ -465,15 +468,15 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="text-end px-4" id="contact">
+          <div className="text-start px-4" id="contact">
             <p className="text-xl font-bold uppercase mb-2">
               PT GLOBAL DATA INSPIRASI
             </p>
-            <p className="text-end mb-2">
+            <p className="text-start mb-2">
               Jl. Cik di Tiro No.34, Tarban, Kec. Gondokusuman, Kota Yogyakarta,
               Daerah Istimewa Yogyakarta 55223
             </p>
-            <p className="text-end">
+            <p className="text-start">
               Whatsapp:{" "}
               <a
                 href="https://wa.me/6281520100171"
@@ -482,7 +485,7 @@ export default function Home() {
                 +62815-2010-0171
               </a>
             </p>
-            <p className="text-end">
+            <p className="text-start">
               Email:{" "}
               <a
                 href="mailto:info@datains.id"
@@ -497,8 +500,54 @@ export default function Home() {
 
       <hr className="w-[]" />
 
-      <div className="text-center py-2 text-black bg-white">
-        <p className="">&copy;copyright 2024</p>
+      <div className="text-center py-4 text-black bg-white">
+        {React.createElement(
+          "p",
+          {
+            xmlns: {
+              cc: "http://creativecommons.org/ns#",
+              dct: "http://purl.org/dc/terms/",
+            },
+          },
+          <>
+            <a
+              property="dct:title"
+              rel="cc:attributionURL"
+              href="http://explorenesia.id/"
+              style={{ display: "inline-flex", alignItems: "center" }}
+            >
+              Personalized Travel Companion to Indonesia's Top Destinations
+            </a>{" "}
+            by <span property="cc:attributionName">Team Explorenesia.id</span>{" "}
+            is marked with{" "}
+            <a
+              href="https://creativecommons.org/publicdomain/zero/1.0/?ref=chooser-v1"
+              target="_blank"
+              rel="license noopener noreferrer"
+              style={{ display: "inline-flex", alignItems: "center" }}
+            >
+              CC0 1.0 Universal
+              <img
+                style={{
+                  height: "22px",
+                  marginLeft: "3px",
+                  verticalAlign: "middle",
+                }}
+                src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1"
+                alt="CC Icon"
+              />
+              <img
+                style={{
+                  height: "22px",
+                  marginLeft: "3px",
+                  verticalAlign: "middle",
+                }}
+                src="https://mirrors.creativecommons.org/presskit/icons/zero.svg?ref=chooser-v1"
+                alt="Zero Icon"
+              />
+            </a>
+          </>
+        )}
       </div>
     </div>
   );
